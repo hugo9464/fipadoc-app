@@ -1,0 +1,32 @@
+{
+  "name": "fipadoc-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "FIPADOC - Programme du festival international du documentaire (PWA)",
+  "scripts": {
+    "dev": "next dev",
+    "dev:https": "next dev --experimental-https",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@serwist/next": "^9.5.0",
+    "airtable": "^0.12.2",
+    "idb": "^8.0.3",
+    "next": "^15.3.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.17",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
+    "serwist": "^9.5.0",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  }
+}
