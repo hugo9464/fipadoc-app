@@ -1,0 +1,37 @@
+{
+  "films": [
+    {
+      "id": "film-001",
+      "name": "Les Voix du Silence",
+      "description": "Un documentaire poignant sur la vie quotidienne dans un village isolé des Pyrénées, où les traditions ancestrales se confrontent à la modernité. Le réalisateur suit pendant un an les habitants d'une communauté qui lutte pour préserver son identité culturelle face à l'exode rural.",
+      "duration": 92,
+      "director": "Marie Deschamps",
+      "country": "France",
+      "year": 2024,
+      "imageUrl": "/images/films/voix-du-silence.jpg",
+      "category": "Compétition Française"
+    },
+    {
+      "id": "film-002",
+      "name": "Beyond the Horizon",
+      "description": "An intimate portrait of climate scientists working in Antarctica, documenting the rapid changes in ice sheets and their global implications. Through breathtaking visuals and personal interviews, the film reveals both the scientific urgency and human dedication behind climate research.",
+      "duration": 78,
+      "director": "Elena Vasquez",
+      "country": "Spain",
+      "year": 2024,
+      "imageUrl": "/images/films/beyond-horizon.jpg",
+      "category": "Compétition Internationale"
+    },
+    {
+      "id": "film-003",
+      "name": "Mémoires d'un Quartier",
+      "description": "À travers les témoignages de ses habitants, ce documentaire retrace cinquante ans d'histoire d'un quartier populaire de Marseille. Entre nostalgie et espoir, les récits personnels tissent une fresque sociale et humaine qui interroge notre rapport à la mémoire collective.",
+      "duration": 105,
+      "director": "Karim Benali",
+      "country": "France",
+      "year": 2023,
+      "imageUrl": "/images/films/memoires-quartier.jpg",
+      "category": "Panorama"
+    }
+  ]
+}
