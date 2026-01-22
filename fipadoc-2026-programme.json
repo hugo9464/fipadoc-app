@@ -1,0 +1,2199 @@
+{
+  "festival": "FIPADOC 2026",
+  "dateExtraction": "2026-01-22T12:59:29.688Z",
+  "source": "https://site-fipadoc.festicine.fr/fr/schedule",
+  "jours": [
+    {
+      "date": "Vendredi 23 janvier 2026",
+      "seances": [
+        {
+          "heureDebut": "20:00",
+          "heureFin": "21:53",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire musicalSéances spéciales",
+          "realisateur": "Valentin PAOLI",
+          "presence": "En présence de l’équipe du film",
+          "titre": "La Baleine et le Musicien",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15260-969f-film.jpg"
+        }
+      ]
+    },
+    {
+      "date": "Samedi 24 janvier 2026",
+      "seances": [
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:29",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire musical",
+          "realisateur": "Jane POLLARD",
+          "titre": "Mauvais anglais",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15328-1c2e-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:23",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Jimmy HENDRICKX",
+          "titre": "L’Île aux esclaves",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14512-6d33-film.jpg"
+        },
+        {
+          "heureDebut": "09:45",
+          "heureFin": "11:33",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire national",
+          "realisateur": "Orkhan AGHAZADEH",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Le Retour du projectionniste",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13020-e13f-film.jpg"
+        },
+        {
+          "heureDebut": "10:15",
+          "heureFin": "11:40",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Iga LIS",
+          "presence": "En présence de l’équipe du film",
+          "titre": "La Reine du poisson fumé",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14103-633e-film.jpg"
+        },
+        {
+          "heureDebut": "10:30",
+          "heureFin": "12:36",
+          "lieu": "Gamaritz",
+          "categorie": "Courts métrages",
+          "realisateur": "Adam SÉBIRE",
+          "presence": "En présence de l’équipe du film",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14049-2923-film.jpg"
+        },
+        {
+          "heureDebut": "11:00",
+          "heureFin": "12:45",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "David KORN-BRZOZA",
+          "titre": "Hiroshima, la course vers l'apocalypse",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13540-e97d-film.jpg"
+        },
+        {
+          "heureDebut": "11:30",
+          "heureFin": "12:42",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "En famille",
+          "realisateur": "Claire JUDRIN",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Mondes sauvages – Chauves-souris, les sentinelles de la forêt",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14148-0b94-film.jpg"
+        },
+        {
+          "heureDebut": "12:00",
+          "heureFin": "13:37",
+          "lieu": "Atalaya",
+          "categorie": "Goût du DocCarte Blanche San Sebastían",
+          "realisateur": "Jon ARREGUI",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Tetsu, Txispa, Hoshi",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14625-f2be-film.jpg"
+        },
+        {
+          "heureDebut": "12:00",
+          "heureFin": "13:43",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Shashwati TALUKDAR",
+          "titre": "Police conjugale",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13236-f7fa-film.jpg"
+        },
+        {
+          "heureDebut": "12:00",
+          "heureFin": "13:16",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire international",
+          "realisateur": "Mehrdad OSKOUEI",
+          "titre": "Un renard sous une lune rose",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15362-250a-film.jpg"
+        },
+        {
+          "heureDebut": "12:15",
+          "heureFin": "13:21",
+          "lieu": "Auditorium",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Isabelle VAYRON",
+          "titre": "La Réparation",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13262-5161-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "15:13",
+          "lieu": "Gamaritz",
+          "categorie": "Jeune création",
+          "realisateur": "Pablo GARCÍA-VIZCARRA",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13414-2d13-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "15:12",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Brigitte CHEVET",
+          "titre": "Le village qui voulait replanter des arbres",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13571-03b2-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "15:32",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire national",
+          "realisateur": "Charlie DUPLAN",
+          "titre": "Le Goût du Sucre",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13160-074b-film.jpg"
+        },
+        {
+          "heureDebut": "14:15",
+          "heureFin": "16:21",
+          "lieu": "Atalaya",
+          "categorie": "Le Voyage en Ukraine, la culture contre-attaque",
+          "realisateur": "Mstyslav CHERNOV",
+          "presence": "En présence de l’équipe du film",
+          "titre": "À 2 000 mètres d'Andriivka",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12972-a1c9-film.jpg"
+        },
+        {
+          "heureDebut": "14:15",
+          "heureFin": "15:47",
+          "lieu": "Auditorium",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Macu MACHÍN",
+          "titre": "Les Sous-bois",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12190-8aa2-film.jpg"
+        },
+        {
+          "heureDebut": "14:15",
+          "heureFin": "15:26",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "En famille",
+          "realisateur": "Pierre LÉO PAUL",
+          "presence": "En présence de l’équipe du film",
+          "titre": "MOBULA, la légende des diables",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13489-dbee-film.jpg"
+        },
+        {
+          "heureDebut": "14:45",
+          "heureFin": "16:33",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire international",
+          "realisateur": "Tony BENNA",
+          "titre": "André est un idiot",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13592-8bc4-film.jpg"
+        },
+        {
+          "heureDebut": "16:00",
+          "heureFin": "17:31",
+          "lieu": "Gamaritz",
+          "categorie": "Histoires d’EuropeDocs4Teens",
+          "realisateur": "Danny BIANCARDI",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Le Château indestructible",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13165-f257-film.jpg"
+        },
+        {
+          "heureDebut": "16:00",
+          "heureFin": "17:05",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Claire DUGUET",
+          "titre": "Louis Malle, le révolté",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13906-8eea-film.jpg"
+        },
+        {
+          "heureDebut": "16:15",
+          "heureFin": "17:37",
+          "lieu": "Royal 1",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Maureen FAZENDEIRO",
+          "titre": "Les Saisons",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13813-c51d-film.jpg"
+        },
+        {
+          "heureDebut": "16:30",
+          "heureFin": "17:57",
+          "lieu": "Auditorium",
+          "categorie": "Documentaire national",
+          "realisateur": "Nicolas MINGASSON",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Une maille après l'autre",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14854-ce37-film.jpg"
+        },
+        {
+          "heureDebut": "16:45",
+          "heureFin": "18:49",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "Goût du Doc",
+          "realisateur": "Leo BOUDET",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Les Chaillées de l'enfer",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/11205-a58c-film.jpg"
+        },
+        {
+          "heureDebut": "17:00",
+          "heureFin": "18:58",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire musicalCarte Blanche San Sebastían",
+          "realisateur": "Isaki LACUESTA",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Des fleurs pour Antonio",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14245-2155-film.jpg"
+        },
+        {
+          "heureDebut": "17:30",
+          "heureFin": "19:20",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Andreas PICHLER",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Elon Musk : le dossier Tesla",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13809-9f51-film.jpg"
+        },
+        {
+          "heureDebut": "18:00",
+          "heureFin": "19:31",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Anouk BUREL",
+          "titre": "Maïmouna, la voix du 9-3",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14157-6ffc-film.jpg"
+        },
+        {
+          "heureDebut": "18:15",
+          "heureFin": "19:59",
+          "lieu": "Gamaritz",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Manu TRILLO",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Les Marais",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12668-5b63-film.jpg"
+        },
+        {
+          "heureDebut": "18:15",
+          "heureFin": "19:36",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire international",
+          "realisateur": "Abdulrahman SABBAH",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Le Clown de Gaza",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15361-ca48-film.jpg"
+        },
+        {
+          "heureDebut": "18:45",
+          "heureFin": "20:33",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Karima SAÏDI",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Ceux qui veillent",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15050-57bd-film.jpg"
+        },
+        {
+          "heureDebut": "19:30",
+          "heureFin": "21:17",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire musical",
+          "realisateur": "Ryan MARLEY",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Amadou et Mariam : sons du Mali",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15094-d2d6-film.jpg"
+        },
+        {
+          "heureDebut": "20:00",
+          "heureFin": "21:15",
+          "lieu": "Casino Municipal",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Corinne ESPAGNO",
+          "presence": "En présence de l’équipe du film",
+          "titre": "La Rencontre (Comme un tango)",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12905-5ea5-film.jpg"
+        },
+        {
+          "heureDebut": "20:15",
+          "heureFin": "22:09",
+          "lieu": "Royal 1",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Guillaume RIBOT",
+          "titre": "Je n’avais que le néant – « Shoah » par Lanzmann",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15346-04d8-film.jpg"
+        },
+        {
+          "heureDebut": "20:30",
+          "heureFin": "22:17",
+          "lieu": "Gamaritz",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Don MILLAR",
+          "titre": "Les Pilleurs du Cambodge",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13333-e07b-film.jpg"
+        },
+        {
+          "heureDebut": "21:15",
+          "heureFin": "23:13",
+          "lieu": "Auditorium",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Adrián SILVESTRE",
+          "titre": "Que ta volonté soit faite",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/10860-fd47-film.jpg"
+        }
+      ]
+    },
+    {
+      "date": "Dimanche 25 janvier 2026",
+      "seances": [
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:05",
+          "lieu": "Auditorium",
+          "categorie": "Documentaire national",
+          "realisateur": "Liza GUILLAMOT",
+          "titre": "Zone grise",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13285-e752-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:00",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire musical",
+          "realisateur": "Marion KALTER",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Pierre Boulez « Notations »",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14212-65c5-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:28",
+          "lieu": "Royal 1",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Arjun TALWAR",
+          "titre": "Lettres de Wolf Street",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13018-f7cf-film.jpg"
+        },
+        {
+          "heureDebut": "09:45",
+          "heureFin": "10:37",
+          "lieu": "Gamaritz",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Maite IBAÑEZ GOMEZ",
+          "titre": "Construire la mémoire: écriture, engagement et mémoire",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14615-095c-film.jpg"
+        },
+        {
+          "heureDebut": "10:00",
+          "heureFin": "11:33",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire international",
+          "realisateur": "Massimiliano CAMAITI",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Agnus Dei",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13899-d995-film.jpg"
+        },
+        {
+          "heureDebut": "10:30",
+          "heureFin": "11:28",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Sarah Moon HOWE",
+          "titre": "L’Extraordinaire Voyage de Mister Jack",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15133-7902-film.jpg"
+        },
+        {
+          "heureDebut": "11:00",
+          "heureFin": "12:50",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "En famille",
+          "realisateur": "Vincent VERZAT",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Le Vivant qui se défend",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13092-dab2-film.jpg"
+        },
+        {
+          "heureDebut": "11:15",
+          "heureFin": "13:15",
+          "lieu": "Gamaritz",
+          "categorie": "Courts métrages",
+          "realisateur": "Najla BAROUNI",
+          "presence": "En présence de l’équipe du film",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14897-9af9-film.jpg"
+        },
+        {
+          "heureDebut": "11:45",
+          "heureFin": "13:11",
+          "lieu": "Auditorium",
+          "categorie": "Documentaire national",
+          "realisateur": "Camille VARENNE",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Wolobougou",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13891-47fa-film.jpg"
+        },
+        {
+          "heureDebut": "11:45",
+          "heureFin": "13:00",
+          "lieu": "Casino Municipal",
+          "categorie": "Goût du Doc",
+          "realisateur": "Constantine COSTI",
+          "titre": "La Spatule d’or",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12881-8246-film.jpg"
+        },
+        {
+          "heureDebut": "12:00",
+          "heureFin": "13:27",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Don MILLAR",
+          "titre": "Les Pilleurs du Cambodge",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13333-e07b-film.jpg"
+        },
+        {
+          "heureDebut": "12:15",
+          "heureFin": "13:33",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire musical",
+          "realisateur": "Mariano BAEZ",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Donn, le danseur du XXe siècle",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14174-f576-film.jpg"
+        },
+        {
+          "heureDebut": "12:15",
+          "heureFin": "13:12",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Pedro BRITO DA FONSECA",
+          "titre": "J'ai pas les codes",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14273-d9c5-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "15:25",
+          "lieu": "Gamaritz",
+          "categorie": "Jeune création",
+          "realisateur": "Annette JACOB",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13849-63f8-film.jpg"
+        },
+        {
+          "heureDebut": "14:15",
+          "heureFin": "16:16",
+          "lieu": "Auditorium",
+          "categorie": "Documentaire international",
+          "realisateur": "Aboozar AMINI",
+          "titre": "Kaboul, entre les prières",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13503-3d97-film.jpg"
+        },
+        {
+          "heureDebut": "14:30",
+          "heureFin": "15:47",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire national",
+          "realisateur": "Salma CHEDDADI",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Qu'est-ce qu'on va faire de toi ?",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15105-ab98-film.jpg"
+        },
+        {
+          "heureDebut": "14:30",
+          "heureFin": "16:26",
+          "lieu": "Casino Municipal",
+          "categorie": "Focus Espagne/PortugalGoût du Doc",
+          "realisateur": "Jordi TORRA",
+          "titre": "Lluc, une chronique de la pâtisserie",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13192-c5af-film.jpg"
+        },
+        {
+          "heureDebut": "14:30",
+          "heureFin": "15:22",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Felix BESSON",
+          "titre": "L’Usine retrouvée",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13726-4e6a-film.jpg"
+        },
+        {
+          "heureDebut": "14:30",
+          "heureFin": "15:42",
+          "lieu": "Royal 1",
+          "categorie": "En famille",
+          "realisateur": "Pierre-Etienne LARROUS",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Entretien avec un requin",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13904-4374-film.jpg"
+        },
+        {
+          "heureDebut": "15:00",
+          "heureFin": "17:55",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "Séries documentaires",
+          "realisateur": "Jean-Baptiste PÉRETIÉ",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Amérique latine, un continent sous influences",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13200-8dc6-film.jpg"
+        },
+        {
+          "heureDebut": "16:15",
+          "heureFin": "17:25",
+          "lieu": "Gamaritz",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Madalena BOTO",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Lisbonne sauvage",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14090-ca56-film.jpg"
+        },
+        {
+          "heureDebut": "16:15",
+          "heureFin": "17:23",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Loren DENIS",
+          "titre": "Devenir Lucky Love",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14302-be80-film.jpg"
+        },
+        {
+          "heureDebut": "16:30",
+          "heureFin": "18:10",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire national",
+          "realisateur": "Tamara ERDE",
+          "titre": "Shaïna, histoire d'un mépris criminel",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15091-ce6b-film.jpg"
+        },
+        {
+          "heureDebut": "16:45",
+          "heureFin": "18:33",
+          "lieu": "Atalaya",
+          "categorie": "En famille",
+          "realisateur": "Michel GARCIA",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Oreka, au-delà du possible",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15367-4012-film.jpg"
+        },
+        {
+          "heureDebut": "17:00",
+          "heureFin": "18:32",
+          "lieu": "Auditorium",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Kim A. SNYDER",
+          "titre": "Les Bibliothécaires",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14671-9616-film.jpg"
+        },
+        {
+          "heureDebut": "17:15",
+          "heureFin": "18:56",
+          "lieu": "Casino Municipal",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Jure PAVLOVIC",
+          "presence": "En présence de l’équipe du film",
+          "titre": "La Disparition de la dream team",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15033-dd9a-film.jpg"
+        },
+        {
+          "heureDebut": "18:00",
+          "heureFin": "19:08",
+          "lieu": "Gamaritz",
+          "categorie": "Jeune création",
+          "realisateur": "Max RAMIER",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14940-c20a-film.jpg"
+        },
+        {
+          "heureDebut": "18:15",
+          "heureFin": "19:11",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Marie-Eve DE GRAVE",
+          "titre": "Louise Bourgeois, la sculpture et la colère",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13310-cf7a-film.jpg"
+        },
+        {
+          "heureDebut": "19:00",
+          "heureFin": "20:40",
+          "lieu": "Royal 1",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Tamara KOTEVSKA",
+          "titre": "Le Conte de Silyan",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13698-3b1c-film.jpg"
+        },
+        {
+          "heureDebut": "19:15",
+          "heureFin": "20:16",
+          "lieu": "Auditorium",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Julia ZAHAR",
+          "titre": "Sœurs",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14009-9e5e-film.jpg"
+        },
+        {
+          "heureDebut": "19:30",
+          "heureFin": "21:24",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire international",
+          "realisateur": "Orlando VON EINSIEDEL",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Le Cycle de l'amour",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13598-2b94-film.jpg"
+        },
+        {
+          "heureDebut": "20:00",
+          "heureFin": "21:50",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire musical",
+          "realisateur": "Santi AGUADO",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Farruquito, une dynastie du flamenco",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14389-24cc-film.jpg"
+        },
+        {
+          "heureDebut": "20:00",
+          "heureFin": "22:01",
+          "lieu": "Gamaritz",
+          "categorie": "Courts métrages",
+          "realisateur": "Chloé WASP",
+          "presence": "En présence de l’équipe du film",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13038-124b-film.jpg"
+        },
+        {
+          "heureDebut": "21:00",
+          "heureFin": "22:49",
+          "lieu": "Auditorium",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Kosai SEKINE",
+          "titre": "De la poussière à la poussière",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14624-596d-film.jpg"
+        },
+        {
+          "heureDebut": "21:15",
+          "heureFin": "22:44",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire international",
+          "realisateur": "Oleksandr TKACHENKO",
+          "titre": "Journal d'un Pacifiste",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12975-c458-film.jpg"
+        }
+      ]
+    },
+    {
+      "date": "Lundi 26 janvier 2026",
+      "seances": [
+        {
+          "heureDebut": "09:30",
+          "heureFin": "10:30",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire national",
+          "realisateur": "Pierre GOETSCHEL",
+          "titre": "La Vente secrète des Juifs en Roumanie",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15319-e3fe-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:10",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Sára TIMÁR",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Une maison à Budapest",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14149-12d1-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "10:44",
+          "lieu": "Gamaritz",
+          "categorie": "Courts métrages",
+          "realisateur": "Hesam ESLAMI",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12914-8623-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:10",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Thomas LICATA",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Retour à Fukushima",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14996-5c86-film.jpg"
+        },
+        {
+          "heureDebut": "10:00",
+          "heureFin": "12:55",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire international",
+          "realisateur": "Nicolas WADIMOFF",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Qui vit encore",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15060-bbbd-film.jpg"
+        },
+        {
+          "heureDebut": "10:00",
+          "heureFin": "10:55",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Corinne ESPAGNO",
+          "titre": "La Rencontre (Comme un tango)",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12905-5ea5-film.jpg"
+        },
+        {
+          "heureDebut": "10:30",
+          "heureFin": "12:52",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "Focus Espagne/PortugalCarte Blanche San Sebastían",
+          "realisateur": "José Luis GUERIN",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Histoires de la bonne vallée",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15262-90fe-film.jpg"
+        },
+        {
+          "heureDebut": "11:30",
+          "heureFin": "13:08",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire musical",
+          "realisateur": "Maxim DEREVIANKO",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Ai Weiwei's Turandot",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13214-81ec-film.jpg"
+        },
+        {
+          "heureDebut": "11:30",
+          "heureFin": "12:55",
+          "lieu": "Gamaritz",
+          "categorie": "Jeune création",
+          "realisateur": "Soleysa TALEB",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13623-f35a-film.jpg"
+        },
+        {
+          "heureDebut": "12:00",
+          "heureFin": "13:42",
+          "lieu": "Auditorium",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Maureen FAZENDEIRO",
+          "titre": "Les Saisons",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13813-c51d-film.jpg"
+        },
+        {
+          "heureDebut": "12:00",
+          "heureFin": "13:44",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Tanaz ESHAGHIAN",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Œil pour œil",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13352-1980-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "16:04",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire musical",
+          "realisateur": "Catarina ALVES COSTA",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Orlando Pantera",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13016-4a8d-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "15:11",
+          "lieu": "Le Colisée",
+          "categorie": "Docs4Teens",
+          "realisateur": "Gala HERNÁNDEZ LÓPEZ",
+          "presence": "Séance sans réservation",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15321-f099-film.jpg"
+        },
+        {
+          "heureDebut": "14:15",
+          "heureFin": "15:34",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire national",
+          "realisateur": "Julie TALON",
+          "presence": "En présence de l’équipe du film",
+          "titre": "À votre service",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14384-7340-film.jpg"
+        },
+        {
+          "heureDebut": "14:30",
+          "heureFin": "16:17",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Ilaria DE LAURENTIIS",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Roberto Rossellini - Vivre Sans Scénario",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15236-cdce-film.jpg"
+        },
+        {
+          "heureDebut": "14:30",
+          "heureFin": "16:15",
+          "lieu": "Gamaritz",
+          "categorie": "Jeune création",
+          "realisateur": "Saarlotta VIRRI",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13688-f7e3-film.jpg"
+        },
+        {
+          "heureDebut": "14:30",
+          "heureFin": "16:01",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire international",
+          "realisateur": "Quý TRƯƠNG MINH",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Ciel, papier, rivière...",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14203-0189-film.jpg"
+        },
+        {
+          "heureDebut": "15:00",
+          "heureFin": "18:38",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "Séries documentaires",
+          "realisateur": "Isabelle GENDRE",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Otages du Liban, une histoire secrète",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15081-6351-film.jpg"
+        },
+        {
+          "heureDebut": "16:45",
+          "heureFin": "18:43",
+          "lieu": "Atalaya",
+          "categorie": "Le Voyage en Ukraine, la culture contre-attaque",
+          "realisateur": "Alisa KOVALENKO",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Mon cher Théo",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12973-c8ff-film.jpg"
+        },
+        {
+          "heureDebut": "17:00",
+          "heureFin": "18:50",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Susanna EDWARDS",
+          "presence": "En présence de l’équipe du film",
+          "titre": "La Police du dialogue",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15271-253f-film.jpg"
+        },
+        {
+          "heureDebut": "17:00",
+          "heureFin": "18:45",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire musical",
+          "realisateur": "Julie BERTUCCELLI",
+          "presence": "En présence de l’équipe du film",
+          "titre": "La Leçon de violon",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14211-37d3-film.jpg"
+        },
+        {
+          "heureDebut": "17:15",
+          "heureFin": "18:30",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire national",
+          "realisateur": "Gabrielle STEMMER",
+          "presence": "En présence de l’équipe du film",
+          "titre": "La Grève",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14285-242d-film.jpg"
+        },
+        {
+          "heureDebut": "18:00",
+          "heureFin": "19:10",
+          "lieu": "Gamaritz",
+          "categorie": "Jeune création",
+          "realisateur": "Marius LARRAYADIEU",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13364-d145-film.jpg"
+        },
+        {
+          "heureDebut": "19:30",
+          "heureFin": "21:24",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Amber FARES",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Coexistence, mon cul !",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13221-cce8-film.jpg"
+        },
+        {
+          "heureDebut": "19:45",
+          "heureFin": "21:38",
+          "lieu": "Auditorium",
+          "categorie": "Le Voyage en Ukraine, la culture contre-attaque",
+          "realisateur": "Yegor TROYANOVSKY",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Cuba & Alaska",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12991-9391-film.jpg"
+        },
+        {
+          "heureDebut": "19:45",
+          "heureFin": "21:27",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire international",
+          "realisateur": "Kaspar Astrup SCHRÖDER",
+          "titre": "Le Ministère de la Solitude",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13210-d4b7-film.jpg"
+        },
+        {
+          "heureDebut": "20:00",
+          "heureFin": "21:45",
+          "lieu": "Casino Municipal",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Carlos IGLESIAS SERRANO",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Akelarre, contre la marée",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15098-69aa-film.jpg"
+        },
+        {
+          "heureDebut": "20:15",
+          "heureFin": "21:27",
+          "lieu": "Gamaritz",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Macu MACHÍN",
+          "titre": "Les Sous-bois",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12190-8aa2-film.jpg"
+        }
+      ]
+    },
+    {
+      "date": "Mardi 27 janvier 2026",
+      "seances": [
+        {
+          "heureDebut": "09:30",
+          "heureFin": "10:42",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire national",
+          "realisateur": "Guillaume ESTIVIE",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Le Dilemme d'Hippocrate",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13318-3c92-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:20",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Oier PLAZA",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Cendres",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14132-10e3-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:05",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire international",
+          "realisateur": "Parsifal REPARATO",
+          "presence": "En présence de l’équipe du film",
+          "titre": "She, Le chœur des ouvrières",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13097-fb60-film.jpg"
+        },
+        {
+          "heureDebut": "10:00",
+          "heureFin": "12:18",
+          "lieu": "Casino Municipal",
+          "categorie": "Le Voyage en Ukraine, la culture contre-attaque",
+          "realisateur": "Andrzej MIĘKUS",
+          "presence": "En présence de l’équipe du film",
+          "titre": "L’Art et la Guerre",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13524-5a50-film.jpg"
+        },
+        {
+          "heureDebut": "10:00",
+          "heureFin": "11:18",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Sarah Moon HOWE",
+          "presence": "En présence de l’équipe du film",
+          "titre": "L’Extraordinaire Voyage de Mister Jack",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15133-7902-film.jpg"
+        },
+        {
+          "heureDebut": "10:30",
+          "heureFin": "12:40",
+          "lieu": "Gamaritz",
+          "categorie": "Jeune création",
+          "realisateur": "Annette JACOB",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13849-63f8-film.jpg"
+        },
+        {
+          "heureDebut": "11:30",
+          "heureFin": "13:15",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Natxo LEUZA",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Eaux noires",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13209-c61d-film.jpg"
+        },
+        {
+          "heureDebut": "11:45",
+          "heureFin": "13:45",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire international",
+          "realisateur": "Bipuljit BASU",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Des bas-fonds à la lumière",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13725-bd5d-film.jpg"
+        },
+        {
+          "heureDebut": "12:00",
+          "heureFin": "13:43",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Francesco DEL GROSSO",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Maisons de sable",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14007-c77c-film.jpg"
+        },
+        {
+          "heureDebut": "12:00",
+          "heureFin": "13:17",
+          "lieu": "Le Colisée",
+          "categorie": "Goût du DocCarte Blanche San Sebastían",
+          "realisateur": "Jon ARREGUI",
+          "titre": "Tetsu, Txispa, Hoshi",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14625-f2be-film.jpg"
+        },
+        {
+          "heureDebut": "13:45",
+          "heureFin": "14:59",
+          "lieu": "Gamaritz",
+          "categorie": "Jeune création",
+          "realisateur": "Saarlotta VIRRI",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13688-f7e3-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "15:12",
+          "lieu": "Casino Municipal",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Maite IBAÑEZ GOMEZ",
+          "titre": "Construire la mémoire: écriture, engagement et mémoire",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14615-095c-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "16:05",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "David KORN-BRZOZA",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Hiroshima, la course vers l'apocalypse",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13540-e97d-film.jpg"
+        },
+        {
+          "heureDebut": "14:15",
+          "heureFin": "16:18",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire musical",
+          "realisateur": "Luyao ZHANG",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Danse avec les dieux",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14617-df21-film.jpg"
+        },
+        {
+          "heureDebut": "14:30",
+          "heureFin": "16:58",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’EuropeHors compétition",
+          "realisateur": "Arthur FRANCK",
+          "presence": "En présence de l’équipe du film",
+          "titre": "L’Effet Helsinki : 1975, l’acte final et la fin du rideau de fer",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13217-16e7-film.jpg"
+        },
+        {
+          "heureDebut": "14:45",
+          "heureFin": "16:43",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Abraham JOFFE",
+          "titre": "Secret de fabrication",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13156-13ed-film.jpg"
+        },
+        {
+          "heureDebut": "15:00",
+          "heureFin": "17:10",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "Séries documentaires",
+          "realisateur": "David ANDRÉ",
+          "presence": "En présence de l’équipe du film",
+          "titre": "13 novembre, le choix de Sonia",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15046-0172-film.jpg"
+        },
+        {
+          "heureDebut": "15:30",
+          "heureFin": "17:25",
+          "lieu": "Gamaritz",
+          "categorie": "Jeune création",
+          "realisateur": "Max RAMIER",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14940-c20a-film.jpg"
+        },
+        {
+          "heureDebut": "16:00",
+          "heureFin": "17:27",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire national",
+          "realisateur": "Marianne KERFRIDEN",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Véto de campagne",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14687-e832-film.jpg"
+        },
+        {
+          "heureDebut": "16:45",
+          "heureFin": "18:29",
+          "lieu": "Le Colisée",
+          "categorie": "Goût du Doc",
+          "realisateur": "Leo BOUDET",
+          "titre": "Les Chaillées de l'enfer",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/11205-a58c-film.jpg"
+        },
+        {
+          "heureDebut": "17:00",
+          "heureFin": "18:50",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire musical",
+          "realisateur": "Philippe BÉZIAT",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Nous, l’orchestre",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15366-0028-film.jpg"
+        },
+        {
+          "heureDebut": "17:30",
+          "heureFin": "19:19",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire international",
+          "realisateur": "Oleksandr TKACHENKO",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Journal d'un Pacifiste",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12975-c458-film.jpg"
+        },
+        {
+          "heureDebut": "18:00",
+          "heureFin": "20:00",
+          "lieu": "Auditorium",
+          "categorie": "Documentaire national",
+          "realisateur": "Tamara ERDE",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Shaïna, histoire d'un mépris criminel",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15091-ce6b-film.jpg"
+        },
+        {
+          "heureDebut": "18:15",
+          "heureFin": "20:09",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire ImpactHors compétition",
+          "realisateur": "Jean-Gabriel LEYNAUD",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Le Sang et la Boue",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14413-6c50-film.jpg"
+        },
+        {
+          "heureDebut": "18:15",
+          "heureFin": "19:41",
+          "lieu": "Gamaritz",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Isabelle VAYRON",
+          "presence": "En présence de l’équipe du film",
+          "titre": "La Réparation",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13262-5161-film.jpg"
+        },
+        {
+          "heureDebut": "19:15",
+          "heureFin": "20:31",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Marie-Eve DE GRAVE",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Louise Bourgeois, la sculpture et la colère",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13310-cf7a-film.jpg"
+        },
+        {
+          "heureDebut": "19:30",
+          "heureFin": "20:47",
+          "lieu": "Atalaya",
+          "categorie": "Hors compétitionSéances spéciales",
+          "realisateur": "Camille MÉNAGER",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Renoir in Love",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15368-f2bc-film.jpg"
+        },
+        {
+          "heureDebut": "20:00",
+          "heureFin": "21:48",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire international",
+          "realisateur": "Joel’ Kachi BENSON",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Les Mères de Chibok",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13517-1e3f-film.jpg"
+        },
+        {
+          "heureDebut": "20:30",
+          "heureFin": "22:00",
+          "lieu": "Gamaritz",
+          "categorie": "Courts métrages",
+          "realisateur": "Najla BAROUNI",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14897-9af9-film.jpg"
+        },
+        {
+          "heureDebut": "20:45",
+          "heureFin": "22:23",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Arjun TALWAR",
+          "titre": "Lettres de Wolf Street",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13018-f7cf-film.jpg"
+        },
+        {
+          "heureDebut": "21:00",
+          "heureFin": "22:27",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire musical",
+          "realisateur": "Ryan MARLEY",
+          "titre": "Amadou et Mariam : sons du Mali",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15094-d2d6-film.jpg"
+        },
+        {
+          "heureDebut": "21:30",
+          "heureFin": "22:45",
+          "lieu": "Atalaya",
+          "categorie": "Goût du Doc",
+          "realisateur": "Constantine COSTI",
+          "titre": "La Spatule d’or",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12881-8246-film.jpg"
+        }
+      ]
+    },
+    {
+      "date": "Mercredi 28 janvier 2026",
+      "seances": [
+        {
+          "heureDebut": "09:30",
+          "heureFin": "10:55",
+          "lieu": "Atalaya",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Carlos IGLESIAS SERRANO",
+          "titre": "Akelarre, contre la marée",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15098-69aa-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:20",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Volker HEISE",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Masterplan – La Rencontre secrète de Potsdam",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14100-20d0-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "10:22",
+          "lieu": "Gamaritz",
+          "categorie": "Documentaire national",
+          "realisateur": "Salma CHEDDADI",
+          "titre": "Qu'est-ce qu'on va faire de toi ?",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15105-ab98-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "10:42",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Felix BESSON",
+          "presence": "En présence de l’équipe du film",
+          "titre": "L’Usine retrouvée",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13726-4e6a-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "10:31",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire international",
+          "realisateur": "Abdulrahman SABBAH",
+          "titre": "Le Clown de Gaza",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15361-ca48-film.jpg"
+        },
+        {
+          "heureDebut": "10:00",
+          "heureFin": "13:06",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Eugene JARECKI",
+          "presence": "En présence de l’équipe du film",
+          "titre": "L'homme qui valait six milliards",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13073-f6c9-film.jpg"
+        },
+        {
+          "heureDebut": "10:30",
+          "heureFin": "12:00",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "En famille",
+          "realisateur": "Vincent VERZAT",
+          "titre": "Le Vivant qui se défend",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13092-dab2-film.jpg"
+        },
+        {
+          "heureDebut": "11:00",
+          "heureFin": "13:05",
+          "lieu": "Gamaritz",
+          "categorie": "Jeune création",
+          "realisateur": "Carmen TOFENI",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14789-9509-film.jpg"
+        },
+        {
+          "heureDebut": "11:15",
+          "heureFin": "12:51",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire international",
+          "realisateur": "Mehrdad OSKOUEI",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Un renard sous une lune rose",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15362-250a-film.jpg"
+        },
+        {
+          "heureDebut": "11:30",
+          "heureFin": "12:53",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire musicalSéances spéciales",
+          "realisateur": "Valentin PAOLI",
+          "presence": "En présence de l’équipe du film",
+          "titre": "La Baleine et le Musicien",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15260-969f-film.jpg"
+        },
+        {
+          "heureDebut": "11:30",
+          "heureFin": "12:58",
+          "lieu": "Le Colisée",
+          "categorie": "En famille",
+          "realisateur": "Michel GARCIA",
+          "titre": "Oreka, au-delà du possible",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15367-4012-film.jpg"
+        },
+        {
+          "heureDebut": "12:00",
+          "heureFin": "13:25",
+          "lieu": "Auditorium",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Claire DUGUET",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Louis Malle, le révolté",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13906-8eea-film.jpg"
+        },
+        {
+          "heureDebut": "13:45",
+          "heureFin": "15:06",
+          "lieu": "Atalaya",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Jure PAVLOVIC",
+          "titre": "La Disparition de la dream team",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15033-dd9a-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "16:46",
+          "lieu": "Auditorium",
+          "categorie": "Séries documentaires",
+          "realisateur": "Bernard GEORGE",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Elf, une affaire d’État",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15070-231f-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "16:00",
+          "lieu": "Casino Municipal",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Arantxa AGUIRRE",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Chillida, cent oiseaux dans le ciel",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13507-966c-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "15:05",
+          "lieu": "Gamaritz",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Iga LIS",
+          "titre": "La Reine du poisson fumé",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14103-633e-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "15:28",
+          "lieu": "Le Colisée",
+          "categorie": "Documentaire international",
+          "realisateur": "Tony BENNA",
+          "titre": "André est un idiot",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13592-8bc4-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "15:21",
+          "lieu": "Royal 1",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Julia ZAHAR",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Sœurs",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14009-9e5e-film.jpg"
+        },
+        {
+          "heureDebut": "14:30",
+          "heureFin": "15:22",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "En famille",
+          "realisateur": "Pierre-Etienne LARROUS",
+          "titre": "Entretien avec un requin",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13904-4374-film.jpg"
+        },
+        {
+          "heureDebut": "15:45",
+          "heureFin": "16:43",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire musical",
+          "realisateur": "Mariano BAEZ",
+          "titre": "Donn, le danseur du XXe siècle",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14174-f576-film.jpg"
+        },
+        {
+          "heureDebut": "16:15",
+          "heureFin": "17:51",
+          "lieu": "Gamaritz",
+          "categorie": "Focus Espagne/PortugalGoût du Doc",
+          "realisateur": "Jordi TORRA",
+          "titre": "Lluc, une chronique de la pâtisserie",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13192-c5af-film.jpg"
+        },
+        {
+          "heureDebut": "16:15",
+          "heureFin": "17:32",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Pedro BRITO DA FONSECA",
+          "presence": "En présence de l’équipe du film",
+          "titre": "J'ai pas les codes",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14273-d9c5-film.jpg"
+        },
+        {
+          "heureDebut": "16:15",
+          "heureFin": "17:07",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "En famille",
+          "realisateur": "Claire JUDRIN",
+          "titre": "Mondes sauvages – Chauves-souris, les sentinelles de la forêt",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14148-0b94-film.jpg"
+        },
+        {
+          "heureDebut": "16:45",
+          "heureFin": "17:56",
+          "lieu": "Royal 1",
+          "categorie": "En famille",
+          "realisateur": "Pierre LÉO PAUL",
+          "presence": "En présence de l’équipe du film",
+          "titre": "MOBULA, la légende des diables",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13489-dbee-film.jpg"
+        },
+        {
+          "heureDebut": "17:30",
+          "heureFin": "19:00",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire musical",
+          "realisateur": "Philippe BÉZIAT",
+          "titre": "Nous, l’orchestre",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15366-0028-film.jpg"
+        },
+        {
+          "heureDebut": "17:30",
+          "heureFin": "19:22",
+          "lieu": "Auditorium",
+          "categorie": "Documentaire national",
+          "realisateur": "Charlie DUPLAN",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Le Goût du Sucre",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13160-074b-film.jpg"
+        },
+        {
+          "heureDebut": "17:30",
+          "heureFin": "19:00",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire musical",
+          "realisateur": "Santi AGUADO",
+          "titre": "Farruquito, une dynastie du flamenco",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14389-24cc-film.jpg"
+        },
+        {
+          "heureDebut": "18:15",
+          "heureFin": "20:06",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Anouk BUREL",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Maïmouna, la voix du 9-3",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14157-6ffc-film.jpg"
+        },
+        {
+          "heureDebut": "18:30",
+          "heureFin": "20:40",
+          "lieu": "Gamaritz",
+          "categorie": "Jeune création",
+          "realisateur": "Soleysa TALEB",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13623-f35a-film.jpg"
+        },
+        {
+          "heureDebut": "18:45",
+          "heureFin": "20:19",
+          "lieu": "Royal 1",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Guillaume RIBOT",
+          "titre": "Je n’avais que le néant – « Shoah » par Lanzmann",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15346-04d8-film.jpg"
+        },
+        {
+          "heureDebut": "19:30",
+          "heureFin": "21:18",
+          "lieu": "Atalaya",
+          "categorie": "Séances spéciales",
+          "realisateur": "Tom VOLF",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Véronique",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14215-0634-film.jpg"
+        },
+        {
+          "heureDebut": "20:00",
+          "heureFin": "21:07",
+          "lieu": "Auditorium",
+          "categorie": "Documentaire national",
+          "realisateur": "Nicolas MINGASSON",
+          "titre": "Une maille après l'autre",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14854-ce37-film.jpg"
+        },
+        {
+          "heureDebut": "20:30",
+          "heureFin": "22:08",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire musicalCarte Blanche San Sebastían",
+          "realisateur": "Isaki LACUESTA",
+          "titre": "Des fleurs pour Antonio",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14245-2155-film.jpg"
+        },
+        {
+          "heureDebut": "20:45",
+          "heureFin": "22:13",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Loren DENIS",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Devenir Lucky Love",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14302-be80-film.jpg"
+        },
+        {
+          "heureDebut": "21:00",
+          "heureFin": "22:46",
+          "lieu": "Royal 1",
+          "categorie": "Le Voyage en Ukraine, la culture contre-attaque",
+          "realisateur": "Mstyslav CHERNOV",
+          "titre": "À 2 000 mètres d'Andriivka",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12972-a1c9-film.jpg"
+        },
+        {
+          "heureDebut": "21:15",
+          "heureFin": "22:35",
+          "lieu": "Gamaritz",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Tamara KOTEVSKA",
+          "titre": "Le Conte de Silyan",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13698-3b1c-film.jpg"
+        }
+      ]
+    },
+    {
+      "date": "Jeudi 29 janvier 2026",
+      "seances": [
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:00",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Andreas PICHLER",
+          "titre": "Elon Musk : le dossier Tesla",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13809-9f51-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "10:43",
+          "lieu": "Auditorium",
+          "categorie": "Documentaire international",
+          "realisateur": "Massimiliano CAMAITI",
+          "titre": "Agnus Dei",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13899-d995-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:14",
+          "lieu": "Gamaritz",
+          "categorie": "Courts métrages",
+          "realisateur": "Hesam ESLAMI",
+          "presence": "En présence de l’équipe du film",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12914-8623-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "10:41",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire international",
+          "realisateur": "Quý TRƯƠNG MINH",
+          "titre": "Ciel, papier, rivière...",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14203-0189-film.jpg"
+        },
+        {
+          "heureDebut": "09:45",
+          "heureFin": "11:05",
+          "lieu": "Le Colisée",
+          "categorie": "Documentaire national",
+          "realisateur": "Pierre GOETSCHEL",
+          "presence": "En présence de l’équipe du film",
+          "titre": "La Vente secrète des Juifs en Roumanie",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15319-e3fe-film.jpg"
+        },
+        {
+          "heureDebut": "10:00",
+          "heureFin": "12:07",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire national",
+          "realisateur": "Marianne KERFRIDEN",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Véto de campagne",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14687-e832-film.jpg"
+        },
+        {
+          "heureDebut": "10:30",
+          "heureFin": "13:15",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "Séries documentaires",
+          "realisateur": "Jean-Baptiste PÉRETIÉ",
+          "titre": "Amérique latine, un continent sous influences",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13200-8dc6-film.jpg"
+        },
+        {
+          "heureDebut": "11:30",
+          "heureFin": "13:00",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Susanna EDWARDS",
+          "titre": "La Police du dialogue",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15271-253f-film.jpg"
+        },
+        {
+          "heureDebut": "11:30",
+          "heureFin": "13:04",
+          "lieu": "Le Colisée",
+          "categorie": "Documentaire ImpactHors compétition",
+          "realisateur": "Jean-Gabriel LEYNAUD",
+          "titre": "Le Sang et la Boue",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14413-6c50-film.jpg"
+        },
+        {
+          "heureDebut": "11:30",
+          "heureFin": "13:22",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Kim A. SNYDER",
+          "titre": "Les Bibliothécaires",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14671-9616-film.jpg"
+        },
+        {
+          "heureDebut": "11:45",
+          "heureFin": "13:07",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire international",
+          "realisateur": "Kaspar Astrup SCHRÖDER",
+          "titre": "Le Ministère de la Solitude",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13210-d4b7-film.jpg"
+        },
+        {
+          "heureDebut": "12:00",
+          "heureFin": "13:55",
+          "lieu": "Gamaritz",
+          "categorie": "Jeune création",
+          "realisateur": "Marius LARRAYADIEU",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13364-d145-film.jpg"
+        },
+        {
+          "heureDebut": "13:30",
+          "heureFin": "14:36",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire national",
+          "realisateur": "Camille VARENNE",
+          "titre": "Wolobougou",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13891-47fa-film.jpg"
+        },
+        {
+          "heureDebut": "13:45",
+          "heureFin": "15:15",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Oier PLAZA",
+          "titre": "Cendres",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14132-10e3-film.jpg"
+        },
+        {
+          "heureDebut": "13:45",
+          "heureFin": "14:37",
+          "lieu": "Le Colisée",
+          "categorie": "Panorama du documentaire francophone",
+          "realisateur": "Brigitte CHEVET",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Le village qui voulait replanter des arbres",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13571-03b2-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "15:34",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire international",
+          "realisateur": "Orlando VON EINSIEDEL",
+          "titre": "Le Cycle de l'amour",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13598-2b94-film.jpg"
+        },
+        {
+          "heureDebut": "14:15",
+          "heureFin": "15:39",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Tanaz ESHAGHIAN",
+          "titre": "Œil pour œil",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13352-1980-film.jpg"
+        },
+        {
+          "heureDebut": "14:30",
+          "heureFin": "16:01",
+          "lieu": "Gamaritz",
+          "categorie": "Courts métrages",
+          "realisateur": "Chloé WASP",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13038-124b-film.jpg"
+        },
+        {
+          "heureDebut": "15:00",
+          "heureFin": "18:18",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "Séries documentaires",
+          "realisateur": "Isabelle GENDRE",
+          "titre": "Otages du Liban, une histoire secrète",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15081-6351-film.jpg"
+        },
+        {
+          "heureDebut": "15:15",
+          "heureFin": "16:33",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire musical",
+          "realisateur": "Maxim DEREVIANKO",
+          "titre": "Ai Weiwei's Turandot",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13214-81ec-film.jpg"
+        },
+        {
+          "heureDebut": "15:30",
+          "heureFin": "16:55",
+          "lieu": "Le Colisée",
+          "categorie": "Documentaire musical",
+          "realisateur": "Julie BERTUCCELLI",
+          "titre": "La Leçon de violon",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14211-37d3-film.jpg"
+        },
+        {
+          "heureDebut": "16:00",
+          "heureFin": "17:27",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Ilaria DE LAURENTIIS",
+          "titre": "Roberto Rossellini - Vivre Sans Scénario",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15236-cdce-film.jpg"
+        },
+        {
+          "heureDebut": "16:30",
+          "heureFin": "18:25",
+          "lieu": "Atalaya",
+          "categorie": "Documentaire international",
+          "realisateur": "Nicolas WADIMOFF",
+          "titre": "Qui vit encore",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15060-bbbd-film.jpg"
+        },
+        {
+          "heureDebut": "16:30",
+          "heureFin": "17:58",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire national",
+          "realisateur": "Orkhan AGHAZADEH",
+          "titre": "Le Retour du projectionniste",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13020-e13f-film.jpg"
+        },
+        {
+          "heureDebut": "16:45",
+          "heureFin": "18:45",
+          "lieu": "Gamaritz",
+          "categorie": "Jeune création",
+          "realisateur": "Pablo GARCÍA-VIZCARRA",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13414-2d13-film.jpg"
+        },
+        {
+          "heureDebut": "17:15",
+          "heureFin": "18:56",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire international",
+          "realisateur": "Aboozar AMINI",
+          "titre": "Kaboul, entre les prières",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13503-3d97-film.jpg"
+        },
+        {
+          "heureDebut": "17:30",
+          "heureFin": "18:25",
+          "lieu": "Le Colisée",
+          "categorie": "Documentaire national",
+          "realisateur": "Gabrielle STEMMER",
+          "titre": "La Grève",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14285-242d-film.jpg"
+        },
+        {
+          "heureDebut": "18:30",
+          "heureFin": "19:50",
+          "lieu": "Auditorium",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Thomas LICATA",
+          "titre": "Retour à Fukushima",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14996-5c86-film.jpg"
+        },
+        {
+          "heureDebut": "18:45",
+          "heureFin": "20:29",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire musical",
+          "realisateur": "Catarina ALVES COSTA",
+          "titre": "Orlando Pantera",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13016-4a8d-film.jpg"
+        },
+        {
+          "heureDebut": "19:00",
+          "heureFin": "20:07",
+          "lieu": "Le Colisée",
+          "categorie": "Documentaire national",
+          "realisateur": "Liza GUILLAMOT",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Zone grise",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13285-e752-film.jpg"
+        },
+        {
+          "heureDebut": "19:15",
+          "heureFin": "20:53",
+          "lieu": "Gamaritz",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Adrián SILVESTRE",
+          "titre": "Que ta volonté soit faite",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/10860-fd47-film.jpg"
+        },
+        {
+          "heureDebut": "19:30",
+          "heureFin": "20:55",
+          "lieu": "Atalaya",
+          "categorie": "Hors compétitionSéances spéciales",
+          "realisateur": "Raphaël GIANELLI-MERIANO",
+          "presence": "En présence de l’équipe du film",
+          "titre": "Malandain, quand l’amour prend corps",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14698-dd15-film.jpg"
+        },
+        {
+          "heureDebut": "19:30",
+          "heureFin": "20:45",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire international",
+          "realisateur": "Parsifal REPARATO",
+          "titre": "She, Le chœur des ouvrières",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13097-fb60-film.jpg"
+        },
+        {
+          "heureDebut": "20:00",
+          "heureFin": "21:33",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "Le Voyage en Ukraine, la culture contre-attaque",
+          "realisateur": "Yegor TROYANOVSKY",
+          "titre": "Cuba & Alaska",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12991-9391-film.jpg"
+        },
+        {
+          "heureDebut": "20:45",
+          "heureFin": "22:08",
+          "lieu": "Auditorium",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Shashwati TALUKDAR",
+          "titre": "Police conjugale",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13236-f7fa-film.jpg"
+        },
+        {
+          "heureDebut": "21:00",
+          "heureFin": "22:10",
+          "lieu": "Le Colisée",
+          "categorie": "Documentaire musical",
+          "realisateur": "Marion KALTER",
+          "titre": "Pierre Boulez « Notations »",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14212-65c5-film.jpg"
+        },
+        {
+          "heureDebut": "21:15",
+          "heureFin": "22:51",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire musical",
+          "realisateur": "Jane POLLARD",
+          "titre": "Mauvais anglais",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15328-1c2e-film.jpg"
+        },
+        {
+          "heureDebut": "21:15",
+          "heureFin": "22:39",
+          "lieu": "Gamaritz",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Manu TRILLO",
+          "titre": "Les Marais",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12668-5b63-film.jpg"
+        },
+        {
+          "heureDebut": "21:15",
+          "heureFin": "22:48",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Jimmy HENDRICKX",
+          "titre": "L’Île aux esclaves",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14512-6d33-film.jpg"
+        }
+      ]
+    },
+    {
+      "date": "Vendredi 30 janvier 2026",
+      "seances": [
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:00",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Volker HEISE",
+          "titre": "Masterplan – La Rencontre secrète de Potsdam",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14100-20d0-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:10",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire international",
+          "realisateur": "Bipuljit BASU",
+          "titre": "Des bas-fonds à la lumière",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13725-bd5d-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "11:06",
+          "lieu": "Gamaritz",
+          "categorie": "Courts métrages",
+          "realisateur": "Adam SÉBIRE",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14049-2923-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "10:29",
+          "lieu": "Le Colisée",
+          "categorie": "Documentaire national",
+          "realisateur": "Julie TALON",
+          "titre": "À votre service",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14384-7340-film.jpg"
+        },
+        {
+          "heureDebut": "09:30",
+          "heureFin": "10:59",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Kosai SEKINE",
+          "presence": "En présence de l’équipe du film",
+          "titre": "De la poussière à la poussière",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14624-596d-film.jpg"
+        },
+        {
+          "heureDebut": "10:30",
+          "heureFin": "13:06",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "Séries documentaires",
+          "realisateur": "Bernard GEORGE",
+          "titre": "Elf, une affaire d’État",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15070-231f-film.jpg"
+        },
+        {
+          "heureDebut": "11:15",
+          "heureFin": "12:43",
+          "lieu": "Le Colisée",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Karima SAÏDI",
+          "titre": "Ceux qui veillent",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15050-57bd-film.jpg"
+        },
+        {
+          "heureDebut": "11:45",
+          "heureFin": "13:08",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Francesco DEL GROSSO",
+          "titre": "Maisons de sable",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14007-c77c-film.jpg"
+        },
+        {
+          "heureDebut": "11:45",
+          "heureFin": "13:23",
+          "lieu": "Gamaritz",
+          "categorie": "Le Voyage en Ukraine, la culture contre-attaque",
+          "realisateur": "Alisa KOVALENKO",
+          "titre": "Mon cher Théo",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/12973-c8ff-film.jpg"
+        },
+        {
+          "heureDebut": "11:45",
+          "heureFin": "13:23",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Abraham JOFFE",
+          "titre": "Secret de fabrication",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13156-13ed-film.jpg"
+        },
+        {
+          "heureDebut": "12:00",
+          "heureFin": "13:25",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Natxo LEUZA",
+          "titre": "Eaux noires",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13209-c61d-film.jpg"
+        },
+        {
+          "heureDebut": "13:45",
+          "heureFin": "15:25",
+          "lieu": "Auditorium",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Arantxa AGUIRRE",
+          "titre": "Chillida, cent oiseaux dans le ciel",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13507-966c-film.jpg"
+        },
+        {
+          "heureDebut": "13:45",
+          "heureFin": "14:56",
+          "lieu": "Le Colisée",
+          "categorie": "Docs4Teens",
+          "realisateur": "Gala HERNÁNDEZ LÓPEZ",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15321-f099-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "14:50",
+          "lieu": "Casino Municipal",
+          "categorie": "Focus Espagne/Portugal",
+          "realisateur": "Madalena BOTO",
+          "titre": "Lisbonne sauvage",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14090-ca56-film.jpg"
+        },
+        {
+          "heureDebut": "14:00",
+          "heureFin": "15:20",
+          "lieu": "Gamaritz",
+          "categorie": "Jeune création",
+          "realisateur": "Carmen TOFENI",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14789-9509-film.jpg"
+        },
+        {
+          "heureDebut": "14:15",
+          "heureFin": "15:43",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire international",
+          "realisateur": "Joel’ Kachi BENSON",
+          "titre": "Les Mères de Chibok",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13517-1e3f-film.jpg"
+        },
+        {
+          "heureDebut": "15:00",
+          "heureFin": "17:00",
+          "lieu": "Le Royal salles 2 & 3",
+          "categorie": "Séries documentaires",
+          "realisateur": "David ANDRÉ",
+          "titre": "13 novembre, le choix de Sonia",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15046-0172-film.jpg"
+        },
+        {
+          "heureDebut": "15:30",
+          "heureFin": "17:04",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Amber FARES",
+          "titre": "Coexistence, mon cul !",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13221-cce8-film.jpg"
+        },
+        {
+          "heureDebut": "15:45",
+          "heureFin": "17:47",
+          "lieu": "Le Colisée",
+          "categorie": "Focus Espagne/PortugalCarte Blanche San Sebastían",
+          "realisateur": "José Luis GUERIN",
+          "titre": "Histoires de la bonne vallée",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/15262-90fe-film.jpg"
+        },
+        {
+          "heureDebut": "16:00",
+          "heureFin": "17:11",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’EuropeDocs4Teens",
+          "realisateur": "Danny BIANCARDI",
+          "titre": "Le Château indestructible",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13165-f257-film.jpg"
+        },
+        {
+          "heureDebut": "16:00",
+          "heureFin": "17:28",
+          "lieu": "Gamaritz",
+          "categorie": "Histoires d’EuropeHors compétition",
+          "realisateur": "Arthur FRANCK",
+          "titre": "L’Effet Helsinki : 1975, l’acte final et la fin du rideau de fer",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13217-16e7-film.jpg"
+        },
+        {
+          "heureDebut": "16:45",
+          "heureFin": "18:51",
+          "lieu": "Royal 1",
+          "categorie": "Documentaire Impact",
+          "realisateur": "Eugene JARECKI",
+          "titre": "L'homme qui valait six milliards",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13073-f6c9-film.jpg"
+        },
+        {
+          "heureDebut": "17:45",
+          "heureFin": "19:28",
+          "lieu": "Casino Municipal",
+          "categorie": "Documentaire musical",
+          "realisateur": "Luyao ZHANG",
+          "titre": "Danse avec les dieux",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14617-df21-film.jpg"
+        },
+        {
+          "heureDebut": "18:00",
+          "heureFin": "19:20",
+          "lieu": "Auditorium",
+          "categorie": "Histoires d’Europe",
+          "realisateur": "Sára TIMÁR",
+          "titre": "Une maison à Budapest",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/14149-12d1-film.jpg"
+        },
+        {
+          "heureDebut": "18:15",
+          "heureFin": "19:33",
+          "lieu": "Gamaritz",
+          "categorie": "Le Voyage en Ukraine, la culture contre-attaque",
+          "realisateur": "Andrzej MIĘKUS",
+          "titre": "L’Art et la Guerre",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13524-5a50-film.jpg"
+        },
+        {
+          "heureDebut": "18:30",
+          "heureFin": "19:22",
+          "lieu": "Le Colisée",
+          "categorie": "Documentaire national",
+          "realisateur": "Guillaume ESTIVIE",
+          "titre": "Le Dilemme d'Hippocrate",
+          "image": "https://site-fipadoc.festicine.fr/o2-film-mini-2x/fipadoc/2026/13318-3c92-film.jpg"
+        }
+      ]
+    }
+  ],
+  "nombreJours": 8,
+  "nombreSeances": 231
+}

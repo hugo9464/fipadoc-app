@@ -1,62 +1,117 @@
 /**
- * Data Module - Server and Client Compatible
+ * Data Module - FIPADOC 2026
  *
- * This module provides access to film and schedule data from local JSON files.
- * Data is loaded at build time via static imports, enabling Next.js build optimization.
- * The module can be safely imported by both server and client components.
- *
- * Usage:
- *   import { getFilms, getScreenings, getRooms } from '@/lib/data';
- *   import { Film, Screening, Room } from '@/lib/data';
- *
- * The data functions return typed arrays of Film, Screening, and Room objects.
- * If the underlying data is empty or undefined, empty arrays are returned.
+ * Loads and provides access to programme and film data from local JSON files.
  */
 
-import { Film, Screening, Room } from './types';
+import { JourProgramme, Film, Programme, FilmsData, Seance } from './types';
 
 // Static JSON imports for Next.js build optimization
-import filmsData from '../pwa-films-index.json';
-import scheduleData from '../pwa-schedule.json';
+import programmeData from '../fipadoc-2026-programme.json';
+import filmsData from '../fipadoc-2026-films-complet.json';
 
 // Re-export types for convenience
-export type { Film, Screening, Room };
+export type { JourProgramme, Film, Seance } from './types';
+
+// Type assertions for imported JSON
+const programme = programmeData as Programme;
+const films = filmsData as FilmsData;
 
 /**
- * Get all films from the local data.
- *
- * @returns Array of Film objects from pwa-films-index.json
- *
- * @example
- * const films = getFilms();
- * // [{ id: 'film-001', name: 'Les Voix du Silence', ... }, ...]
+ * Get all days from the programme.
  */
-export function getFilms(): Film[] {
-  return filmsData.films ?? [];
+export function getProgramme(): JourProgramme[] {
+  return programme.jours ?? [];
 }
 
 /**
- * Get all screenings from the local data.
- *
- * @returns Array of Screening objects from pwa-schedule.json
- *
- * @example
- * const screenings = getScreenings();
- * // [{ id: 'screening-001', filmId: 'film-001', roomId: 'room-001', ... }, ...]
+ * Get all films as an array.
  */
-export function getScreenings(): Screening[] {
-  return scheduleData.screenings ?? [];
+export function getFilmsArray(): Film[] {
+  const allFilms: Film[] = [];
+  for (const selection of films.selections) {
+    for (const film of selection.films) {
+      allFilms.push({
+        ...film,
+        selection: selection.nom,
+      });
+    }
+  }
+  return allFilms;
 }
 
 /**
- * Get all rooms from the local data.
- *
- * @returns Array of Room objects from pwa-schedule.json
- *
- * @example
- * const rooms = getRooms();
- * // [{ id: 'room-001', name: 'Salle Gare du Midi', ... }, ...]
+ * Get films indexed by title for fast O(1) lookup.
+ * The index includes both the full title and any subtitle variant.
  */
-export function getRooms(): Room[] {
-  return scheduleData.rooms ?? [];
+export function getFilmsIndex(): Map<string, Film> {
+  const index = new Map<string, Film>();
+
+  for (const selection of films.selections) {
+    for (const film of selection.films) {
+      const filmWithSelection = {
+        ...film,
+        selection: selection.nom,
+      };
+
+      // Index by full title
+      index.set(film.titre.toLowerCase(), filmWithSelection);
+
+      // Also index by first part of title (before " - ") for matching
+      // e.g., "Le Ministère de la Solitude - Dear Tomorrow" → "Le Ministère de la Solitude"
+      const dashIndex = film.titre.indexOf(' - ');
+      if (dashIndex > 0) {
+        const firstPart = film.titre.substring(0, dashIndex);
+        if (!index.has(firstPart.toLowerCase())) {
+          index.set(firstPart.toLowerCase(), filmWithSelection);
+        }
+        // Also index by second part (English title)
+        const secondPart = film.titre.substring(dashIndex + 3);
+        if (!index.has(secondPart.toLowerCase())) {
+          index.set(secondPart.toLowerCase(), filmWithSelection);
+        }
+      }
+    }
+  }
+
+  return index;
+}
+
+/**
+ * Find a film by its title (case-insensitive).
+ */
+export function findFilmByTitle(title: string, index: Map<string, Film>): Film | undefined {
+  return index.get(title.toLowerCase());
+}
+
+/**
+ * Get festival metadata.
+ */
+export function getFestivalInfo() {
+  return {
+    name: programme.festival,
+    source: programme.source,
+    dateExtraction: programme.dateExtraction,
+    totalFilms: films.nombreTotalFilms,
+    totalSelections: films.nombreSelections,
+  };
+}
+
+/**
+ * Get all screenings for a specific film by title.
+ * Returns screenings sorted by date and time.
+ */
+export function getScreeningsForFilm(filmTitle: string): { date: string; seance: Seance }[] {
+  const titleLower = filmTitle.toLowerCase();
+  const result: { date: string; seance: Seance }[] = [];
+
+  for (const jour of programme.jours) {
+    for (const seance of jour.seances) {
+      if (seance.titre?.toLowerCase() === titleLower) {
+        result.push({ date: jour.date, seance });
+      }
+    }
+  }
+
+  return result;
 }

@@ -1,114 +1,108 @@
 /**
- * Data Type Definitions
+ * Data Type Definitions for FIPADOC 2026
  *
- * This module contains TypeScript interfaces for the core data entities
- * used throughout the FIPADOC PWA application.
- *
- * These types are adapted from the original Airtable record types but
- * simplified to work with local JSON data files. The nested 'fields'
- * structure has been flattened to simple properties.
- *
- * Usage:
- *   import { Film, Screening, Room } from '@/lib/types';
+ * Types matching the structure of:
+ * - fipadoc-2026-programme.json (schedule by day)
+ * - fipadoc-2026-films-complet.json (film details)
  */
 
 /**
- * Represents a documentary film in the festival catalog.
- *
- * @example
- * const film: Film = {
- *   id: 'film-001',
- *   name: 'Example Documentary',
- *   description: 'A compelling story...',
- *   duration: 90,
- *   director: 'Jane Doe',
- *   country: 'France',
- *   year: 2024
- * };
+ * A scheduled screening session
+ */
+export interface Seance {
+  /** Film title (may be undefined for grouped sessions) */
+  titre?: string;
+  /** Start time in HH:MM format */
+  heureDebut: string;
+  /** End time in HH:MM format */
+  heureFin: string;
+  /** Venue name */
+  lieu: string;
+  /** Category (e.g., "Documentaire musical", "Compétition") */
+  categorie: string;
+  /** Director name */
+  realisateur: string;
+  /** Thumbnail image URL */
+  image?: string;
+  /** Presence info (e.g., "En présence de l'équipe du film") */
+  presence?: string;
+}
+
+/**
+ * A day in the festival programme
+ */
+export interface JourProgramme {
+  /** Date in French format (e.g., "Samedi 24 janvier 2026") */
+  date: string;
+  /** List of screenings for this day */
+  seances: Seance[];
+}
+
+/**
+ * Full programme data structure
+ */
+export interface Programme {
+  festival: string;
+  dateExtraction: string;
+  source: string;
+  jours: JourProgramme[];
+}
+
+/**
+ * Trailer/video link
+ */
+export interface BandeAnnonce {
+  raw: string;
+  url: string;
+  platform: 'vimeo' | 'youtube' | 'other';
+}
+
+/**
+ * Detailed film information from fipadoc-2026-films-complet.json
  */
 export interface Film {
-  /** Unique identifier for the film (e.g., 'film-001') */
-  id: string;
-
-  /** Title of the film */
-  name: string;
-
-  /** Synopsis or description of the film */
-  description?: string;
-
-  /** Duration of the film in minutes */
-  duration?: number;
-
-  /** Name of the film's director */
-  director?: string;
-
-  /** Country of origin */
-  country?: string;
-
-  /** Release year */
-  year?: number;
-
-  /** URL to the film's poster or promotional image */
+  /** Film title */
+  titre: string;
+  /** Director(s) name */
+  realisateurs: string;
+  /** URL slug for the film page */
+  slug: string;
+  /** Main image URL */
   imageUrl?: string;
-
-  /** Festival category or section (e.g., 'Competition', 'Panorama') */
-  category?: string;
+  /** All available images */
+  images?: string[];
+  /** Main film image */
+  imageFilm?: string;
+  /** Poster image */
+  imagePoster?: string;
+  /** Film synopsis */
+  synopsis?: string;
+  /** Trailer links */
+  bandesAnnonces?: BandeAnnonce[];
+  /** Festival selection category */
+  selection?: string;
+  /** URL to film page */
+  url?: string;
 }
 
 /**
- * Represents a scheduled screening of a film.
- *
- * @example
- * const screening: Screening = {
- *   id: 'screening-001',
- *   filmId: 'film-001',
- *   roomId: 'room-001',
- *   startTime: '2024-01-20T14:00:00',
- *   endTime: '2024-01-20T15:30:00',
- *   date: '2024-01-20'
- * };
+ * Selection category containing multiple films
  */
-export interface Screening {
-  /** Unique identifier for the screening (e.g., 'screening-001') */
-  id: string;
-
-  /** Reference to the Film.id being screened */
-  filmId: string;
-
-  /** Reference to the Room.id where the screening takes place */
-  roomId: string;
-
-  /** Start time in ISO 8601 format (e.g., '2024-01-20T14:00:00') */
-  startTime: string;
-
-  /** End time in ISO 8601 format (e.g., '2024-01-20T15:30:00') */
-  endTime: string;
-
-  /** Date of the screening in YYYY-MM-DD format (e.g., '2024-01-20') */
-  date: string;
+export interface Selection {
+  nom: string;
+  description?: string;
+  url: string;
+  films: Film[];
 }
 
 /**
- * Represents a venue or room where screenings take place.
- *
- * @example
- * const room: Room = {
- *   id: 'room-001',
- *   name: 'Salle Principale',
- *   capacity: 200,
- *   location: 'Centre des Congrès'
- * };
+ * Full films data structure
  */
-export interface Room {
-  /** Unique identifier for the room (e.g., 'room-001') */
-  id: string;
-
-  /** Name of the room or venue */
-  name: string;
-
-  /** Maximum seating capacity */
-  capacity?: number;
-
-  /** Physical location or address */
-  location?: string;
+export interface FilmsData {
+  festival: string;
+  dateExtraction: string;
+  sourceUrl: string;
+  nombreSelections: number;
+  nombreTotalFilms: number;
+  selections: Selection[];
 }
