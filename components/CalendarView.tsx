@@ -109,11 +109,10 @@ export default function CalendarView({
       <div className="calendar-wrapper" ref={wrapperRef}>
         {/* Time axis */}
         <div className="calendar-time-axis" style={{ height: totalHeight }}>
-          {timeLabels.map((label, index) => (
+          {timeLabels.map((label) => (
             <div
               key={label}
               className="calendar-time-label"
-              style={{ top: index * HOUR_HEIGHT_PX }}
             >
               {label}
             </div>
