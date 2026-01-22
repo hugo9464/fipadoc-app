@@ -81,25 +81,37 @@ export default function FilmDetail({
   }
 
   return (
-    <div className="modal-backdrop" onClick={handleBackdropClick}>
-      <div className="modal-content" role="dialog" aria-modal="true" aria-labelledby="film-title">
-        <button className="modal-close" onClick={onClose} aria-label="Fermer">
+    <div
+      className="fixed inset-0 bg-black/70 z-[100] flex items-end sm:items-center justify-center p-[var(--safe-area-inset-top)_var(--safe-area-inset-right)_var(--safe-area-inset-bottom)_var(--safe-area-inset-left)] sm:p-xl"
+      onClick={handleBackdropClick}
+    >
+      <div
+        className="bg-background w-full max-h-[90vh] max-h-[90dvh] rounded-t-2xl sm:rounded-2xl overflow-hidden relative flex flex-col sm:max-w-[600px] sm:max-h-[85vh]"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="film-title"
+      >
+        <button
+          className="absolute top-sm right-sm w-10 h-10 border-none bg-black/50 text-white rounded-full cursor-pointer flex items-center justify-center z-10 transition-colors duration-150 hover:bg-black/70"
+          onClick={onClose}
+          aria-label="Fermer"
+        >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         </button>
 
-        <div className="film-detail-scroll">
+        <div className="overflow-y-auto flex-1">
           {mainImage && (
-            <div className="film-poster">
-              <img src={mainImage} alt={film.titre} />
+            <div className="w-full aspect-video bg-surface overflow-hidden">
+              <img src={mainImage} alt={film.titre} className="w-full h-full object-cover" />
             </div>
           )}
 
-          <div className="film-info">
-            <div className="film-title-row">
-              <h2 id="film-title" className="film-title">{film.titre}</h2>
+          <div className="p-lg">
+            <div className="flex items-start justify-between gap-sm">
+              <h2 id="film-title" className="flex-1 text-xl font-bold text-foreground mb-sm">{film.titre}</h2>
               {onToggleFavorite && (
                 <FavoriteButton
                   isFavorite={isFavorite || false}
@@ -109,32 +121,36 @@ export default function FilmDetail({
               )}
             </div>
 
-            <div className="film-meta">
+            <div className="mb-md">
               {film.realisateurs && (
-                <p className="film-director">Réalisé par {film.realisateurs}</p>
+                <p className="text-[0.9rem] text-text-secondary mb-1">Réalisé par {film.realisateurs}</p>
               )}
               {film.selection && (
-                <span className="film-selection">{film.selection}</span>
+                <span className="inline-block text-[0.75rem] text-text-muted py-[3px] px-2 bg-surface rounded">{film.selection}</span>
               )}
             </div>
 
             {allScreenings && allScreenings.length > 0 && (
-              <div className="film-all-screenings">
-                <h3>Séances</h3>
-                <div className="screenings-list-detail">
+              <div className="mb-lg">
+                <h3 className="text-[0.9rem] font-semibold text-foreground mb-sm">Séances</h3>
+                <div className="flex flex-col gap-xs">
                   {allScreenings.map(({ date, seance: s, screeningId, isFavorite: isFav }) => (
                     <div
                       key={screeningId}
-                      className={`screening-item ${seance && s.heureDebut === seance.heureDebut && s.lieu === seance.lieu ? 'current' : ''}`}
+                      className={`flex items-center justify-between gap-sm p-sm px-md bg-surface rounded-lg transition-colors duration-150 ${
+                        seance && s.heureDebut === seance.heureDebut && s.lieu === seance.lieu
+                          ? 'border-2 border-foreground bg-background'
+                          : 'border-2 border-transparent'
+                      }`}
                     >
-                      <div className="screening-item-info">
-                        <div className="screening-item-date">{date}</div>
-                        <div className="screening-item-time">
+                      <div className="flex-1 min-w-0">
+                        <div className="text-[0.8rem] font-semibold text-foreground mb-0.5">{date}</div>
+                        <div className="text-[0.85rem] text-text-secondary tabular-nums">
                           <strong>{s.heureDebut} - {s.heureFin}</strong>
                         </div>
-                        <div className="screening-item-venue">{s.lieu}</div>
+                        <div className="text-[0.8rem] text-text-muted">{s.lieu}</div>
                         {s.presence && (
-                          <div className="screening-item-presence">{s.presence}</div>
+                          <div className="text-[0.75rem] text-theme italic mt-0.5">{s.presence}</div>
                         )}
                       </div>
                       {onToggleScreeningFavorite && (
@@ -151,16 +167,16 @@ export default function FilmDetail({
             )}
 
             {film.synopsis && (
-              <div className="film-synopsis">
-                <h3>Synopsis</h3>
-                <p>{film.synopsis}</p>
+              <div className="mb-lg">
+                <h3 className="text-[0.9rem] font-semibold text-foreground mb-sm">Synopsis</h3>
+                <p className="text-[0.9rem] leading-relaxed text-text-secondary">{film.synopsis}</p>
               </div>
             )}
 
             {embedUrl && (
-              <div className="film-trailer">
-                <h3>Bande-annonce</h3>
-                <div className="video-container">
+              <div className="mb-lg">
+                <h3 className="text-[0.9rem] font-semibold text-foreground mb-sm">Bande-annonce</h3>
+                <div className="video-container rounded-lg bg-surface">
                   <iframe
                     src={embedUrl}
                     allow="autoplay; fullscreen; picture-in-picture"
@@ -172,11 +188,11 @@ export default function FilmDetail({
             )}
 
             {film.images && film.images.length > 1 && (
-              <div className="film-gallery">
-                <h3>Images</h3>
-                <div className="gallery-grid">
+              <div className="mb-md">
+                <h3 className="text-[0.9rem] font-semibold text-foreground mb-sm">Images</h3>
+                <div className="grid grid-cols-2 gap-sm">
                   {film.images.slice(0, 4).map((img, idx) => (
-                    <img key={idx} src={img} alt={`${film.titre} - Image ${idx + 1}`} loading="lazy" />
+                    <img key={idx} src={img} alt={`${film.titre} - Image ${idx + 1}`} loading="lazy" className="w-full aspect-video object-cover rounded bg-surface" />
                   ))}
                 </div>
               </div>

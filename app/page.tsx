@@ -6,9 +6,9 @@ export default function HomePage() {
   const filmsIndex = getFilmsIndex();
 
   return (
-    <main className="schedule-container">
-      <header className="app-header">
-        <h1 className="app-title">FIPADOC 2026</h1>
+    <main className="min-h-screen flex flex-col">
+      <header className="text-center p-md border-b border-border bg-background sticky top-0 z-10">
+        <h1 className="text-xl font-bold tracking-wider text-foreground">FIPADOC 2026</h1>
       </header>
 
       <DayNavigator programme={programme} filmsIndex={filmsIndex} />

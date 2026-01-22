@@ -9,9 +9,13 @@ interface ViewToggleProps {
 
 export default function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
   return (
-    <div className="view-toggle">
+    <div className="flex bg-border rounded-lg p-0.5 gap-0.5">
       <button
-        className={`view-toggle-button ${viewMode === 'list' ? 'active' : ''}`}
+        className={`flex items-center justify-center w-9 h-8 border-none bg-transparent cursor-pointer rounded-md transition-all duration-150 ${
+          viewMode === 'list'
+            ? 'bg-background text-foreground shadow-sm'
+            : 'text-text-muted hover:text-foreground'
+        }`}
         onClick={() => onViewModeChange('list')}
         aria-label="Vue liste"
         title="Vue liste"
@@ -26,7 +30,11 @@ export default function ViewToggle({ viewMode, onViewModeChange }: ViewTogglePro
         </svg>
       </button>
       <button
-        className={`view-toggle-button ${viewMode === 'calendar' ? 'active' : ''}`}
+        className={`flex items-center justify-center w-9 h-8 border-none bg-transparent cursor-pointer rounded-md transition-all duration-150 ${
+          viewMode === 'calendar'
+            ? 'bg-background text-foreground shadow-sm'
+            : 'text-text-muted hover:text-foreground'
+        }`}
         onClick={() => onViewModeChange('calendar')}
         aria-label="Vue calendrier"
         title="Vue calendrier"

@@ -46,19 +46,35 @@ export default function CalendarView({
   // Generate time labels
   const timeLabels = getTimelineLabels();
 
-  // Sync horizontal scroll between header and grid
+  // Improved sync horizontal scroll between header and grid
   useEffect(() => {
     const wrapper = wrapperRef.current;
     const headerScroll = headerScrollRef.current;
-
     if (!wrapper || !headerScroll) return;
 
-    const handleScroll = () => {
+    let isScrolling = false;
+
+    const handleWrapperScroll = () => {
+      if (isScrolling) return;
+      isScrolling = true;
       headerScroll.scrollLeft = wrapper.scrollLeft;
+      requestAnimationFrame(() => { isScrolling = false; });
     };
 
-    wrapper.addEventListener('scroll', handleScroll);
-    return () => wrapper.removeEventListener('scroll', handleScroll);
+    const handleHeaderScroll = () => {
+      if (isScrolling) return;
+      isScrolling = true;
+      wrapper.scrollLeft = headerScroll.scrollLeft;
+      requestAnimationFrame(() => { isScrolling = false; });
+    };
+
+    wrapper.addEventListener('scroll', handleWrapperScroll, { passive: true });
+    headerScroll.addEventListener('scroll', handleHeaderScroll, { passive: true });
+
+    return () => {
+      wrapper.removeEventListener('scroll', handleWrapperScroll);
+      headerScroll.removeEventListener('scroll', handleHeaderScroll);
+    };
   }, []);
 
   // Update now indicator
@@ -85,34 +101,41 @@ export default function CalendarView({
 
   if (activeVenues.length === 0) {
     return (
-      <div className="calendar-empty">
+      <div className="flex flex-col items-center justify-center p-xl text-center text-text-secondary min-h-[200px]">
         <p>Aucune projection programmée</p>
       </div>
     );
   }
 
   return (
-    <div className="calendar-container">
+    <div className="flex-1 flex flex-col min-h-0">
       {/* Fixed header with venue names */}
-      <div className="calendar-header">
-        <div className="calendar-header-spacer" />
-        <div className="calendar-header-scroll" ref={headerScrollRef}>
+      <div className="flex bg-surface border-b border-border sticky top-0 z-[5]">
+        <div className="flex-shrink-0 w-[50px] border-r border-border" />
+        <div className="flex overflow-x-auto scrollbar-hide" ref={headerScrollRef}>
           {activeVenues.map((venue) => (
-            <div key={venue} className="calendar-venue-name" title={venue}>
+            <div
+              key={venue}
+              className="flex-shrink-0 w-[120px] md:w-[160px] p-sm px-xs text-[0.7rem] md:text-[0.75rem] font-semibold text-center text-text-secondary border-r border-border last:border-r-0 whitespace-nowrap overflow-hidden text-ellipsis"
+              title={venue}
+            >
               {venue}
             </div>
           ))}
         </div>
       </div>
 
-      {/* Scrollable area */}
-      <div className="calendar-wrapper" ref={wrapperRef}>
+      {/* Scrollable area - using min-h-0 instead of overflow-hidden */}
+      <div className="flex-1 flex overflow-auto relative" ref={wrapperRef}>
         {/* Time axis */}
-        <div className="calendar-time-axis" style={{ height: totalHeight }}>
+        <div
+          className="flex-shrink-0 w-[50px] bg-surface border-r border-border sticky left-0 z-[3]"
+          style={{ height: totalHeight }}
+        >
           {timeLabels.map((label) => (
             <div
               key={label}
-              className="calendar-time-label"
+              className="calendar-time-label h-[60px] flex items-start justify-center pt-0 text-[0.7rem] font-medium text-text-muted tabular-nums relative"
             >
               {label}
             </div>
@@ -120,26 +143,32 @@ export default function CalendarView({
         </div>
 
         {/* Grid with columns */}
-        <div className="calendar-grid" style={{ height: totalHeight }}>
+        <div className="flex flex-1 relative" style={{ height: totalHeight }}>
           {/* Hour grid lines */}
           {timeLabels.map((_, index) => (
             <div
               key={index}
-              className="calendar-hour-line"
+              className="absolute left-0 right-0 h-px bg-border pointer-events-none"
               style={{ top: index * HOUR_HEIGHT_PX }}
             />
           ))}
 
           {/* Now indicator */}
           {nowPosition !== null && (
-            <div className="calendar-now-line" style={{ top: nowPosition }} />
+            <div
+              className="calendar-now-line absolute left-0 right-0 h-0.5 bg-favorite z-[4] pointer-events-none"
+              style={{ top: nowPosition }}
+            />
           )}
 
           {/* Venue columns */}
           {activeVenues.map((venue) => {
             const venueSeances = seancesByVenue.get(venue) || [];
             return (
-              <div key={venue} className="calendar-column">
+              <div
+                key={venue}
+                className="flex-shrink-0 w-[120px] md:w-[160px] relative border-r border-border last:border-r-0"
+              >
                 {venueSeances.map((seance, idx) => {
                   const film = findFilm(seance.titre);
                   const screeningId = getScreeningId(date, seance);

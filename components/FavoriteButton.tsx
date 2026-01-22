@@ -13,10 +13,13 @@ export default function FavoriteButton({ isFavorite, onToggle, size = 'small' }:
   };
 
   const iconSize = size === 'large' ? 24 : 20;
+  const buttonSize = size === 'large' ? 'w-11 h-11' : 'w-9 h-9';
 
   return (
     <button
-      className={`favorite-button ${isFavorite ? 'favorited' : ''} ${size}`}
+      className={`flex items-center justify-center border-none bg-transparent cursor-pointer p-xs rounded-full transition-all duration-150 ${buttonSize} ${
+        isFavorite ? 'text-favorite' : 'text-text-muted'
+      } hover:text-favorite hover:scale-110`}
       onClick={handleClick}
       aria-label={isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}
       type="button"

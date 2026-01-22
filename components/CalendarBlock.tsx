@@ -26,7 +26,9 @@ export default function CalendarBlock({ seance, film, isFavorite, onClick }: Cal
 
   return (
     <div
-      className={`calendar-block ${isFavorite ? 'favorited' : ''}`}
+      className={`absolute left-1 right-1 bg-background rounded p-1 px-1.5 overflow-hidden cursor-pointer transition-shadow duration-150 z-[1] min-h-[44px] hover:shadow-lg hover:z-[2] active:scale-[0.98] ${
+        isFavorite ? 'border-2 border-favorite' : 'border border-border'
+      }`}
       style={{
         top: `${top}px`,
         height: `${displayHeight}px`,
@@ -43,18 +45,18 @@ export default function CalendarBlock({ seance, film, isFavorite, onClick }: Cal
       aria-label={`${seance.heureDebut} - ${seance.heureFin}: ${title}`}
     >
       {isFavorite && (
-        <span className="calendar-block-favorite" aria-hidden="true">
+        <span className="absolute top-0.5 right-0.5 text-favorite text-[0.65rem]" aria-hidden="true">
           ♥
         </span>
       )}
-      <div className="calendar-block-time">
+      <div className="text-[0.65rem] font-semibold text-text-secondary tabular-nums mb-0.5">
         {seance.heureDebut} - {seance.heureFin}
       </div>
-      <div className="calendar-block-title">
+      <div className="text-[0.7rem] font-semibold text-foreground line-clamp-2 leading-tight">
         {title}
       </div>
       {showDirector && director && (
-        <div className="calendar-block-director">
+        <div className="text-[0.6rem] text-text-muted whitespace-nowrap overflow-hidden text-ellipsis mt-0.5">
           {director}
         </div>
       )}
