@@ -137,6 +137,9 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
     return title.includes(query) || director.includes(query);
   }, [searchQuery]);
 
+  // Current day (computed before conditional return so hooks can use it)
+  const currentDay = programme[currentIndex];
+
   // Filtered screenings for current day
   const filteredSeances = useMemo(() => {
     return currentDay?.seances.filter(filterBySearch) || [];
@@ -155,7 +158,6 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
     );
   }
 
-  const currentDay = programme[currentIndex];
   const hasPrevious = currentIndex > 0;
   const hasNext = currentIndex < programme.length - 1;
 
