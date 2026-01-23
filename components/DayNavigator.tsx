@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { JourProgramme, Film, Seance } from '@/lib/types';
 import { findTodayIndex, getShortDate } from '@/lib/schedule-utils';
 import { getFavorites, toggleFavorite, migrateFavorites, isMigrationComplete } from '@/lib/favorites';
@@ -9,6 +9,7 @@ import FilmDetail from './FilmDetail';
 import ViewToggle, { ViewMode } from './ViewToggle';
 import CalendarView from './CalendarView';
 import SearchBar from './SearchBar';
+import StickyDateHeader from './StickyDateHeader';
 
 interface DayNavigatorProps {
   programme: JourProgramme[];
@@ -39,6 +40,8 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
   const [favoritesLoading, setFavoritesLoading] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [searchQuery, setSearchQuery] = useState('');
+  const programmeScrollRef = useRef<HTMLDivElement>(null);
+  const favoritesScrollRef = useRef<HTMLDivElement>(null);
 
   // Run favorites migration on mount
   useEffect(() => {
@@ -297,11 +300,15 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
               </button>
             )}
 
-            <div className="flex items-center gap-sm flex-1 justify-center">
-              <h2 className="font-heading text-base sm:text-lg font-semibold text-foreground text-center uppercase tracking-wide">
-                {searchQuery.trim() ? `Resultats (${allFilteredScreenings.length})` : currentDay.date}
-              </h2>
-            </div>
+            {searchQuery.trim() ? (
+              <div className="flex items-center gap-sm flex-1 justify-center">
+                <h2 className="font-heading text-base sm:text-lg font-semibold text-foreground text-center uppercase tracking-wide">
+                  Resultats ({allFilteredScreenings.length})
+                </h2>
+              </div>
+            ) : (
+              <div className="flex-1" />
+            )}
 
             {!searchQuery.trim() && (
               <button
@@ -342,7 +349,15 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
 
           {/* Screenings - list or calendar view */}
           {viewMode === 'list' || searchQuery.trim() ? (
-            <div className="flex-1 p-md overflow-y-auto">
+            <div ref={programmeScrollRef} className="flex-1 overflow-y-auto">
+              {/* Sticky date header with parallax - hidden during search */}
+              {!searchQuery.trim() && (
+                <StickyDateHeader
+                  date={currentDay.date}
+                  scrollContainerRef={programmeScrollRef}
+                />
+              )}
+              <div className="p-md">
               {searchQuery.trim() ? (
                 // Search results across all days
                 allFilteredScreenings.length === 0 ? (
@@ -409,6 +424,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                   );
                 })
               )}
+              </div>
             </div>
           ) : (
             <CalendarView
@@ -452,11 +468,15 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                   </button>
                 )}
 
-                <div className="flex items-center gap-sm flex-1 justify-center">
-                  <h2 className="font-heading text-base sm:text-lg font-semibold text-foreground text-center uppercase tracking-wide">
-                    {searchQuery.trim() ? `Resultats (${allFilteredFavorites.length})` : currentFavoriteDate}
-                  </h2>
-                </div>
+                {searchQuery.trim() ? (
+                  <div className="flex items-center gap-sm flex-1 justify-center">
+                    <h2 className="font-heading text-base sm:text-lg font-semibold text-foreground text-center uppercase tracking-wide">
+                      Resultats ({allFilteredFavorites.length})
+                    </h2>
+                  </div>
+                ) : (
+                  <div className="flex-1" />
+                )}
 
                 {!searchQuery.trim() && (
                   <button
@@ -497,7 +517,15 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
 
               {/* Favorites - list or calendar view */}
               {viewMode === 'list' || searchQuery.trim() ? (
-                <div className="flex-1 p-md overflow-y-auto pt-0">
+                <div ref={favoritesScrollRef} className="flex-1 overflow-y-auto">
+                  {/* Sticky date header with parallax - hidden during search */}
+                  {!searchQuery.trim() && currentFavoriteDate && (
+                    <StickyDateHeader
+                      date={currentFavoriteDate}
+                      scrollContainerRef={favoritesScrollRef}
+                    />
+                  )}
+                  <div className="p-md pt-0">
                   {searchQuery.trim() ? (
                     // Search results across all favorites
                     allFilteredFavorites.length === 0 ? (
@@ -550,6 +578,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                       />
                     ))
                   )}
+                  </div>
                 </div>
               ) : (
                 <CalendarView
