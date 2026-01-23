@@ -28,9 +28,14 @@ function formatDuration(minutes: string | undefined): string | null {
 
 /**
  * Check if a seance is a short films session.
+ * Short films sessions have multiple film IDs separated by commas in _id_film.
  */
 function isShortFilmsSession(seance: Seance): boolean {
-  return seance.categorie.toLowerCase().includes('court') && !seance.titre;
+  // Short films sessions have multiple film IDs (comma-separated)
+  if (seance._id_film && seance._id_film.includes(',')) {
+    return true;
+  }
+  return false;
 }
 
 export default function ScreeningCard({ seance, film, onSelect, isFavorite, onToggleFavorite, otherScreenings }: ScreeningCardProps) {
