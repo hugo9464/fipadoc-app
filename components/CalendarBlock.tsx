@@ -67,12 +67,21 @@ export default function CalendarBlock({ seance, film, isFavorite, layout, onClic
       }}
       aria-label={`${seance.heureDebut} - ${title}`}
     >
-      {/* Favorite heart indicator */}
-      {isFavorite && (
-        <span className="absolute top-1 right-1 text-favorite text-[0.65rem]" aria-hidden="true">
-          ♥
-        </span>
-      )}
+      {/* Top-right indicators */}
+      <div className="absolute top-1 right-1 flex items-center gap-0.5">
+        {presence && (
+          <span className="text-theme text-[0.6rem]" aria-label="Équipe présente" title="Équipe présente">
+            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+          </span>
+        )}
+        {isFavorite && (
+          <span className="text-favorite text-[0.65rem]" aria-hidden="true">
+            ♥
+          </span>
+        )}
+      </div>
 
       <div className="p-1.5 pr-4">
         {/* Time + Category line */}
@@ -97,8 +106,8 @@ export default function CalendarBlock({ seance, film, isFavorite, layout, onClic
 
         {/* Presence info */}
         {showPresence && presence && (
-          <div className="text-[0.55rem] text-text-secondary italic mt-0.5 line-clamp-1">
-            Rencontre avec l'équipe du film
+          <div className="text-[0.55rem] text-theme italic mt-0.5 line-clamp-1">
+            {presence}
           </div>
         )}
       </div>
