@@ -68,7 +68,7 @@ export default function FilmDetail({
     }
   };
 
-  const mainImage = film.imagePoster || film.imageFilm || film.imageUrl;
+  const mainImage = film.imageFilm || film.imageUrl;
   const trailer = film.bandesAnnonces?.[0];
   let embedUrl: string | null = null;
 
@@ -187,16 +187,6 @@ export default function FilmDetail({
               </div>
             )}
 
-            {film.images && film.images.length > 1 && (
-              <div className="mb-md">
-                <h3 className="text-[0.9rem] font-semibold text-foreground mb-sm">Images</h3>
-                <div className="grid grid-cols-2 gap-sm">
-                  {film.images.slice(0, 4).map((img, idx) => (
-                    <img key={idx} src={img} alt={`${film.titre} - Image ${idx + 1}`} loading="lazy" className="w-full aspect-video object-cover rounded bg-surface" />
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { getProgramme, getFilmsIndex } from '@/lib/data';
 import DayNavigator from '@/components/DayNavigator';
 
-const APP_VERSION = '1.1.0';
+const APP_VERSION = '1.1.1';
 
 export default function HomePage() {
   const programme = getProgramme();
