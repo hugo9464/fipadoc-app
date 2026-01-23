@@ -1,7 +1,14 @@
 'use client';
 
 import { Seance, Film } from '@/lib/types';
-import { timeToPixelPosition, durationToPixelHeight, SeanceLayout } from '@/lib/schedule-utils';
+import {
+  timeToPixelPosition,
+  durationToPixelHeight,
+  SeanceLayout,
+  getCategoryColorVar,
+  getCategoryShortLabel,
+  formatDurationFrench,
+} from '@/lib/schedule-utils';
 
 interface CalendarBlockProps {
   seance: Seance;
@@ -9,13 +16,6 @@ interface CalendarBlockProps {
   isFavorite: boolean;
   layout?: SeanceLayout;
   onClick: () => void;
-}
-
-function formatDurationShort(minutes: string | undefined): string | null {
-  if (!minutes) return null;
-  const mins = parseInt(minutes, 10);
-  if (isNaN(mins)) return null;
-  return `${mins}'`;
 }
 
 export default function CalendarBlock({ seance, film, isFavorite, layout, onClick }: CalendarBlockProps) {
@@ -27,11 +27,14 @@ export default function CalendarBlock({ seance, film, isFavorite, layout, onClic
   const displayHeight = Math.max(height, minHeight);
 
   // Determine what to display based on available height
-  const showDirector = displayHeight > 60;
+  const showDuration = displayHeight > 50;
+  const showPresence = displayHeight > 70;
 
   const title = seance.titre || seance.categorie;
-  const director = film?.realisateurs || seance.realisateur;
-  const duration = formatDurationShort(seance._duration);
+  const categoryColor = getCategoryColorVar(seance.categorie);
+  const categoryLabel = getCategoryShortLabel(seance.categorie);
+  const duration = formatDurationFrench(seance._duration);
+  const presence = seance.presence;
 
   // Calculate horizontal position for overlapping screenings
   const column = layout?.column ?? 0;
@@ -41,14 +44,17 @@ export default function CalendarBlock({ seance, film, isFavorite, layout, onClic
 
   return (
     <div
-      className={`absolute bg-background rounded-lg p-1.5 px-2 overflow-hidden cursor-pointer transition-all duration-150 z-[1] min-h-[44px] hover:shadow-lg hover:z-[2] active:scale-[0.98] ${
-        isFavorite ? 'border-2 border-favorite' : 'border border-border'
+      className={`absolute bg-background overflow-hidden cursor-pointer transition-all duration-150 z-[1] min-h-[44px] hover:shadow-lg hover:z-[2] active:scale-[0.98] ${
+        isFavorite ? 'ring-2 ring-favorite' : ''
       }`}
       style={{
         top: `${top}px`,
         height: `${displayHeight}px`,
         left: `calc(${leftPercent}% + 2px)`,
         width: `calc(${widthPercent}% - 4px)`,
+        borderRadius: '2px',
+        borderLeft: `4px solid ${categoryColor}`,
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
       }}
       onClick={onClick}
       role="button"
@@ -59,25 +65,43 @@ export default function CalendarBlock({ seance, film, isFavorite, layout, onClic
           onClick();
         }
       }}
-      aria-label={`${seance.heureDebut} - ${seance.heureFin}: ${title}`}
+      aria-label={`${seance.heureDebut} - ${title}`}
     >
+      {/* Favorite heart indicator */}
       {isFavorite && (
         <span className="absolute top-1 right-1 text-favorite text-[0.65rem]" aria-hidden="true">
           ♥
         </span>
       )}
-      <div className="text-[0.65rem] font-semibold text-text-secondary tabular-nums mb-0.5">
-        {seance.heureDebut} - {seance.heureFin}
-        {duration && <span className="text-text-muted font-normal ml-1">({duration})</span>}
-      </div>
-      <div className="font-heading text-[0.7rem] font-semibold text-foreground line-clamp-2 leading-tight uppercase tracking-wide">
-        {title}
-      </div>
-      {showDirector && director && (
-        <div className="text-[0.6rem] text-text-muted whitespace-nowrap overflow-hidden text-ellipsis mt-0.5">
-          {director}
+
+      <div className="p-1.5 pr-4">
+        {/* Time + Category line */}
+        <div className="text-[0.6rem] mb-0.5 flex items-baseline gap-1">
+          <span className="font-semibold text-foreground tabular-nums">{seance.heureDebut}</span>
+          <span className="font-bold" style={{ color: categoryColor }}>
+            {categoryLabel}
+          </span>
         </div>
-      )}
+
+        {/* Title */}
+        <div className="font-heading text-[0.7rem] font-bold text-foreground line-clamp-2 leading-tight uppercase tracking-wide">
+          {title}
+        </div>
+
+        {/* Duration */}
+        {showDuration && duration && (
+          <div className="text-[0.55rem] text-text-muted mt-0.5">
+            {duration}
+          </div>
+        )}
+
+        {/* Presence info */}
+        {showPresence && presence && (
+          <div className="text-[0.55rem] text-text-secondary italic mt-0.5 line-clamp-1">
+            Rencontre avec l'équipe du film
+          </div>
+        )}
+      </div>
     </div>
   );
 }

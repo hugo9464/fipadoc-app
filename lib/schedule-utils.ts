@@ -4,6 +4,123 @@
  * Simplified utilities since dates are already formatted in the JSON.
  */
 
+// ============================================
+// Category Color & Label Utilities
+// ============================================
+
+/**
+ * Map a category string to its corresponding CSS variable name.
+ */
+export function getCategoryColorVar(categorie: string): string {
+  const cat = categorie.toLowerCase();
+
+  if (cat.includes('international')) return 'var(--color-cat-international)';
+  if (cat.includes('national') || cat.includes('france')) return 'var(--color-cat-france)';
+  if (cat.includes('musica') || cat.includes('musical')) return 'var(--color-cat-musique)';
+  if (cat.includes('impact')) return 'var(--color-cat-impact)';
+  if (cat.includes('court')) return 'var(--color-cat-courts)';
+  if (cat.includes('jeune')) return 'var(--color-cat-jeune-creation)';
+  if (cat.includes('europe')) return 'var(--color-cat-europe)';
+  if (cat.includes('panorama')) return 'var(--color-cat-panorama)';
+  if (cat.includes('famille')) return 'var(--color-cat-en-famille)';
+  if (cat.includes('goût') || cat.includes('gout')) return 'var(--color-cat-gout-du-doc)';
+  if (cat.includes('série') || cat.includes('serie')) return 'var(--color-cat-series)';
+  if (cat.includes('focus')) return 'var(--color-cat-focus)';
+  if (cat.includes('ukraine')) return 'var(--color-cat-ukraine)';
+  if (cat.includes('smart')) return 'var(--color-cat-smart)';
+  if (cat.includes('teens') || cat.includes('docs4teens')) return 'var(--color-cat-docs4teens)';
+  if (cat.includes('spéciale') || cat.includes('speciale')) return 'var(--color-cat-seance-speciale)';
+
+  return 'var(--color-cat-default)';
+}
+
+/**
+ * Get a short label for a category (e.g., "Documentaire musical" → "MUSIQUE").
+ */
+export function getCategoryShortLabel(categorie: string): string {
+  const cat = categorie.toLowerCase();
+
+  if (cat.includes('international')) return 'INTERNATIONAL';
+  if (cat.includes('national') || cat.includes('france')) return 'FRANCE';
+  if (cat.includes('musica') || cat.includes('musical')) return 'MUSIQUE';
+  if (cat.includes('impact')) return 'IMPACT';
+  if (cat.includes('court')) return 'COURTS';
+  if (cat.includes('jeune')) return 'JEUNE CRÉATION';
+  if (cat.includes('europe')) return 'EUROPE';
+  if (cat.includes('panorama')) return 'PANORAMA';
+  if (cat.includes('famille')) return 'EN FAMILLE';
+  if (cat.includes('goût') || cat.includes('gout')) return 'GOÛT DU DOC';
+  if (cat.includes('série') || cat.includes('serie')) return 'SÉRIES';
+  if (cat.includes('focus')) return 'FOCUS';
+  if (cat.includes('ukraine')) return 'UKRAINE';
+  if (cat.includes('smart')) return 'SMART';
+  if (cat.includes('teens') || cat.includes('docs4teens')) return 'DOCS4TEENS';
+  if (cat.includes('spéciale') || cat.includes('speciale')) return 'SPÉCIALE';
+
+  // Fallback: return first word uppercase
+  const firstWord = categorie.split(' ')[0];
+  return firstWord.toUpperCase();
+}
+
+/**
+ * Format duration in French style (e.g., 88 → "1 h 28").
+ */
+export function formatDurationFrench(minutes: string | undefined): string | null {
+  if (!minutes) return null;
+  const mins = parseInt(minutes, 10);
+  if (isNaN(mins)) return null;
+
+  if (mins < 60) {
+    return `${mins} min`;
+  }
+
+  const hours = Math.floor(mins / 60);
+  const remainingMins = mins % 60;
+
+  if (remainingMins === 0) {
+    return `${hours} h`;
+  }
+
+  return `${hours} h ${remainingMins.toString().padStart(2, '0')}`;
+}
+
+// ============================================
+// French Date Utilities
+// ============================================
+
+const FRENCH_MONTHS: Record<string, string> = {
+  'janvier': '01', 'février': '02', 'mars': '03', 'avril': '04',
+  'mai': '05', 'juin': '06', 'juillet': '07', 'août': '08',
+  'septembre': '09', 'octobre': '10', 'novembre': '11', 'décembre': '12',
+};
+
+/**
+ * Convert a French date string to ISO format.
+ * e.g., "Samedi 24 janvier 2026" → "2026-01-24"
+ */
+export function frenchDateToISO(dateFr: string): string | null {
+  const parts = dateFr.toLowerCase().split(' ');
+  if (parts.length < 4) return null;
+
+  const day = parts[1].padStart(2, '0');
+  const month = FRENCH_MONTHS[parts[2]];
+  const year = parts[3];
+
+  if (!month) return null;
+  return `${year}-${month}-${day}`;
+}
+
+/**
+ * Build a booking URL for festicine with date and title filters.
+ */
+export function buildBookingUrl(filmTitle: string, dateFr: string): string | null {
+  const isoDate = frenchDateToISO(dateFr);
+  if (!isoDate) return null;
+
+  const encodedTitle = encodeURIComponent(filmTitle);
+  return `https://site-fipadoc.festicine.fr/fr/schedule?jour[]=${isoDate}&titre=${encodedTitle}`;
+}
+
 /**
  * Extract a short date label from a French date string.
  * e.g., "Samedi 24 janvier 2026" → "Sam. 24"

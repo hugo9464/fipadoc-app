@@ -23,6 +23,25 @@
   --color-favorite: #e74c3c;
   --color-accent: #00b4b4;
 
+  /* Category colors (from official FIPADOC program) */
+  --color-cat-international: #00B4B4;
+  --color-cat-france: #009999;
+  --color-cat-musique: #00AA55;
+  --color-cat-impact: #E91E63;
+  --color-cat-courts: #FF6600;
+  --color-cat-jeune-creation: #E53935;
+  --color-cat-europe: #FFD600;
+  --color-cat-panorama: #9C27B0;
+  --color-cat-en-famille: #8BC34A;
+  --color-cat-gout-du-doc: #9E9D24;
+  --color-cat-series: #2196F3;
+  --color-cat-focus: #FF7043;
+  --color-cat-ukraine: #FFEB3B;
+  --color-cat-smart: #78909C;
+  --color-cat-docs4teens: #26C6DA;
+  --color-cat-seance-speciale: #607D8B;
+  --color-cat-default: #9E9E9E;
+
   /* Custom spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;

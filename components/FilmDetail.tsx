@@ -4,6 +4,7 @@ import { useEffect, useCallback, useState } from 'react';
 import { Film, Seance } from '@/lib/types';
 import { fetchFilmDetailsClient } from '@/lib/api';
 import { APIFilm, APIDirectorDetail } from '@/lib/api-types';
+import { buildBookingUrl } from '@/lib/schedule-utils';
 import FavoriteButton from './FavoriteButton';
 
 interface ScreeningWithDate {
@@ -243,7 +244,7 @@ export default function FilmDetail({
               )}
             </div>
 
-            {premiere && (
+            {premiere && premiere.toLowerCase() !== 'non' && (
               <p className="text-[0.8rem] text-accent font-medium mb-md">{premiere}</p>
             )}
 
@@ -265,35 +266,51 @@ export default function FilmDetail({
                   Seances
                 </h3>
                 <div className="flex flex-col gap-xs">
-                  {allScreenings.map(({ date, seance: s, screeningId, isFavorite: isFav }) => (
-                    <div
-                      key={screeningId}
-                      className={`flex items-center justify-between gap-sm p-sm px-md rounded-lg transition-colors duration-150 ${
-                        seance && s.heureDebut === seance.heureDebut && s.lieu === seance.lieu
-                          ? 'bg-surface border border-text-muted'
-                          : 'bg-surface/50 border border-transparent'
-                      }`}
-                    >
-                      <div className="flex-1 min-w-0">
-                        <div className="text-[0.8rem] font-semibold text-foreground mb-0.5">{date}</div>
-                        <div className="text-[0.85rem] text-text-secondary tabular-nums">
-                          <strong className="text-foreground">{s.heureDebut} - {s.heureFin}</strong>
+                  {allScreenings.map(({ date, seance: s, screeningId, isFavorite: isFav }) => {
+                    const bookingUrl = buildBookingUrl(film.titre, date);
+
+                    return (
+                      <div
+                        key={screeningId}
+                        className={`flex items-center justify-between gap-sm p-sm px-md rounded-lg transition-colors duration-150 ${
+                          seance && s.heureDebut === seance.heureDebut && s.lieu === seance.lieu
+                            ? 'bg-surface border border-text-muted'
+                            : 'bg-surface/50 border border-transparent'
+                        }`}
+                      >
+                        <div className="flex-1 min-w-0">
+                          <div className="text-[0.8rem] font-semibold text-foreground mb-0.5">{date}</div>
+                          <div className="text-[0.85rem] text-text-secondary tabular-nums">
+                            <strong className="text-foreground">{s.heureDebut} - {s.heureFin}</strong>
+                          </div>
+                          <div className="text-[0.8rem] text-text-muted">{s.lieu}</div>
+                          {s.presence && (
+                            <div className="text-[0.75rem] text-accent italic mt-0.5">{s.presence}</div>
+                          )}
                         </div>
-                        <div className="text-[0.8rem] text-text-muted">{s.lieu}</div>
-                        {s.presence && (
-                          <div className="text-[0.75rem] text-accent italic mt-0.5">{s.presence}</div>
-                        )}
+                        <div className="flex items-center gap-xs">
+                          {bookingUrl && (
+                            <a
+                              href={bookingUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-center px-3 py-1.5 text-[0.75rem] font-semibold uppercase tracking-wide bg-accent text-background rounded-md hover:bg-accent/80 transition-colors whitespace-nowrap"
+                            >
+                              Réserver
+                            </a>
+                          )}
+                          {onToggleScreeningFavorite && (
+                            <FavoriteButton
+                              isFavorite={isFav}
+                              onToggle={() => onToggleScreeningFavorite(screeningId)}
+                              size="small"
+                              variant="dark"
+                            />
+                          )}
+                        </div>
                       </div>
-                      {onToggleScreeningFavorite && (
-                        <FavoriteButton
-                          isFavorite={isFav}
-                          onToggle={() => onToggleScreeningFavorite(screeningId)}
-                          size="small"
-                          variant="dark"
-                        />
-                      )}
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             )}

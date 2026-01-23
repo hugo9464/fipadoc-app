@@ -1,6 +1,7 @@
 'use client';
 
 import { Seance, Film } from '@/lib/types';
+import { getCategoryColorVar } from '@/lib/schedule-utils';
 import FavoriteButton from './FavoriteButton';
 
 interface OtherScreening {
@@ -64,7 +65,12 @@ export default function ScreeningCard({ seance, film, onSelect, isFavorite, onTo
             <span className="before:content-['·_'] text-text-muted">{seance.realisateur}</span>
           )}
         </div>
-        <span className="inline-block text-[0.7rem] text-text-muted px-2 py-0.5 bg-surface rounded-full font-medium">
+        <span className="inline-flex items-center gap-1.5 text-[0.7rem] text-text-muted px-2 py-0.5 bg-surface rounded-full font-medium">
+          <span
+            className="w-2 h-2 rounded-full flex-shrink-0"
+            style={{ backgroundColor: getCategoryColorVar(seance.categorie) }}
+            aria-hidden="true"
+          />
           {seance.categorie}
         </span>
         {otherScreenings && otherScreenings.length > 0 && (
