@@ -121,13 +121,12 @@ export default function FilmDetail({
   };
 
   // Use API data if available, fall back to passed props
-  const mainImage = apiFilm?.image_large || apiFilm?.image_mini || film.imageFilm || film.imageUrl;
+  const mainImage = apiFilm?.picture?.link || film.imageFilm || film.imageUrl;
   const synopsis = apiFilm?.synopsis_long_l1 || apiFilm?.synopsis_short_l1 || film.synopsis;
-  const duration = formatDuration(apiFilm?.film_length || seance?._duration);
+  const duration = formatDuration(apiFilm?.film_length?.toString() || seance?._duration);
 
-  // Get directors - from API or fall back to film prop
-  const directors = apiFilm?.directors;
-  const directorDisplay = (Array.isArray(directors) ? directors.map(d => d.name).join(', ') : null) || film.realisateurs;
+  // Get directors - from API or fall back to film prop (directors is a string in API)
+  const directorDisplay = apiFilm?.directors || film.realisateurs;
 
   // Get directors details for the expanded section
   const directorsDetail: APIDirectorDetail[] = apiFilm?.directors_detail

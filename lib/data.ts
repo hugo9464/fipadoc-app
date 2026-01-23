@@ -4,9 +4,9 @@
  * Provides access to programme and film data from the FIPADOC API.
  */
 
-import { JourProgramme, Film, Seance } from './types';
-import { fetchAllProgramme, buildImageUrl } from './api';
-import { APIScreening, FESTIVAL_DAYS } from './api-types';
+import { JourProgramme, Film, Seance, BandeAnnonce } from './types';
+import { fetchAllProgramme, buildImageUrl, fetchFilmDetailsClient } from './api';
+import { APIScreening, FESTIVAL_DAYS, APIFilm } from './api-types';
 
 // Re-export types for convenience
 export type { JourProgramme, Film, Seance } from './types';
@@ -36,17 +36,9 @@ function formatTime(time: string): string {
 }
 
 /**
- * Extract presence info from detail HTML if it contains presence information.
+ * Note: Presence info (qa_other_participants) is only available in the film details API,
+ * not in the programme API. The presence field will be populated when film details are fetched.
  */
-function extractPresence(detail: string | undefined): string | undefined {
-  if (!detail) return undefined;
-  // Check for common presence patterns
-  const presenceMatch = detail.match(/En présence de[^<]*/i);
-  if (presenceMatch) {
-    return presenceMatch[0].trim();
-  }
-  return undefined;
-}
 
 /**
  * Convert an API screening to internal Seance format.
@@ -62,7 +54,7 @@ function convertScreeningToSeance(screening: APIScreening): Seance {
     categorie: screening.category_l1.join(', '),
     realisateur: '', // Will be fetched from film details
     image: imageUrl,
-    presence: extractPresence(screening.detail_l1),
+    // presence is not available in programme API, only in film details
     _id_screening: screening.id_screening,
     _id_film: screening.id_film,
     _duration: screening.duration,
@@ -164,7 +156,6 @@ let cachedProgramme: JourProgramme[] | null = null;
 
 // Import local films data for short films
 import filmsData from '@/fipadoc-2026-films-complet.json';
-import { BandeAnnonce } from './types';
 
 interface JSONBandeAnnonce {
   raw: string;
@@ -229,9 +220,89 @@ export function getShortFilms(): Film[] {
 
 /**
  * Check if a seance is a short films session.
+ * Short films sessions have multiple film IDs separated by commas in _id_film.
  */
 export function isShortFilmsSession(seance: Seance): boolean {
-  return seance.categorie.toLowerCase().includes('court') && !seance.titre;
+  // Short films sessions have multiple film IDs (comma-separated)
+  if (seance._id_film && seance._id_film.includes(',')) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Convert API film to our Film type.
+ */
+function convertAPIFilmToFilm(apiFilm: APIFilm): Film {
+  // Directors is a string in the API response
+  const directors = apiFilm.directors || '';
+
+  // Get trailer URL
+  let bandesAnnonces: BandeAnnonce[] | undefined;
+  if (apiFilm.trailer) {
+    const platform = apiFilm.trailer.includes('vimeo') ? 'vimeo'
+                   : apiFilm.trailer.includes('youtube') ? 'youtube'
+                   : 'other';
+    bandesAnnonces = [{
+      raw: apiFilm.trailer,
+      url: apiFilm.trailer,
+      platform,
+    }];
+  }
+
+  // Remove HTML tags from synopsis
+  const synopsis = apiFilm.synopsis_short_l1?.replace(/<[^>]*>/g, '') ||
+                   apiFilm.synopsis_long_l1?.replace(/<[^>]*>/g, '');
+
+  // Get image URLs from picture objects
+  const imageUrl = apiFilm.picture?.link;
+  const imagePoster = apiFilm.picture_2?.link;
+
+  return {
+    titre: apiFilm.title_l1,
+    realisateurs: directors,
+    slug: apiFilm.id_film || '',
+    imageUrl,
+    imageFilm: imageUrl,
+    imagePoster,
+    synopsis,
+    bandesAnnonces,
+    selection: 'Courts métrages',
+  };
+}
+
+/**
+ * Get short films for a session by fetching each film from the API.
+ * The seance._id_film contains comma-separated film IDs.
+ */
+export async function getShortFilmsForSession(seance: Seance): Promise<Film[]> {
+  if (!seance._id_film) return [];
+
+  const filmIds = seance._id_film.split(',').map(id => id.trim());
+  const films: Film[] = [];
+
+  // Fetch each film in parallel
+  const fetchPromises = filmIds.map(async (id) => {
+    try {
+      const apiFilm = await fetchFilmDetailsClient(id);
+      if (apiFilm) {
+        return convertAPIFilmToFilm(apiFilm);
+      }
+    } catch (error) {
+      console.error(`Failed to fetch film ${id}:`, error);
+    }
+    return null;
+  });
+
+  const results = await Promise.all(fetchPromises);
+
+  for (const film of results) {
+    if (film) {
+      films.push(film);
+    }
+  }
+
+  return films;
 }
 
 /**

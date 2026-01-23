@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { JourProgramme, Film, Seance } from '@/lib/types';
 import { findTodayIndex, getShortDate } from '@/lib/schedule-utils';
 import { getFavorites, toggleFavorite, migrateFavorites, isMigrationComplete } from '@/lib/favorites';
-import { getShortFilms, isShortFilmsSession } from '@/lib/data';
+import { getShortFilmsForSession, isShortFilmsSession } from '@/lib/data';
 import ScreeningCard from './ScreeningCard';
 import FilmDetail from './FilmDetail';
 import ShortFilmsDetail from './ShortFilmsDetail';
@@ -38,10 +38,10 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [selectedScreening, setSelectedScreening] = useState<{ film: Film; seance: Seance; date: string } | null>(null);
   const [selectedShortFilmsSession, setSelectedShortFilmsSession] = useState<{ seance: Seance; date: string } | null>(null);
+  const [shortFilmsForSession, setShortFilmsForSession] = useState<Film[]>([]);
+  const [shortFilmsLoading, setShortFilmsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<'programme' | 'favorites'>('programme');
 
-  // Get short films from local data
-  const shortFilms = useMemo(() => getShortFilms(), []);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [favoritesLoading, setFavoritesLoading] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>('list');
@@ -206,6 +206,17 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
     // Check if this is a short films session
     if (isShortFilmsSession(seance)) {
       setSelectedShortFilmsSession({ seance, date });
+      // Fetch the short films for this session
+      setShortFilmsLoading(true);
+      getShortFilmsForSession(seance)
+        .then(films => {
+          setShortFilmsForSession(films);
+          setShortFilmsLoading(false);
+        })
+        .catch(() => {
+          setShortFilmsForSession([]);
+          setShortFilmsLoading(false);
+        });
       return;
     }
 
@@ -220,6 +231,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
 
   const closeShortFilmsDetail = () => {
     setSelectedShortFilmsSession(null);
+    setShortFilmsForSession([]);
   };
 
   const findFilm = (titre?: string): Film | undefined => {
@@ -627,9 +639,9 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
       )}
 
       {/* Short films session modal */}
-      {selectedShortFilmsSession && (
+      {selectedShortFilmsSession && !shortFilmsLoading && (
         <ShortFilmsDetail
-          films={shortFilms}
+          films={shortFilmsForSession}
           seance={selectedShortFilmsSession.seance}
           date={selectedShortFilmsSession.date}
           onClose={closeShortFilmsDetail}
