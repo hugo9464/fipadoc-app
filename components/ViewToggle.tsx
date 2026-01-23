@@ -14,7 +14,7 @@ export default function ViewToggle({ viewMode, onViewModeChange }: ViewTogglePro
         className={`flex items-center justify-center w-9 h-8 border-none bg-transparent cursor-pointer rounded-md transition-all duration-150 ${
           viewMode === 'list'
             ? 'bg-background text-foreground shadow-sm'
-            : 'text-text-muted hover:text-foreground'
+            : 'text-text-muted hover:text-text-secondary'
         }`}
         onClick={() => onViewModeChange('list')}
         aria-label="Vue liste"
@@ -33,7 +33,7 @@ export default function ViewToggle({ viewMode, onViewModeChange }: ViewTogglePro
         className={`flex items-center justify-center w-9 h-8 border-none bg-transparent cursor-pointer rounded-md transition-all duration-150 ${
           viewMode === 'calendar'
             ? 'bg-background text-foreground shadow-sm'
-            : 'text-text-muted hover:text-foreground'
+            : 'text-text-muted hover:text-text-secondary'
         }`}
         onClick={() => onViewModeChange('calendar')}
         aria-label="Vue calendrier"

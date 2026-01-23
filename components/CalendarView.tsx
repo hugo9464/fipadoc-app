@@ -102,7 +102,7 @@ export default function CalendarView({
   if (activeVenues.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center p-xl text-center text-text-secondary min-h-[200px]">
-        <p>Aucune projection programmée</p>
+        <p className="font-heading uppercase tracking-wide">Aucune projection programmee</p>
       </div>
     );
   }
@@ -116,7 +116,7 @@ export default function CalendarView({
           {activeVenues.map((venue) => (
             <div
               key={venue}
-              className="flex-shrink-0 w-[120px] md:w-[160px] p-sm px-xs text-[0.7rem] md:text-[0.75rem] font-semibold text-center text-text-secondary border-r border-border last:border-r-0 whitespace-nowrap overflow-hidden text-ellipsis"
+              className="flex-shrink-0 w-[120px] md:w-[160px] p-sm px-xs font-heading text-[0.7rem] md:text-[0.75rem] font-semibold text-center text-text-secondary border-r border-border last:border-r-0 whitespace-nowrap overflow-hidden text-ellipsis uppercase tracking-wide"
               title={venue}
             >
               {venue}

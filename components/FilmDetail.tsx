@@ -167,17 +167,19 @@ export default function FilmDetail({
 
   return (
     <div
-      className="fixed inset-0 bg-black/70 z-[100] flex items-end sm:items-center justify-center p-[var(--safe-area-inset-top)_var(--safe-area-inset-right)_var(--safe-area-inset-bottom)_var(--safe-area-inset-left)] sm:p-xl"
+      className="fixed inset-0 bg-black/80 z-[100] flex items-end sm:items-center justify-center p-[var(--safe-area-inset-top)_var(--safe-area-inset-right)_var(--safe-area-inset-bottom)_var(--safe-area-inset-left)] sm:p-xl"
       onClick={handleBackdropClick}
     >
       <div
-        className="bg-background w-full max-h-[90vh] max-h-[90dvh] rounded-t-2xl sm:rounded-2xl overflow-hidden relative flex flex-col sm:max-w-[600px] sm:max-h-[85vh]"
+        data-theme="dark"
+        className="bg-background w-full max-h-[95vh] max-h-[95dvh] rounded-t-2xl sm:rounded-2xl overflow-hidden relative flex flex-col sm:max-w-[700px] sm:max-h-[90vh]"
         role="dialog"
         aria-modal="true"
         aria-labelledby="film-title"
       >
+        {/* Close button */}
         <button
-          className="absolute top-sm right-sm w-10 h-10 border-none bg-black/50 text-white rounded-full cursor-pointer flex items-center justify-center z-10 transition-colors duration-150 hover:bg-black/70"
+          className="absolute top-sm right-sm w-10 h-10 border-none bg-white/10 text-white rounded-full cursor-pointer flex items-center justify-center z-10 transition-colors duration-150 hover:bg-white/20"
           onClick={onClose}
           aria-label="Fermer"
         >
@@ -188,72 +190,98 @@ export default function FilmDetail({
         </button>
 
         <div className="overflow-y-auto flex-1">
+          {/* Hero section with image */}
           {mainImage && (
-            <div className="w-full aspect-video bg-surface overflow-hidden">
+            <div className="relative w-full aspect-video bg-surface overflow-hidden">
               <img src={mainImage} alt={film.titre} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
             </div>
           )}
 
-          <div className="p-lg">
-            <div className="flex items-start justify-between gap-sm">
-              <h2 id="film-title" className="flex-1 text-xl font-bold text-foreground mb-sm">{film.titre}</h2>
+          <div className="p-lg pt-md">
+            {/* Title section */}
+            <div className="flex items-start justify-between gap-sm mb-md">
+              <div className="flex-1">
+                <h2
+                  id="film-title"
+                  className="font-heading text-2xl sm:text-3xl font-bold text-foreground uppercase tracking-wide leading-tight"
+                >
+                  {film.titre}
+                </h2>
+                {originalTitle && (
+                  <p className="text-[0.85rem] text-text-muted italic mt-1">
+                    {originalTitle}
+                  </p>
+                )}
+              </div>
               {onToggleFavorite && (
                 <FavoriteButton
                   isFavorite={isFavorite || false}
                   onToggle={onToggleFavorite}
                   size="large"
+                  variant="dark"
                 />
               )}
             </div>
 
-            <div className="mb-md">
-              {originalTitle && (
-                <p className="text-[0.85rem] text-text-muted italic mb-1">Titre original : {originalTitle}</p>
+            {/* Meta info pills */}
+            <div className="flex flex-wrap items-center gap-2 mb-md">
+              {duration && (
+                <span className="inline-block text-[0.75rem] text-text-secondary py-1 px-2.5 bg-surface rounded-full">
+                  {duration}
+                </span>
               )}
-              {directorDisplay && (
-                <p className="text-[0.9rem] text-text-secondary mb-1">Réalisé par {directorDisplay}</p>
+              {film.selection && (
+                <span className="inline-block text-[0.75rem] text-text-secondary py-1 px-2.5 bg-surface rounded-full">
+                  {film.selection}
+                </span>
               )}
-              <div className="flex flex-wrap items-center gap-2 mt-1">
-                {duration && (
-                  <span className="inline-block text-[0.75rem] text-text-muted py-[3px] px-2 bg-surface rounded">
-                    {duration}
-                  </span>
-                )}
-                {film.selection && (
-                  <span className="inline-block text-[0.75rem] text-text-muted py-[3px] px-2 bg-surface rounded">
-                    {film.selection}
-                  </span>
-                )}
-              </div>
               {countriesDisplay && (
-                <p className="text-[0.85rem] text-text-secondary mt-2">{countriesDisplay}</p>
-              )}
-              {premiere && (
-                <p className="text-[0.8rem] text-theme mt-1">{premiere}</p>
+                <span className="inline-block text-[0.75rem] text-text-secondary py-1 px-2.5 bg-surface rounded-full">
+                  {countriesDisplay}
+                </span>
               )}
             </div>
 
+            {premiere && (
+              <p className="text-[0.8rem] text-accent font-medium mb-md">{premiere}</p>
+            )}
+
+            {/* Director display */}
+            {directorDisplay && (
+              <p className="text-[0.9rem] text-text-secondary mb-lg">
+                <span className="font-heading uppercase tracking-wide text-text-muted text-[0.75rem]">
+                  Realise par
+                </span>
+                <br />
+                <span className="font-medium text-foreground">{directorDisplay}</span>
+              </p>
+            )}
+
+            {/* Screenings section */}
             {allScreenings && allScreenings.length > 0 && (
               <div className="mb-lg">
-                <h3 className="text-[0.9rem] font-semibold text-foreground mb-sm">Séances</h3>
+                <h3 className="font-heading text-sm font-semibold text-foreground uppercase tracking-wide mb-sm">
+                  Seances
+                </h3>
                 <div className="flex flex-col gap-xs">
                   {allScreenings.map(({ date, seance: s, screeningId, isFavorite: isFav }) => (
                     <div
                       key={screeningId}
-                      className={`flex items-center justify-between gap-sm p-sm px-md bg-surface rounded-lg transition-colors duration-150 ${
+                      className={`flex items-center justify-between gap-sm p-sm px-md rounded-lg transition-colors duration-150 ${
                         seance && s.heureDebut === seance.heureDebut && s.lieu === seance.lieu
-                          ? 'border-2 border-foreground bg-background'
-                          : 'border-2 border-transparent'
+                          ? 'bg-surface border border-text-muted'
+                          : 'bg-surface/50 border border-transparent'
                       }`}
                     >
                       <div className="flex-1 min-w-0">
                         <div className="text-[0.8rem] font-semibold text-foreground mb-0.5">{date}</div>
                         <div className="text-[0.85rem] text-text-secondary tabular-nums">
-                          <strong>{s.heureDebut} - {s.heureFin}</strong>
+                          <strong className="text-foreground">{s.heureDebut} - {s.heureFin}</strong>
                         </div>
                         <div className="text-[0.8rem] text-text-muted">{s.lieu}</div>
                         {s.presence && (
-                          <div className="text-[0.75rem] text-theme italic mt-0.5">{s.presence}</div>
+                          <div className="text-[0.75rem] text-accent italic mt-0.5">{s.presence}</div>
                         )}
                       </div>
                       {onToggleScreeningFavorite && (
@@ -261,6 +289,7 @@ export default function FilmDetail({
                           isFavorite={isFav}
                           onToggle={() => onToggleScreeningFavorite(screeningId)}
                           size="small"
+                          variant="dark"
                         />
                       )}
                     </div>
@@ -269,6 +298,7 @@ export default function FilmDetail({
               </div>
             )}
 
+            {/* Synopsis */}
             {loading ? (
               <div className="mb-lg">
                 <div className="h-4 bg-surface rounded w-3/4 animate-pulse mb-2" />
@@ -277,7 +307,9 @@ export default function FilmDetail({
               </div>
             ) : synopsis ? (
               <div className="mb-lg">
-                <h3 className="text-[0.9rem] font-semibold text-foreground mb-sm">Synopsis</h3>
+                <h3 className="font-heading text-sm font-semibold text-foreground uppercase tracking-wide mb-sm">
+                  Synopsis
+                </h3>
                 <div
                   className="text-[0.9rem] leading-relaxed text-text-secondary [&>p]:mb-3 [&>p:last-child]:mb-0"
                   dangerouslySetInnerHTML={{ __html: synopsis }}
@@ -285,16 +317,17 @@ export default function FilmDetail({
               </div>
             ) : null}
 
+            {/* Directors detail */}
             {directorsDetail.length > 0 && (
               <div className="mb-lg">
-                <h3 className="text-[0.9rem] font-semibold text-foreground mb-sm">
-                  {directorsDetail.length > 1 ? 'Réalisateurs' : 'Réalisateur'}
+                <h3 className="font-heading text-sm font-semibold text-foreground uppercase tracking-wide mb-sm">
+                  {directorsDetail.length > 1 ? 'Realisateurs' : 'Realisateur'}
                 </h3>
                 <div className="flex flex-col gap-md">
                   {directorsDetail.map((director, index) => (
                     <div key={index} className="flex gap-sm">
                       {director.directors_photo && (
-                        <div className="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-surface">
+                        <div className="w-16 h-16 flex-shrink-0 rounded-full overflow-hidden bg-surface">
                           <img
                             src={director.directors_photo}
                             alt={director.name}
@@ -316,27 +349,32 @@ export default function FilmDetail({
               </div>
             )}
 
+            {/* Watch film link */}
             {videoFilm && (
               <div className="mb-lg">
-                <h3 className="text-[0.9rem] font-semibold text-foreground mb-sm">Voir le film</h3>
+                <h3 className="font-heading text-sm font-semibold text-foreground uppercase tracking-wide mb-sm">
+                  Voir le film
+                </h3>
                 <a
                   href={videoFilm}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 p-md bg-surface rounded-lg text-foreground hover:bg-surface/80 transition-colors"
+                  className="flex items-center gap-3 p-md bg-surface rounded-lg text-foreground hover:bg-surface/80 transition-colors border border-border"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                  <span className="text-[0.9rem] font-medium">Accéder au film sur Vimeo</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ml-auto">
+                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                  <span className="flex-1 text-[0.9rem] font-medium">Acceder au film sur Vimeo</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-text-muted">
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                     <polyline points="15 3 21 3 21 9" />
                     <line x1="10" y1="14" x2="21" y2="3" />
                   </svg>
                 </a>
                 {videoFilmPass && (
-                  <div className="flex items-center gap-2 mt-sm p-sm px-md bg-surface/50 rounded-lg">
+                  <div className="flex items-center gap-2 mt-sm p-sm px-md bg-surface/50 rounded-lg border border-border">
                     <span className="text-[0.8rem] text-text-muted">Mot de passe :</span>
                     <code className="text-[0.85rem] text-foreground font-mono bg-surface px-2 py-0.5 rounded">
                       {videoFilmPass}
@@ -362,10 +400,13 @@ export default function FilmDetail({
               </div>
             )}
 
+            {/* Trailer */}
             {embedUrl && (
               <div className="mb-lg">
-                <h3 className="text-[0.9rem] font-semibold text-foreground mb-sm">Bande-annonce</h3>
-                <div className="video-container rounded-lg bg-surface">
+                <h3 className="font-heading text-sm font-semibold text-foreground uppercase tracking-wide mb-sm">
+                  Bande-annonce
+                </h3>
+                <div className="video-container rounded-lg bg-surface overflow-hidden">
                   <iframe
                     src={embedUrl}
                     allow="autoplay; fullscreen; picture-in-picture"

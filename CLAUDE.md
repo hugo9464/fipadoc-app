@@ -8,7 +8,7 @@ FIPADOC PWA - A Progressive Web App for the FIPADOC documentary film festival pr
 
 ## Version Management
 
-**Current version: 1.1.0** (defined in `app/page.tsx` as `APP_VERSION`)
+**Current version: 1.3.0** (defined in `app/page.tsx` as `APP_VERSION`)
 
 When making significant changes, increment the version:
 - Patch (1.1.x): Bug fixes, minor tweaks
@@ -34,5 +34,8 @@ npm run type-check # TypeScript check
 ## Styling
 
 Uses Tailwind CSS v4 with CSS-based configuration in `globals.css`:
-- Custom colors: background, foreground, text-secondary, text-muted, surface, border, theme, favorite
+- Custom colors: background, foreground, text-secondary, text-muted, surface, border, theme, favorite, accent
+- Dark theme colors: background-dark, foreground-dark, text-secondary-dark, surface-dark, border-dark
 - Custom spacing: xs, sm, md, lg, xl
+- Font: Oswald (via next/font/google) for headings, using `font-heading` utility class
+- Dark theme support via `data-theme="dark"` attribute (used in FilmDetail modal)

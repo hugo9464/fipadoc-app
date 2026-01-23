@@ -1,5 +1,13 @@
 import type { Metadata, Viewport } from 'next';
+import { Oswald } from 'next/font/google';
 import './globals.css';
+
+const oswald = Oswald({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-oswald',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'FIPADOC Programme',
@@ -29,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr">
+    <html lang="fr" className={oswald.variable}>
       <body>{children}</body>
     </html>
   );

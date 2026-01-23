@@ -38,7 +38,7 @@ export default function ScreeningCard({ seance, film, onSelect, isFavorite, onTo
   return (
     <article
       className={`relative flex gap-md p-md border-b border-border bg-background ${
-        hasDetails ? 'cursor-pointer transition-colors duration-150 hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme focus-visible:-outline-offset-2' : ''
+        hasDetails ? 'cursor-pointer transition-all duration-150 hover:bg-surface hover:shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme focus-visible:-outline-offset-2' : ''
       }`}
       onClick={hasDetails ? handleClick : undefined}
       role={hasDetails ? 'button' : undefined}
@@ -46,32 +46,32 @@ export default function ScreeningCard({ seance, film, onSelect, isFavorite, onTo
       onKeyDown={hasDetails ? (e) => e.key === 'Enter' && handleClick() : undefined}
     >
       {seance.image && (
-        <div className="flex-shrink-0 w-20 h-[60px] overflow-hidden rounded bg-surface">
+        <div className="flex-shrink-0 w-[100px] h-[75px] overflow-hidden rounded-lg bg-surface">
           <img src={seance.image} alt={seance.titre || ''} loading="lazy" className="w-full h-full object-cover" />
         </div>
       )}
       <div className="flex-1 min-w-0">
-        <div className="text-[0.8rem] font-semibold text-text-secondary mb-0.5 tabular-nums">
+        <div className="text-[0.8rem] font-semibold text-text-secondary mb-1 tabular-nums">
           {seance.heureDebut} - {seance.heureFin}
           {duration && <span className="text-text-muted font-normal ml-1.5">({duration})</span>}
         </div>
-        <h3 className="text-[0.95rem] font-semibold text-foreground mb-1 line-clamp-2">
+        <h3 className="font-heading text-base font-semibold text-foreground mb-1.5 line-clamp-2 uppercase tracking-wide leading-tight">
           {seance.titre || 'Programme'}
         </h3>
-        <div className="flex flex-wrap gap-x-2 gap-y-1 text-[0.8rem] text-text-secondary mb-1">
+        <div className="flex flex-wrap gap-x-2 gap-y-1 text-[0.8rem] text-text-secondary mb-1.5">
           <span className="font-medium">{seance.lieu}</span>
           {seance.realisateur && (
-            <span className="before:content-['·_']">{seance.realisateur}</span>
+            <span className="before:content-['·_'] text-text-muted">{seance.realisateur}</span>
           )}
         </div>
-        <span className="inline-block text-[0.75rem] text-text-muted px-1.5 py-0.5 bg-surface rounded">
+        <span className="inline-block text-[0.7rem] text-text-muted px-2 py-0.5 bg-surface rounded-full font-medium">
           {seance.categorie}
         </span>
         {otherScreenings && otherScreenings.length > 0 && (
-          <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 mt-1.5 text-[0.7rem] text-text-muted">
-            <span className="font-medium text-text-secondary">Autres séances :</span>
+          <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 mt-2 text-[0.7rem] text-text-muted">
+            <span className="font-medium text-text-secondary">Autres seances :</span>
             {otherScreenings.map((s, idx) => (
-              <span key={idx} className="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-surface rounded whitespace-nowrap">
+              <span key={idx} className="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-surface rounded-full whitespace-nowrap">
                 <span className="font-medium">{s.date}</span>
                 <span className="tabular-nums">{s.time}</span>
                 {s.isFavorite && (
@@ -82,7 +82,7 @@ export default function ScreeningCard({ seance, film, onSelect, isFavorite, onTo
           </div>
         )}
         {seance.presence && (
-          <div className="text-[0.75rem] text-theme italic mt-1">{seance.presence}</div>
+          <div className="text-[0.75rem] text-theme italic mt-1.5">{seance.presence}</div>
         )}
       </div>
       {film && onToggleFavorite && (

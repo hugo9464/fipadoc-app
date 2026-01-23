@@ -2,15 +2,26 @@
 
 /* Custom theme configuration using CSS variables */
 @theme {
-  /* Colors */
+  /* Light theme colors (lists, navigation) */
   --color-background: #ffffff;
   --color-foreground: #1a1a1a;
-  --color-text-secondary: #666666;
+  --color-text-secondary: #4a4a4a;
   --color-text-muted: #888888;
   --color-surface: #f5f5f5;
   --color-border: #e0e0e0;
   --color-theme: #000000;
+
+  /* Dark theme colors (film details) */
+  --color-background-dark: #0a0a0a;
+  --color-foreground-dark: #ffffff;
+  --color-text-secondary-dark: #b0b0b0;
+  --color-text-muted-dark: #777777;
+  --color-surface-dark: #1a1a1a;
+  --color-border-dark: #333333;
+
+  /* Accent colors */
   --color-favorite: #e74c3c;
+  --color-accent: #00b4b4;
 
   /* Custom spacing */
   --spacing-xs: 0.25rem;
@@ -19,8 +30,9 @@
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
 
-  /* Font family */
+  /* Font families */
   --font-family-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-heading: var(--font-oswald), 'Oswald', sans-serif;
 }
 
 /* Safe area insets for PWA (not natively supported by Tailwind) */
@@ -44,6 +56,16 @@ html {
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
+}
+
+/* Dark theme support via data attribute */
+[data-theme="dark"] {
+  --color-background: var(--color-background-dark);
+  --color-foreground: var(--color-foreground-dark);
+  --color-text-secondary: var(--color-text-secondary-dark);
+  --color-text-muted: var(--color-text-muted-dark);
+  --color-surface: var(--color-surface-dark);
+  --color-border: var(--color-border-dark);
 }
 
 /* Reduce motion for users who prefer it */
@@ -107,6 +129,11 @@ html {
   display: none;
 }
 
+/* Heading font utility */
+.font-heading {
+  font-family: var(--font-family-heading);
+}
+
 /* Line clamp utilities */
 .line-clamp-2 {
   display: -webkit-box;
@@ -115,7 +142,32 @@ html {
   overflow: hidden;
 }
 
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* Tabular nums utility */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
+}
+
+/* Dark theme scrollbar */
+[data-theme="dark"]::-webkit-scrollbar {
+  width: 8px;
+}
+
+[data-theme="dark"]::-webkit-scrollbar-track {
+  background: var(--color-surface-dark);
+}
+
+[data-theme="dark"]::-webkit-scrollbar-thumb {
+  background: var(--color-border-dark);
+  border-radius: 4px;
+}
+
+[data-theme="dark"]::-webkit-scrollbar-thumb:hover {
+  background: #555555;
 }

@@ -34,7 +34,7 @@ export default function CalendarBlock({ seance, film, isFavorite, onClick }: Cal
 
   return (
     <div
-      className={`absolute left-1 right-1 bg-background rounded p-1 px-1.5 overflow-hidden cursor-pointer transition-shadow duration-150 z-[1] min-h-[44px] hover:shadow-lg hover:z-[2] active:scale-[0.98] ${
+      className={`absolute left-1 right-1 bg-background rounded-lg p-1.5 px-2 overflow-hidden cursor-pointer transition-all duration-150 z-[1] min-h-[44px] hover:shadow-lg hover:z-[2] active:scale-[0.98] ${
         isFavorite ? 'border-2 border-favorite' : 'border border-border'
       }`}
       style={{
@@ -53,7 +53,7 @@ export default function CalendarBlock({ seance, film, isFavorite, onClick }: Cal
       aria-label={`${seance.heureDebut} - ${seance.heureFin}: ${title}`}
     >
       {isFavorite && (
-        <span className="absolute top-0.5 right-0.5 text-favorite text-[0.65rem]" aria-hidden="true">
+        <span className="absolute top-1 right-1 text-favorite text-[0.65rem]" aria-hidden="true">
           ♥
         </span>
       )}
@@ -61,7 +61,7 @@ export default function CalendarBlock({ seance, film, isFavorite, onClick }: Cal
         {seance.heureDebut} - {seance.heureFin}
         {duration && <span className="text-text-muted font-normal ml-1">({duration})</span>}
       </div>
-      <div className="text-[0.7rem] font-semibold text-foreground line-clamp-2 leading-tight">
+      <div className="font-heading text-[0.7rem] font-semibold text-foreground line-clamp-2 leading-tight uppercase tracking-wide">
         {title}
       </div>
       {showDirector && director && (

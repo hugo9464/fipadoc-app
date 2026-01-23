@@ -129,7 +129,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
   if (programme.length === 0) {
     return (
       <p className="text-center text-text-secondary p-xl">
-        Aucune projection programmée
+        Aucune projection programmee
       </p>
     );
   }
@@ -209,26 +209,26 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
       {/* Tab bar */}
       <div className="flex bg-background border-b border-border">
         <button
-          className={`flex-1 flex items-center justify-center gap-xs p-md border-none bg-transparent text-[0.9rem] font-medium cursor-pointer transition-colors duration-150 border-b-2 -mb-px ${
+          className={`flex-1 flex items-center justify-center gap-xs py-md px-sm border-none bg-transparent font-heading text-sm font-semibold uppercase tracking-wider cursor-pointer transition-all duration-150 border-b-2 -mb-px ${
             activeTab === 'programme'
               ? 'text-foreground border-foreground'
-              : 'text-text-secondary border-transparent hover:text-foreground'
+              : 'text-text-muted border-transparent hover:text-text-secondary'
           }`}
           onClick={() => setActiveTab('programme')}
         >
           Programme
         </button>
         <button
-          className={`flex-1 flex items-center justify-center gap-xs p-md border-none bg-transparent text-[0.9rem] font-medium cursor-pointer transition-colors duration-150 border-b-2 -mb-px ${
+          className={`flex-1 flex items-center justify-center gap-xs py-md px-sm border-none bg-transparent font-heading text-sm font-semibold uppercase tracking-wider cursor-pointer transition-all duration-150 border-b-2 -mb-px ${
             activeTab === 'favorites'
               ? 'text-foreground border-foreground'
-              : 'text-text-secondary border-transparent hover:text-foreground'
+              : 'text-text-muted border-transparent hover:text-text-secondary'
           }`}
           onClick={() => setActiveTab('favorites')}
         >
           Mon programme
           {favorites.size > 0 && (
-            <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 bg-foreground text-background text-[0.75rem] font-semibold rounded-full">
+            <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 bg-foreground text-background text-[0.7rem] font-bold rounded-full">
               {favorites.size}
             </span>
           )}
@@ -242,8 +242,8 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
             <button
               onClick={goToPrevious}
               disabled={!hasPrevious}
-              className="flex items-center justify-center w-11 h-11 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
-              aria-label="Jour précédent"
+              className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
+              aria-label="Jour precedent"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="15 18 9 12 15 6" />
@@ -251,7 +251,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
             </button>
 
             <div className="flex items-center gap-sm flex-1 justify-center">
-              <h2 className="text-base sm:text-lg font-semibold text-foreground text-center">
+              <h2 className="font-heading text-base sm:text-lg font-semibold text-foreground text-center uppercase tracking-wide">
                 {currentDay.date}
               </h2>
             </div>
@@ -259,7 +259,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
             <button
               onClick={goToNext}
               disabled={!hasNext}
-              className="flex items-center justify-center w-11 h-11 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
+              className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
               aria-label="Jour suivant"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -271,12 +271,12 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
           </header>
 
           {/* Day indicator dots */}
-          <div className="flex justify-center gap-sm p-sm px-md bg-surface">
+          <div className="flex justify-center gap-2 p-sm px-md bg-surface">
             {programme.map((day, index) => (
               <button
                 key={day.date}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full border-none p-0 cursor-pointer transition-all duration-150 hover:bg-text-muted ${
+                className={`w-2 h-2 rounded-full border-none p-0 cursor-pointer transition-all duration-150 hover:bg-text-secondary ${
                   index === currentIndex
                     ? 'bg-foreground scale-125'
                     : 'bg-border'
@@ -331,8 +331,8 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-text-muted mb-md">
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                 </svg>
-                <p className="m-0 text-base">Aucun favori</p>
-                <p className="text-[0.85rem] text-text-muted mt-sm">Ajoutez des films à votre programme en cliquant sur le coeur</p>
+                <p className="m-0 text-base font-heading uppercase tracking-wide">Aucun favori</p>
+                <p className="text-[0.85rem] text-text-muted mt-sm">Ajoutez des films a votre programme en cliquant sur le coeur</p>
               </div>
             </div>
           ) : (
@@ -342,8 +342,8 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                 <button
                   onClick={() => setFavoriteDayIndex(Math.max(0, favoriteDayIndex - 1))}
                   disabled={favoriteDayIndex === 0}
-                  className="flex items-center justify-center w-11 h-11 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
-                  aria-label="Jour précédent"
+                  className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
+                  aria-label="Jour precedent"
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <polyline points="15 18 9 12 15 6" />
@@ -351,7 +351,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                 </button>
 
                 <div className="flex items-center gap-sm flex-1 justify-center">
-                  <h2 className="text-base sm:text-lg font-semibold text-foreground text-center">
+                  <h2 className="font-heading text-base sm:text-lg font-semibold text-foreground text-center uppercase tracking-wide">
                     {currentFavoriteDate}
                   </h2>
                 </div>
@@ -359,7 +359,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                 <button
                   onClick={() => setFavoriteDayIndex(Math.min(favoriteDates.length - 1, favoriteDayIndex + 1))}
                   disabled={favoriteDayIndex === favoriteDates.length - 1}
-                  className="flex items-center justify-center w-11 h-11 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
+                  className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
                   aria-label="Jour suivant"
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -371,12 +371,12 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
               </header>
 
               {/* Day indicator dots for favorites */}
-              <div className="flex justify-center gap-sm p-sm px-md bg-surface">
+              <div className="flex justify-center gap-2 p-sm px-md bg-surface">
                 {favoriteDates.map((date, index) => (
                   <button
                     key={date}
                     onClick={() => setFavoriteDayIndex(index)}
-                    className={`w-2 h-2 rounded-full border-none p-0 cursor-pointer transition-all duration-150 hover:bg-text-muted ${
+                    className={`w-2 h-2 rounded-full border-none p-0 cursor-pointer transition-all duration-150 hover:bg-text-secondary ${
                       index === favoriteDayIndex
                         ? 'bg-foreground scale-125'
                         : 'bg-border'
