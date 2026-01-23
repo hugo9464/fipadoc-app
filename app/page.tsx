@@ -1,11 +1,11 @@
 import { getProgramme, getFilmsIndex } from '@/lib/data';
 import DayNavigator from '@/components/DayNavigator';
 
-const APP_VERSION = '1.1.1';
+const APP_VERSION = '1.2.0';
 
-export default function HomePage() {
-  const programme = getProgramme();
-  const filmsIndex = getFilmsIndex();
+export default async function HomePage() {
+  const programme = await getProgramme();
+  const filmsIndex = await getFilmsIndex();
 
   return (
     <main className="min-h-screen flex flex-col">

@@ -13,6 +13,13 @@
  *
  * The module handles IndexedDB unavailability gracefully (e.g., in SSR or
  * browsers without IndexedDB support).
+ *
+ * ## Migration Support (v1.1 → v1.2)
+ *
+ * Old favorites format: "date|heure|lieu|titre" (e.g., "Samedi 24 janvier 2026|09:30|Royal 1|l'île aux esclaves")
+ * New favorites format: screening ID (e.g., "1523")
+ *
+ * The migration happens automatically when the app loads and programme data is available.
  */
 
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
@@ -32,6 +39,7 @@ interface FipadocDB extends DBSchema {
 
 const DB_NAME = 'fipadoc-favorites';
 const DB_VERSION = 1;
+const MIGRATION_KEY = 'fipadoc_favorites_migrated_v2';
 
 /**
  * Singleton promise for the database connection.
@@ -76,6 +84,111 @@ function getDB(): Promise<IDBPDatabase<FipadocDB>> {
   }
 
   return dbPromise;
+}
+
+/**
+ * Check if migration has been completed.
+ */
+export function isMigrationComplete(): boolean {
+  if (typeof window === 'undefined') return true;
+  return localStorage.getItem(MIGRATION_KEY) === 'true';
+}
+
+/**
+ * Mark migration as complete.
+ */
+function markMigrationComplete(): void {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(MIGRATION_KEY, 'true');
+  }
+}
+
+/**
+ * Check if a favorite ID looks like the old format (contains |).
+ */
+function isOldFormat(id: string): boolean {
+  return id.includes('|');
+}
+
+/**
+ * Parse an old format favorite ID.
+ * Format: "date|heureDebut|lieu|titre"
+ */
+function parseOldFavorite(id: string): { date: string; heureDebut: string; lieu: string; titre: string } | null {
+  const parts = id.split('|');
+  if (parts.length !== 4) return null;
+
+  return {
+    date: parts[0],
+    heureDebut: parts[1],
+    lieu: parts[2],
+    titre: parts[3],
+  };
+}
+
+/**
+ * Screening data type for migration.
+ */
+interface ScreeningForMigration {
+  date: string;
+  heureDebut: string;
+  lieu: string;
+  titre?: string;
+  _id_screening?: string;
+}
+
+/**
+ * Migrate old favorites to new format using programme data.
+ *
+ * @param screenings - All screenings from the programme (with _id_screening)
+ * @returns Number of favorites migrated
+ */
+export async function migrateFavorites(
+  screenings: ScreeningForMigration[]
+): Promise<number> {
+  if (!isIndexedDBAvailable()) return 0;
+  if (isMigrationComplete()) return 0;
+
+  const db = await getDB();
+  const allFavorites = await db.getAll('favorites');
+  const oldFavorites = allFavorites.filter((f) => isOldFormat(f.filmId));
+
+  if (oldFavorites.length === 0) {
+    markMigrationComplete();
+    return 0;
+  }
+
+  // Build a lookup map for screenings
+  const screeningMap = new Map<string, string>();
+  for (const s of screenings) {
+    if (!s._id_screening) continue;
+
+    // Create lookup key matching old format: date|heureDebut|lieu|titre
+    const key = `${s.date}|${s.heureDebut}|${s.lieu}|${(s.titre || '').toLowerCase()}`;
+    screeningMap.set(key, s._id_screening);
+  }
+
+  let migratedCount = 0;
+
+  for (const oldFav of oldFavorites) {
+    const parsed = parseOldFavorite(oldFav.filmId);
+    if (!parsed) continue;
+
+    // Try to find the matching screening
+    const lookupKey = `${parsed.date}|${parsed.heureDebut}|${parsed.lieu}|${parsed.titre}`;
+    const newId = screeningMap.get(lookupKey);
+
+    if (newId) {
+      // Add new favorite with id_screening
+      await db.put('favorites', { filmId: newId, addedAt: oldFav.addedAt });
+      // Remove old favorite
+      await db.delete('favorites', oldFav.filmId);
+      migratedCount++;
+    }
+  }
+
+  markMigrationComplete();
+  return migratedCount;
 }
 
 /**

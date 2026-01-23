@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { JourProgramme, Film, Seance } from '@/lib/types';
 import { findTodayIndex, getShortDate } from '@/lib/schedule-utils';
-import { getFavorites, toggleFavorite } from '@/lib/favorites';
-import { getScreeningsForFilm } from '@/lib/data';
+import { getFavorites, toggleFavorite, migrateFavorites, isMigrationComplete } from '@/lib/favorites';
 import ScreeningCard from './ScreeningCard';
 import FilmDetail from './FilmDetail';
 import ViewToggle, { ViewMode } from './ViewToggle';
@@ -15,7 +14,15 @@ interface DayNavigatorProps {
   filmsIndex: Map<string, Film>;
 }
 
+/**
+ * Get unique screening ID, preferring API _id_screening, falling back to composite.
+ */
 function getScreeningId(date: string, seance: Seance): string {
+  // Use API screening ID if available (new format)
+  if (seance._id_screening) {
+    return seance._id_screening;
+  }
+  // Fall back to composite ID (old format, for backwards compatibility)
   return `${date}|${seance.heureDebut}|${seance.lieu}|${seance.titre?.toLowerCase() || ''}`;
 }
 
@@ -31,12 +38,43 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
   const [favoritesLoading, setFavoritesLoading] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>('list');
 
+  // Run favorites migration on mount
   useEffect(() => {
-    getFavorites().then(ids => {
+    async function loadAndMigrateFavorites() {
+      // Migrate old favorites if needed
+      if (!isMigrationComplete()) {
+        // Collect all screenings for migration
+        const allScreenings: Array<{
+          date: string;
+          heureDebut: string;
+          lieu: string;
+          titre?: string;
+          _id_screening?: string;
+        }> = [];
+
+        for (const jour of programme) {
+          for (const seance of jour.seances) {
+            allScreenings.push({
+              date: jour.date,
+              heureDebut: seance.heureDebut,
+              lieu: seance.lieu,
+              titre: seance.titre,
+              _id_screening: seance._id_screening,
+            });
+          }
+        }
+
+        await migrateFavorites(allScreenings);
+      }
+
+      // Load favorites
+      const ids = await getFavorites();
       setFavorites(new Set(ids));
       setFavoritesLoading(false);
-    });
-  }, []);
+    }
+
+    loadAndMigrateFavorites();
+  }, [programme]);
 
   const handleToggleFavorite = async (screeningId: string) => {
     const isNowFavorite = await toggleFavorite(screeningId);
@@ -125,25 +163,45 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
 
   // Get other screenings for a film (excluding current one)
   const getOtherScreenings = (filmTitle: string, currentDate: string, currentTime: string) => {
-    const allScreenings = getScreeningsForFilm(filmTitle);
-    return allScreenings
-      .filter(s => !(s.date === currentDate && s.seance.heureDebut === currentTime))
-      .map(s => ({
-        date: getShortDate(s.date),
-        time: s.seance.heureDebut,
-        isFavorite: favorites.has(getScreeningId(s.date, s.seance)),
-      }));
+    const allScreenings: { date: string; time: string; isFavorite: boolean }[] = [];
+
+    for (const jour of programme) {
+      for (const seance of jour.seances) {
+        if (seance.titre?.toLowerCase() === filmTitle.toLowerCase()) {
+          if (!(jour.date === currentDate && seance.heureDebut === currentTime)) {
+            const screeningId = getScreeningId(jour.date, seance);
+            allScreenings.push({
+              date: getShortDate(jour.date),
+              time: seance.heureDebut,
+              isFavorite: favorites.has(screeningId),
+            });
+          }
+        }
+      }
+    }
+
+    return allScreenings;
   };
 
   // Get all screenings for a film with full details
   const getAllScreeningsWithDetails = (filmTitle: string) => {
-    const allScreenings = getScreeningsForFilm(filmTitle);
-    return allScreenings.map(s => ({
-      date: s.date,
-      seance: s.seance,
-      screeningId: getScreeningId(s.date, s.seance),
-      isFavorite: favorites.has(getScreeningId(s.date, s.seance)),
-    }));
+    const result: { date: string; seance: Seance; screeningId: string; isFavorite: boolean }[] = [];
+
+    for (const jour of programme) {
+      for (const seance of jour.seances) {
+        if (seance.titre?.toLowerCase() === filmTitle.toLowerCase()) {
+          const screeningId = getScreeningId(jour.date, seance);
+          result.push({
+            date: jour.date,
+            seance,
+            screeningId,
+            isFavorite: favorites.has(screeningId),
+          });
+        }
+      }
+    }
+
+    return result;
   };
 
   return (

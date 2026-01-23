@@ -18,8 +18,16 @@ interface ScreeningCardProps {
   otherScreenings?: OtherScreening[];
 }
 
+function formatDuration(minutes: string | undefined): string | null {
+  if (!minutes) return null;
+  const mins = parseInt(minutes, 10);
+  if (isNaN(mins)) return null;
+  return `${mins} min`;
+}
+
 export default function ScreeningCard({ seance, film, onSelect, isFavorite, onToggleFavorite, otherScreenings }: ScreeningCardProps) {
-  const hasDetails = !!film?.synopsis || !!film?.bandesAnnonces?.length;
+  const hasDetails = !!film?.synopsis || !!film?.bandesAnnonces?.length || !!seance._id_film;
+  const duration = formatDuration(seance._duration);
 
   const handleClick = () => {
     if (onSelect) {
@@ -45,6 +53,7 @@ export default function ScreeningCard({ seance, film, onSelect, isFavorite, onTo
       <div className="flex-1 min-w-0">
         <div className="text-[0.8rem] font-semibold text-text-secondary mb-0.5 tabular-nums">
           {seance.heureDebut} - {seance.heureFin}
+          {duration && <span className="text-text-muted font-normal ml-1.5">({duration})</span>}
         </div>
         <h3 className="text-[0.95rem] font-semibold text-foreground mb-1 line-clamp-2">
           {seance.titre || 'Programme'}

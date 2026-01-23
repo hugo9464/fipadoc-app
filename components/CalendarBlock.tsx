@@ -10,6 +10,13 @@ interface CalendarBlockProps {
   onClick: () => void;
 }
 
+function formatDurationShort(minutes: string | undefined): string | null {
+  if (!minutes) return null;
+  const mins = parseInt(minutes, 10);
+  if (isNaN(mins)) return null;
+  return `${mins}'`;
+}
+
 export default function CalendarBlock({ seance, film, isFavorite, onClick }: CalendarBlockProps) {
   const top = timeToPixelPosition(seance.heureDebut);
   const height = durationToPixelHeight(seance.heureDebut, seance.heureFin);
@@ -23,6 +30,7 @@ export default function CalendarBlock({ seance, film, isFavorite, onClick }: Cal
 
   const title = seance.titre || seance.categorie;
   const director = film?.realisateurs || seance.realisateur;
+  const duration = formatDurationShort(seance._duration);
 
   return (
     <div
@@ -51,6 +59,7 @@ export default function CalendarBlock({ seance, film, isFavorite, onClick }: Cal
       )}
       <div className="text-[0.65rem] font-semibold text-text-secondary tabular-nums mb-0.5">
         {seance.heureDebut} - {seance.heureFin}
+        {duration && <span className="text-text-muted font-normal ml-1">({duration})</span>}
       </div>
       <div className="text-[0.7rem] font-semibold text-foreground line-clamp-2 leading-tight">
         {title}

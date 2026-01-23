@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { Film, Seance } from '@/lib/types';
+import { fetchFilmDetailsClient } from '@/lib/api';
+import { APIFilm } from '@/lib/api-types';
 import FavoriteButton from './FavoriteButton';
 
 interface ScreeningWithDate {
@@ -37,6 +39,17 @@ function getYouTubeEmbedUrl(url: string): string | null {
   return null;
 }
 
+function formatDuration(minutes: string | undefined): string | null {
+  if (!minutes) return null;
+  const mins = parseInt(minutes, 10);
+  if (isNaN(mins)) return null;
+  if (mins < 60) return `${mins} min`;
+  const hours = Math.floor(mins / 60);
+  const remainingMins = mins % 60;
+  if (remainingMins === 0) return `${hours}h`;
+  return `${hours}h${remainingMins.toString().padStart(2, '0')}`;
+}
+
 export default function FilmDetail({
   film,
   seance,
@@ -46,11 +59,30 @@ export default function FilmDetail({
   allScreenings,
   onToggleScreeningFavorite
 }: FilmDetailProps) {
+  const [apiFilm, setApiFilm] = useState<APIFilm | null>(null);
+  const [loading, setLoading] = useState(false);
+
   const handleEscape = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       onClose();
     }
   }, [onClose]);
+
+  // Fetch film details from API
+  useEffect(() => {
+    const filmId = seance?._id_film || film.slug;
+
+    if (filmId && !filmId.includes('/')) {
+      setLoading(true);
+      fetchFilmDetailsClient(filmId)
+        .then(data => {
+          setApiFilm(data);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [seance?._id_film, film.slug]);
 
   useEffect(() => {
     document.addEventListener('keydown', handleEscape);
@@ -68,11 +100,23 @@ export default function FilmDetail({
     }
   };
 
-  const mainImage = film.imageFilm || film.imageUrl;
-  const trailer = film.bandesAnnonces?.[0];
-  let embedUrl: string | null = null;
+  // Use API data if available, fall back to passed props
+  const mainImage = apiFilm?.image_large || apiFilm?.image_mini || film.imageFilm || film.imageUrl;
+  const synopsis = apiFilm?.synopsis_long_l1 || apiFilm?.synopsis_short_l1 || film.synopsis;
+  const duration = formatDuration(apiFilm?.film_length || seance?._duration);
 
-  if (trailer) {
+  // Get directors - from API or fall back to film prop
+  const directors = apiFilm?.directors;
+  const directorDisplay = directors?.map(d => d.name).join(', ') || film.realisateurs;
+
+  // Get trailer embed URL
+  let embedUrl: string | null = null;
+  const trailer = film.bandesAnnonces?.[0];
+  const apiTrailer = apiFilm?.trailer;
+
+  if (apiTrailer) {
+    embedUrl = getVimeoEmbedUrl(apiTrailer) || getYouTubeEmbedUrl(apiTrailer);
+  } else if (trailer) {
     if (trailer.platform === 'vimeo') {
       embedUrl = getVimeoEmbedUrl(trailer.url);
     } else if (trailer.platform === 'youtube') {
@@ -122,12 +166,21 @@ export default function FilmDetail({
             </div>
 
             <div className="mb-md">
-              {film.realisateurs && (
-                <p className="text-[0.9rem] text-text-secondary mb-1">Réalisé par {film.realisateurs}</p>
+              {directorDisplay && (
+                <p className="text-[0.9rem] text-text-secondary mb-1">Réalisé par {directorDisplay}</p>
               )}
-              {film.selection && (
-                <span className="inline-block text-[0.75rem] text-text-muted py-[3px] px-2 bg-surface rounded">{film.selection}</span>
-              )}
+              <div className="flex flex-wrap items-center gap-2 mt-1">
+                {duration && (
+                  <span className="inline-block text-[0.75rem] text-text-muted py-[3px] px-2 bg-surface rounded">
+                    {duration}
+                  </span>
+                )}
+                {film.selection && (
+                  <span className="inline-block text-[0.75rem] text-text-muted py-[3px] px-2 bg-surface rounded">
+                    {film.selection}
+                  </span>
+                )}
+              </div>
             </div>
 
             {allScreenings && allScreenings.length > 0 && (
@@ -166,12 +219,18 @@ export default function FilmDetail({
               </div>
             )}
 
-            {film.synopsis && (
+            {loading ? (
+              <div className="mb-lg">
+                <div className="h-4 bg-surface rounded w-3/4 animate-pulse mb-2" />
+                <div className="h-4 bg-surface rounded w-full animate-pulse mb-2" />
+                <div className="h-4 bg-surface rounded w-5/6 animate-pulse" />
+              </div>
+            ) : synopsis ? (
               <div className="mb-lg">
                 <h3 className="text-[0.9rem] font-semibold text-foreground mb-sm">Synopsis</h3>
-                <p className="text-[0.9rem] leading-relaxed text-text-secondary">{film.synopsis}</p>
+                <p className="text-[0.9rem] leading-relaxed text-text-secondary">{synopsis}</p>
               </div>
-            )}
+            ) : null}
 
             {embedUrl && (
               <div className="mb-lg">

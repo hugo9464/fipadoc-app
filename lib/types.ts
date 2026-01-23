@@ -26,6 +26,12 @@ export interface Seance {
   image?: string;
   /** Presence info (e.g., "En présence de l'équipe du film") */
   presence?: string;
+  /** Unique screening ID from API (for favorites) */
+  _id_screening?: string;
+  /** Film ID from API (for fetching details) */
+  _id_film?: string;
+  /** Film duration in minutes */
+  _duration?: string;
 }
 
 /**
