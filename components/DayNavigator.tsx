@@ -8,6 +8,7 @@ import ScreeningCard from './ScreeningCard';
 import FilmDetail from './FilmDetail';
 import ViewToggle, { ViewMode } from './ViewToggle';
 import CalendarView from './CalendarView';
+import SearchBar from './SearchBar';
 
 interface DayNavigatorProps {
   programme: JourProgramme[];
@@ -37,6 +38,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [favoritesLoading, setFavoritesLoading] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Run favorites migration on mount
   useEffect(() => {
@@ -125,6 +127,25 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
     if (!currentFavoriteDate) return [];
     return favoriteScreenings.filter(f => f.date === currentFavoriteDate);
   }, [favoriteScreenings, currentFavoriteDate]);
+
+  // Filter function for search
+  const filterBySearch = useCallback((seance: Seance): boolean => {
+    if (!searchQuery.trim()) return true;
+    const query = searchQuery.toLowerCase().trim();
+    const title = seance.titre?.toLowerCase() || '';
+    const director = seance.realisateur?.toLowerCase() || '';
+    return title.includes(query) || director.includes(query);
+  }, [searchQuery]);
+
+  // Filtered screenings for current day
+  const filteredSeances = useMemo(() => {
+    return currentDay?.seances.filter(filterBySearch) || [];
+  }, [currentDay?.seances, filterBySearch]);
+
+  // Filtered favorites for current day
+  const filteredFavorites = useMemo(() => {
+    return currentDayFavorites.filter(f => filterBySearch(f.seance));
+  }, [currentDayFavorites, filterBySearch]);
 
   if (programme.length === 0) {
     return (
@@ -267,6 +288,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
               </svg>
             </button>
 
+            <SearchBar value={searchQuery} onChange={setSearchQuery} />
             <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
           </header>
 
@@ -291,28 +313,39 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
           {/* Screenings - list or calendar view */}
           {viewMode === 'list' ? (
             <div className="flex-1 p-md overflow-y-auto">
-              {currentDay.seances.map((seance, idx) => {
-                const film = findFilm(seance.titre);
-                const screeningId = getScreeningId(currentDay.date, seance);
-                const otherScreenings = seance.titre
-                  ? getOtherScreenings(seance.titre, currentDay.date, seance.heureDebut)
-                  : undefined;
-                return (
-                  <ScreeningCard
-                    key={`${seance.heureDebut}-${seance.lieu}-${idx}`}
-                    seance={seance}
-                    film={film}
-                    onSelect={(s, f) => handleSelectSeance(s, f, currentDay.date)}
-                    isFavorite={favorites.has(screeningId)}
-                    onToggleFavorite={film ? () => handleToggleFavorite(screeningId) : undefined}
-                    otherScreenings={otherScreenings}
-                  />
-                );
-              })}
+              {filteredSeances.length === 0 && searchQuery ? (
+                <div className="flex flex-col items-center justify-center p-xl text-center text-text-secondary min-h-[200px]">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-text-muted mb-md">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  <p className="m-0 text-base font-heading uppercase tracking-wide">Aucun resultat</p>
+                  <p className="text-[0.85rem] text-text-muted mt-sm">Aucun film ne correspond a "{searchQuery}"</p>
+                </div>
+              ) : (
+                filteredSeances.map((seance, idx) => {
+                  const film = findFilm(seance.titre);
+                  const screeningId = getScreeningId(currentDay.date, seance);
+                  const otherScreenings = seance.titre
+                    ? getOtherScreenings(seance.titre, currentDay.date, seance.heureDebut)
+                    : undefined;
+                  return (
+                    <ScreeningCard
+                      key={`${seance.heureDebut}-${seance.lieu}-${idx}`}
+                      seance={seance}
+                      film={film}
+                      onSelect={(s, f) => handleSelectSeance(s, f, currentDay.date)}
+                      isFavorite={favorites.has(screeningId)}
+                      onToggleFavorite={film ? () => handleToggleFavorite(screeningId) : undefined}
+                      otherScreenings={otherScreenings}
+                    />
+                  );
+                })
+              )}
             </div>
           ) : (
             <CalendarView
-              seances={currentDay.seances}
+              seances={searchQuery ? filteredSeances : currentDay.seances}
               date={currentDay.date}
               filmsIndex={filmsIndex}
               favorites={favorites}
@@ -367,6 +400,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                   </svg>
                 </button>
 
+                <SearchBar value={searchQuery} onChange={setSearchQuery} />
                 <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
               </header>
 
@@ -391,20 +425,31 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
               {/* Favorites - list or calendar view */}
               {viewMode === 'list' ? (
                 <div className="flex-1 p-md overflow-y-auto pt-0">
-                  {currentDayFavorites.map(({ date, seance, film, screeningId }) => (
-                    <ScreeningCard
-                      key={screeningId}
-                      seance={seance}
-                      film={film}
-                      onSelect={(s, f) => handleSelectSeance(s, f, date)}
-                      isFavorite={true}
-                      onToggleFavorite={() => handleToggleFavorite(screeningId)}
-                    />
-                  ))}
+                  {filteredFavorites.length === 0 && searchQuery ? (
+                    <div className="flex flex-col items-center justify-center p-xl text-center text-text-secondary min-h-[200px]">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-text-muted mb-md">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      </svg>
+                      <p className="m-0 text-base font-heading uppercase tracking-wide">Aucun resultat</p>
+                      <p className="text-[0.85rem] text-text-muted mt-sm">Aucun favori ne correspond a "{searchQuery}"</p>
+                    </div>
+                  ) : (
+                    filteredFavorites.map(({ date, seance, film, screeningId }) => (
+                      <ScreeningCard
+                        key={screeningId}
+                        seance={seance}
+                        film={film}
+                        onSelect={(s, f) => handleSelectSeance(s, f, date)}
+                        isFavorite={true}
+                        onToggleFavorite={() => handleToggleFavorite(screeningId)}
+                      />
+                    ))
+                  )}
                 </div>
               ) : (
                 <CalendarView
-                  seances={currentDayFavorites.map(f => f.seance)}
+                  seances={searchQuery ? filteredFavorites.map(f => f.seance) : currentDayFavorites.map(f => f.seance)}
                   date={currentFavoriteDate}
                   filmsIndex={filmsIndex}
                   favorites={favorites}
