@@ -3,7 +3,7 @@
 import { useEffect, useCallback, useState } from 'react';
 import { Film, Seance } from '@/lib/types';
 import { fetchFilmDetailsClient } from '@/lib/api';
-import { APIFilm } from '@/lib/api-types';
+import { APIFilm, APIDirectorDetail } from '@/lib/api-types';
 import FavoriteButton from './FavoriteButton';
 
 interface ScreeningWithDate {
@@ -61,6 +61,25 @@ export default function FilmDetail({
 }: FilmDetailProps) {
   const [apiFilm, setApiFilm] = useState<APIFilm | null>(null);
   const [loading, setLoading] = useState(false);
+  const [passwordCopied, setPasswordCopied] = useState(false);
+
+  const copyPassword = useCallback(async (password: string) => {
+    try {
+      await navigator.clipboard.writeText(password);
+      setPasswordCopied(true);
+      setTimeout(() => setPasswordCopied(false), 2000);
+    } catch {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = password;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setPasswordCopied(true);
+      setTimeout(() => setPasswordCopied(false), 2000);
+    }
+  }, []);
 
   const handleEscape = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -107,7 +126,29 @@ export default function FilmDetail({
 
   // Get directors - from API or fall back to film prop
   const directors = apiFilm?.directors;
-  const directorDisplay = directors?.map(d => d.name).join(', ') || film.realisateurs;
+  const directorDisplay = (Array.isArray(directors) ? directors.map(d => d.name).join(', ') : null) || film.realisateurs;
+
+  // Get directors details for the expanded section
+  const directorsDetail: APIDirectorDetail[] = apiFilm?.directors_detail
+    ? Object.values(apiFilm.directors_detail)
+    : [];
+
+  // Get original title (if different from main title)
+  const originalTitle = apiFilm?.original_title && apiFilm.original_title !== film.titre
+    ? apiFilm.original_title
+    : null;
+
+  // Get countries display
+  const primaryCountry = apiFilm?.country_name_l1;
+  const secondaryCountries = apiFilm?.secondary_countries_name_l1;
+  const countriesDisplay = [primaryCountry, secondaryCountries].filter(Boolean).join(', ');
+
+  // Get premiere type
+  const premiere = apiFilm?.premiere;
+
+  // Get video film (full film link)
+  const videoFilm = apiFilm?.video_film;
+  const videoFilmPass = apiFilm?.video_film_pass;
 
   // Get trailer embed URL
   let embedUrl: string | null = null;
@@ -166,6 +207,9 @@ export default function FilmDetail({
             </div>
 
             <div className="mb-md">
+              {originalTitle && (
+                <p className="text-[0.85rem] text-text-muted italic mb-1">Titre original : {originalTitle}</p>
+              )}
               {directorDisplay && (
                 <p className="text-[0.9rem] text-text-secondary mb-1">Réalisé par {directorDisplay}</p>
               )}
@@ -181,6 +225,12 @@ export default function FilmDetail({
                   </span>
                 )}
               </div>
+              {countriesDisplay && (
+                <p className="text-[0.85rem] text-text-secondary mt-2">{countriesDisplay}</p>
+              )}
+              {premiere && (
+                <p className="text-[0.8rem] text-theme mt-1">{premiere}</p>
+              )}
             </div>
 
             {allScreenings && allScreenings.length > 0 && (
@@ -228,9 +278,89 @@ export default function FilmDetail({
             ) : synopsis ? (
               <div className="mb-lg">
                 <h3 className="text-[0.9rem] font-semibold text-foreground mb-sm">Synopsis</h3>
-                <p className="text-[0.9rem] leading-relaxed text-text-secondary">{synopsis}</p>
+                <div
+                  className="text-[0.9rem] leading-relaxed text-text-secondary [&>p]:mb-3 [&>p:last-child]:mb-0"
+                  dangerouslySetInnerHTML={{ __html: synopsis }}
+                />
               </div>
             ) : null}
+
+            {directorsDetail.length > 0 && (
+              <div className="mb-lg">
+                <h3 className="text-[0.9rem] font-semibold text-foreground mb-sm">
+                  {directorsDetail.length > 1 ? 'Réalisateurs' : 'Réalisateur'}
+                </h3>
+                <div className="flex flex-col gap-md">
+                  {directorsDetail.map((director, index) => (
+                    <div key={index} className="flex gap-sm">
+                      {director.directors_photo && (
+                        <div className="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-surface">
+                          <img
+                            src={director.directors_photo}
+                            alt={director.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[0.9rem] font-semibold text-foreground">{director.name}</p>
+                        {director.directors_biography_l1 && (
+                          <p className="text-[0.8rem] text-text-secondary mt-1 line-clamp-4">
+                            {director.directors_biography_l1}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {videoFilm && (
+              <div className="mb-lg">
+                <h3 className="text-[0.9rem] font-semibold text-foreground mb-sm">Voir le film</h3>
+                <a
+                  href={videoFilm}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 p-md bg-surface rounded-lg text-foreground hover:bg-surface/80 transition-colors"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                  <span className="text-[0.9rem] font-medium">Accéder au film sur Vimeo</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ml-auto">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                </a>
+                {videoFilmPass && (
+                  <div className="flex items-center gap-2 mt-sm p-sm px-md bg-surface/50 rounded-lg">
+                    <span className="text-[0.8rem] text-text-muted">Mot de passe :</span>
+                    <code className="text-[0.85rem] text-foreground font-mono bg-surface px-2 py-0.5 rounded">
+                      {videoFilmPass}
+                    </code>
+                    <button
+                      onClick={() => copyPassword(videoFilmPass)}
+                      className="ml-auto p-1.5 text-text-muted hover:text-foreground transition-colors"
+                      aria-label="Copier le mot de passe"
+                    >
+                      {passwordCopied ? (
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      ) : (
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
 
             {embedUrl && (
               <div className="mb-lg">

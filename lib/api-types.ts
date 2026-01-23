@@ -75,12 +75,25 @@ export interface APIDirector {
 }
 
 /**
+ * Detailed director information from the film API (directors_detail field)
+ */
+export interface APIDirectorDetail {
+  name: string;
+  directors_biography_l1?: string;
+  directors_biography_l2?: string;
+  filmography?: string;
+  directors_photo?: string;
+}
+
+/**
  * Detailed film information from the film API
  */
 export interface APIFilm {
   id_film: string;
   title_l1: string;
   title_l2?: string;
+  original_title?: string;
+  international_title?: string;
   film_length?: string;
   synopsis_short_l1?: string;
   synopsis_short_l2?: string;
@@ -91,10 +104,19 @@ export interface APIFilm {
   image_poster?: string;
   trailer?: string;
   directors?: APIDirector[];
+  directors_detail?: Record<string, APIDirectorDetail>;
   category?: string;
   country?: string;
+  country_name_l1?: string;
+  secondary_countries_name_l1?: string;
+  premiere?: string;
   year?: string;
   production?: string;
+  producer_company?: string[];
+  scriptwriter?: string;
+  video_film?: string;
+  video_film_pass?: string;
+  website?: string;
 }
 
 /**
