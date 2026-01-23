@@ -4,8 +4,10 @@ import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { JourProgramme, Film, Seance } from '@/lib/types';
 import { findTodayIndex, getShortDate } from '@/lib/schedule-utils';
 import { getFavorites, toggleFavorite, migrateFavorites, isMigrationComplete } from '@/lib/favorites';
+import { getShortFilms, isShortFilmsSession } from '@/lib/data';
 import ScreeningCard from './ScreeningCard';
 import FilmDetail from './FilmDetail';
+import ShortFilmsDetail from './ShortFilmsDetail';
 import ViewToggle, { ViewMode } from './ViewToggle';
 import CalendarView from './CalendarView';
 import SearchBar from './SearchBar';
@@ -35,7 +37,11 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
   );
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [selectedScreening, setSelectedScreening] = useState<{ film: Film; seance: Seance; date: string } | null>(null);
+  const [selectedShortFilmsSession, setSelectedShortFilmsSession] = useState<{ seance: Seance; date: string } | null>(null);
   const [activeTab, setActiveTab] = useState<'programme' | 'favorites'>('programme');
+
+  // Get short films from local data
+  const shortFilms = useMemo(() => getShortFilms(), []);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [favoritesLoading, setFavoritesLoading] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>('list');
@@ -195,13 +201,25 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
   };
 
   const handleSelectSeance = (seance: Seance, film?: Film, date?: string) => {
-    if (film && date) {
+    if (!date) return;
+
+    // Check if this is a short films session
+    if (isShortFilmsSession(seance)) {
+      setSelectedShortFilmsSession({ seance, date });
+      return;
+    }
+
+    if (film) {
       setSelectedScreening({ film, seance, date });
     }
   };
 
   const closeDetail = () => {
     setSelectedScreening(null);
+  };
+
+  const closeShortFilmsDetail = () => {
+    setSelectedShortFilmsSession(null);
   };
 
   const findFilm = (titre?: string): Film | undefined => {
@@ -605,6 +623,16 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
           onToggleFavorite={() => handleToggleFavorite(getScreeningId(selectedScreening.date, selectedScreening.seance))}
           allScreenings={getAllScreeningsWithDetails(selectedScreening.film.titre)}
           onToggleScreeningFavorite={handleToggleFavorite}
+        />
+      )}
+
+      {/* Short films session modal */}
+      {selectedShortFilmsSession && (
+        <ShortFilmsDetail
+          films={shortFilms}
+          seance={selectedShortFilmsSession.seance}
+          date={selectedShortFilmsSession.date}
+          onClose={closeShortFilmsDetail}
         />
       )}
     </div>

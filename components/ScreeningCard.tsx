@@ -26,8 +26,16 @@ function formatDuration(minutes: string | undefined): string | null {
   return `${mins} min`;
 }
 
+/**
+ * Check if a seance is a short films session.
+ */
+function isShortFilmsSession(seance: Seance): boolean {
+  return seance.categorie.toLowerCase().includes('court') && !seance.titre;
+}
+
 export default function ScreeningCard({ seance, film, onSelect, isFavorite, onToggleFavorite, otherScreenings }: ScreeningCardProps) {
-  const hasDetails = !!film?.synopsis || !!film?.bandesAnnonces?.length || !!seance._id_film;
+  const isShortFilms = isShortFilmsSession(seance);
+  const hasDetails = !!film?.synopsis || !!film?.bandesAnnonces?.length || !!seance._id_film || isShortFilms;
   const duration = formatDuration(seance._duration);
 
   const handleClick = () => {
@@ -57,7 +65,7 @@ export default function ScreeningCard({ seance, film, onSelect, isFavorite, onTo
           {duration && <span className="text-text-muted font-normal ml-1.5">({duration})</span>}
         </div>
         <h3 className="font-heading text-base font-semibold text-foreground mb-1.5 line-clamp-2 uppercase tracking-wide leading-tight">
-          {seance.titre || 'Programme'}
+          {seance.titre || (isShortFilms ? 'Courts Metrages' : 'Programme')}
         </h3>
         <div className="flex flex-wrap gap-x-2 gap-y-1 text-[0.8rem] text-text-secondary mb-1.5">
           <span className="font-medium">{seance.lieu}</span>
