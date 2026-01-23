@@ -12,6 +12,10 @@ FIPADOC PWA - A Progressive Web App for the FIPADOC documentary film festival pr
 
 **IMPORTANT: Increment the version for every PR or push that modifies the app.**
 
+## Git Workflow
+
+**Commit and push directly to main branch.** No PRs required.
+
 When making changes, increment the version:
 - Patch (1.1.x): Bug fixes, minor tweaks
 - Minor (1.x.0): New features, improvements
