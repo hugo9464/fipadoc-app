@@ -162,6 +162,78 @@ export function getFestivalInfo() {
 // Keep track of programme for getScreeningsForFilm
 let cachedProgramme: JourProgramme[] | null = null;
 
+// Import local films data for short films
+import filmsData from '@/fipadoc-2026-films-complet.json';
+import { BandeAnnonce } from './types';
+
+interface JSONBandeAnnonce {
+  raw: string;
+  url?: string;
+  platform: string;
+}
+
+interface JSONFilm {
+  titre: string;
+  realisateurs: string;
+  slug: string;
+  imageUrl?: string;
+  images?: string[];
+  imageFilm?: string;
+  imagePoster?: string;
+  synopsis?: string;
+  bandesAnnonces?: JSONBandeAnnonce[];
+}
+
+interface JSONSelection {
+  nom: string;
+  films: JSONFilm[];
+}
+
+/**
+ * Get all short films from the local JSON data.
+ * Returns films from the "COURTS MÉTRAGES" selection.
+ */
+export function getShortFilms(): Film[] {
+  const selections = filmsData.selections as JSONSelection[];
+  const shortFilmsSelection = selections.find(
+    (s) => s.nom.toUpperCase().includes('COURTS')
+  );
+
+  if (!shortFilmsSelection) {
+    return [];
+  }
+
+  return shortFilmsSelection.films.map((f): Film => {
+    const bandesAnnonces: BandeAnnonce[] | undefined = f.bandesAnnonces
+      ?.filter((ba): ba is JSONBandeAnnonce & { url: string } => !!ba.url)
+      .map(ba => ({
+        raw: ba.raw,
+        url: ba.url,
+        platform: ba.platform as BandeAnnonce['platform'],
+      }));
+
+    return {
+      titre: f.titre,
+      realisateurs: f.realisateurs,
+      slug: f.slug,
+      imageUrl: f.imageUrl,
+      images: f.images,
+      imageFilm: f.imageFilm,
+      imagePoster: f.imagePoster,
+      synopsis: f.synopsis,
+      bandesAnnonces: bandesAnnonces?.length ? bandesAnnonces : undefined,
+      selection: 'Courts métrages',
+    };
+  });
+}
+
+/**
+ * Check if a seance is a short films session.
+ */
+export function isShortFilmsSession(seance: Seance): boolean {
+  return seance.categorie.toLowerCase().includes('court') && !seance.titre;
+}
+
 /**
  * Get all screenings for a specific film by title.
  * Returns screenings sorted by date and time.
