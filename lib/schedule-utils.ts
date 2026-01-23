@@ -66,15 +66,13 @@ export const TIMELINE_END_HOUR = 24;
 /** Height in pixels for one hour in the calendar */
 export const HOUR_HEIGHT_PX = 60;
 
-/** Ordered list of venues */
+/** Ordered list of venues (matching API area values) */
 export const VENUE_ORDER = [
-  'Atalaya',
   'Casino Municipal',
-  'Royal 1',
-  'Auditorium',
-  'Gamaritz',
   'Le Colisée',
-  'Le Royal salles 2 & 3',
+  'Le Royal',
+  'Gare du Midi',
+  'Bellevue',
 ];
 
 /**
@@ -156,4 +154,111 @@ export function getTimelineLabels(): string[] {
     labels.push(`${hour.toString().padStart(2, '0')}:00`);
   }
   return labels;
+}
+
+/**
+ * Layout info for a screening block (for handling overlaps).
+ */
+export interface SeanceLayout {
+  column: number;      // Which column this seance occupies (0-indexed)
+  totalColumns: number; // Total columns in this overlap group
+}
+
+/**
+ * Check if two screenings overlap in time.
+ */
+function seancesOverlap(
+  a: { heureDebut: string; heureFin: string },
+  b: { heureDebut: string; heureFin: string }
+): boolean {
+  const aStart = timeToMinutes(a.heureDebut);
+  const aEnd = timeToMinutes(a.heureFin);
+  const bStart = timeToMinutes(b.heureDebut);
+  const bEnd = timeToMinutes(b.heureFin);
+
+  // Two intervals overlap if one starts before the other ends
+  return aStart < bEnd && bStart < aEnd;
+}
+
+/**
+ * Calculate layout for overlapping screenings within a venue.
+ * Returns a Map from seance index to its layout info.
+ */
+export function calculateOverlapLayout<T extends { heureDebut: string; heureFin: string }>(
+  seances: T[]
+): Map<number, SeanceLayout> {
+  const layouts = new Map<number, SeanceLayout>();
+
+  if (seances.length === 0) return layouts;
+
+  // Sort by start time for consistent processing
+  const indexed = seances.map((s, i) => ({ seance: s, originalIndex: i }));
+  indexed.sort((a, b) => timeToMinutes(a.seance.heureDebut) - timeToMinutes(b.seance.heureDebut));
+
+  // Track which seances have been assigned to groups
+  const assigned = new Set<number>();
+
+  for (let i = 0; i < indexed.length; i++) {
+    if (assigned.has(indexed[i].originalIndex)) continue;
+
+    // Find all seances that overlap with this one (transitively)
+    const group: number[] = [indexed[i].originalIndex];
+    assigned.add(indexed[i].originalIndex);
+
+    // Keep expanding the group while we find new overlaps
+    let expanded = true;
+    while (expanded) {
+      expanded = false;
+      for (let j = 0; j < indexed.length; j++) {
+        if (assigned.has(indexed[j].originalIndex)) continue;
+
+        // Check if this seance overlaps with any in the current group
+        const overlapsWithGroup = group.some(idx =>
+          seancesOverlap(seances[idx], indexed[j].seance)
+        );
+
+        if (overlapsWithGroup) {
+          group.push(indexed[j].originalIndex);
+          assigned.add(indexed[j].originalIndex);
+          expanded = true;
+        }
+      }
+    }
+
+    // Assign columns within the group using a greedy algorithm
+    const columns: number[][] = []; // columns[col] = list of seance indices in that column
+
+    // Sort group members by start time
+    group.sort((a, b) => timeToMinutes(seances[a].heureDebut) - timeToMinutes(seances[b].heureDebut));
+
+    for (const idx of group) {
+      // Find the first column where this seance doesn't overlap with existing ones
+      let placed = false;
+      for (let col = 0; col < columns.length; col++) {
+        const canPlace = columns[col].every(existingIdx =>
+          !seancesOverlap(seances[idx], seances[existingIdx])
+        );
+        if (canPlace) {
+          columns[col].push(idx);
+          placed = true;
+          break;
+        }
+      }
+
+      if (!placed) {
+        // Need a new column
+        columns.push([idx]);
+      }
+    }
+
+    // Assign layout info to each seance in the group
+    const totalColumns = columns.length;
+    for (let col = 0; col < columns.length; col++) {
+      for (const idx of columns[col]) {
+        layouts.set(idx, { column: col, totalColumns });
+      }
+    }
+  }
+
+  return layouts;
 }

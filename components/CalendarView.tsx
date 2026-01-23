@@ -11,6 +11,7 @@ import {
   getCurrentTimePosition,
   getTimelineLabels,
   isToday,
+  calculateOverlapLayout,
 } from '@/lib/schedule-utils';
 import CalendarBlock from './CalendarBlock';
 
@@ -164,6 +165,7 @@ export default function CalendarView({
           {/* Venue columns */}
           {activeVenues.map((venue) => {
             const venueSeances = seancesByVenue.get(venue) || [];
+            const layouts = calculateOverlapLayout(venueSeances);
             return (
               <div
                 key={venue}
@@ -173,6 +175,7 @@ export default function CalendarView({
                   const film = findFilm(seance.titre);
                   const screeningId = getScreeningId(date, seance);
                   const isFavorite = favorites.has(screeningId);
+                  const layout = layouts.get(idx);
 
                   return (
                     <CalendarBlock
@@ -180,6 +183,7 @@ export default function CalendarView({
                       seance={seance}
                       film={film}
                       isFavorite={isFavorite}
+                      layout={layout}
                       onClick={() => onSelectSeance(seance, film)}
                     />
                   );

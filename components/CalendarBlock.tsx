@@ -1,12 +1,13 @@
 'use client';
 
 import { Seance, Film } from '@/lib/types';
-import { timeToPixelPosition, durationToPixelHeight } from '@/lib/schedule-utils';
+import { timeToPixelPosition, durationToPixelHeight, SeanceLayout } from '@/lib/schedule-utils';
 
 interface CalendarBlockProps {
   seance: Seance;
   film?: Film;
   isFavorite: boolean;
+  layout?: SeanceLayout;
   onClick: () => void;
 }
 
@@ -17,7 +18,7 @@ function formatDurationShort(minutes: string | undefined): string | null {
   return `${mins}'`;
 }
 
-export default function CalendarBlock({ seance, film, isFavorite, onClick }: CalendarBlockProps) {
+export default function CalendarBlock({ seance, film, isFavorite, layout, onClick }: CalendarBlockProps) {
   const top = timeToPixelPosition(seance.heureDebut);
   const height = durationToPixelHeight(seance.heureDebut, seance.heureFin);
 
@@ -32,14 +33,22 @@ export default function CalendarBlock({ seance, film, isFavorite, onClick }: Cal
   const director = film?.realisateurs || seance.realisateur;
   const duration = formatDurationShort(seance._duration);
 
+  // Calculate horizontal position for overlapping screenings
+  const column = layout?.column ?? 0;
+  const totalColumns = layout?.totalColumns ?? 1;
+  const widthPercent = 100 / totalColumns;
+  const leftPercent = column * widthPercent;
+
   return (
     <div
-      className={`absolute left-1 right-1 bg-background rounded-lg p-1.5 px-2 overflow-hidden cursor-pointer transition-all duration-150 z-[1] min-h-[44px] hover:shadow-lg hover:z-[2] active:scale-[0.98] ${
+      className={`absolute bg-background rounded-lg p-1.5 px-2 overflow-hidden cursor-pointer transition-all duration-150 z-[1] min-h-[44px] hover:shadow-lg hover:z-[2] active:scale-[0.98] ${
         isFavorite ? 'border-2 border-favorite' : 'border border-border'
       }`}
       style={{
         top: `${top}px`,
         height: `${displayHeight}px`,
+        left: `calc(${leftPercent}% + 2px)`,
+        width: `calc(${widthPercent}% - 4px)`,
       }}
       onClick={onClick}
       role="button"
