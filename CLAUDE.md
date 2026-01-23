@@ -8,9 +8,11 @@ FIPADOC PWA - A Progressive Web App for the FIPADOC documentary film festival pr
 
 ## Version Management
 
-**Current version: 1.5.0** (defined in `app/page.tsx` as `APP_VERSION`)
+**Current version: 1.5.1** (defined in `app/page.tsx` as `APP_VERSION`)
 
-When making significant changes, increment the version:
+**IMPORTANT: Increment the version for every PR or push that modifies the app.**
+
+When making changes, increment the version:
 - Patch (1.1.x): Bug fixes, minor tweaks
 - Minor (1.x.0): New features, improvements
 - Major (x.0.0): Breaking changes, major rewrites

@@ -110,6 +110,12 @@ export default function CalendarView({
 
   return (
     <div className="flex-1 flex flex-col min-h-0">
+      {/* Date header */}
+      <div className="bg-surface border-b border-border py-sm px-md">
+        <h3 className="font-heading font-semibold text-foreground uppercase tracking-wide m-0 text-center">
+          {date}
+        </h3>
+      </div>
       {/* Fixed header with venue names */}
       <div className="flex bg-surface border-b border-border sticky top-0 z-[5]">
         <div className="flex-shrink-0 w-[50px] border-r border-border" />
