@@ -145,10 +145,32 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
     return currentDay?.seances.filter(filterBySearch) || [];
   }, [currentDay?.seances, filterBySearch]);
 
+  // All filtered screenings across all days (for search results)
+  const allFilteredScreenings = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    const results: { date: string; seance: Seance; film: Film | undefined; screeningId: string }[] = [];
+    for (const jour of programme) {
+      for (const seance of jour.seances) {
+        if (filterBySearch(seance)) {
+          const film = seance.titre ? filmsIndex.get(seance.titre.toLowerCase()) : undefined;
+          const screeningId = getScreeningId(jour.date, seance);
+          results.push({ date: jour.date, seance, film, screeningId });
+        }
+      }
+    }
+    return results;
+  }, [programme, filmsIndex, searchQuery, filterBySearch]);
+
   // Filtered favorites for current day
   const filteredFavorites = useMemo(() => {
     return currentDayFavorites.filter(f => filterBySearch(f.seance));
   }, [currentDayFavorites, filterBySearch]);
+
+  // All filtered favorites across all days (for search results)
+  const allFilteredFavorites = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    return favoriteScreenings.filter(f => filterBySearch(f.seance));
+  }, [favoriteScreenings, searchQuery, filterBySearch]);
 
   if (programme.length === 0) {
     return (
@@ -262,69 +284,112 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
         <>
           {/* Navigation header with view toggle */}
           <header className="flex items-center justify-between p-sm px-md bg-surface border-b border-border gap-sm">
-            <button
-              onClick={goToPrevious}
-              disabled={!hasPrevious}
-              className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
-              aria-label="Jour precedent"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
+            {!searchQuery.trim() && (
+              <button
+                onClick={goToPrevious}
+                disabled={!hasPrevious}
+                className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
+                aria-label="Jour precedent"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+            )}
 
             <div className="flex items-center gap-sm flex-1 justify-center">
               <h2 className="font-heading text-base sm:text-lg font-semibold text-foreground text-center uppercase tracking-wide">
-                {currentDay.date}
+                {searchQuery.trim() ? `Resultats (${allFilteredScreenings.length})` : currentDay.date}
               </h2>
             </div>
 
-            <button
-              onClick={goToNext}
-              disabled={!hasNext}
-              className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
-              aria-label="Jour suivant"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
+            {!searchQuery.trim() && (
+              <button
+                onClick={goToNext}
+                disabled={!hasNext}
+                className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
+                aria-label="Jour suivant"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+            )}
 
             <SearchBar value={searchQuery} onChange={setSearchQuery} />
-            <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
+            {!searchQuery.trim() && <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />}
           </header>
 
-          {/* Day indicator dots */}
-          <div className="flex justify-center gap-2 p-sm px-md bg-surface">
-            {programme.map((day, index) => (
-              <button
-                key={day.date}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full border-none p-0 cursor-pointer transition-all duration-150 hover:bg-text-secondary ${
-                  index === currentIndex
-                    ? 'bg-foreground scale-125'
-                    : 'bg-border'
-                }`}
-                aria-label={day.date}
-                aria-current={index === currentIndex ? 'true' : undefined}
-                title={getShortDate(day.date)}
-              />
-            ))}
-          </div>
+          {/* Day indicator dots - hidden during search */}
+          {!searchQuery.trim() && (
+            <div className="flex justify-center gap-2 p-sm px-md bg-surface">
+              {programme.map((day, index) => (
+                <button
+                  key={day.date}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-2 h-2 rounded-full border-none p-0 cursor-pointer transition-all duration-150 hover:bg-text-secondary ${
+                    index === currentIndex
+                      ? 'bg-foreground scale-125'
+                      : 'bg-border'
+                  }`}
+                  aria-label={day.date}
+                  aria-current={index === currentIndex ? 'true' : undefined}
+                  title={getShortDate(day.date)}
+                />
+              ))}
+            </div>
+          )}
 
           {/* Screenings - list or calendar view */}
-          {viewMode === 'list' ? (
+          {viewMode === 'list' || searchQuery.trim() ? (
             <div className="flex-1 p-md overflow-y-auto">
-              {filteredSeances.length === 0 && searchQuery ? (
-                <div className="flex flex-col items-center justify-center p-xl text-center text-text-secondary min-h-[200px]">
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-text-muted mb-md">
-                    <circle cx="11" cy="11" r="8" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                  </svg>
-                  <p className="m-0 text-base font-heading uppercase tracking-wide">Aucun resultat</p>
-                  <p className="text-[0.85rem] text-text-muted mt-sm">Aucun film ne correspond a "{searchQuery}"</p>
-                </div>
+              {searchQuery.trim() ? (
+                // Search results across all days
+                allFilteredScreenings.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center p-xl text-center text-text-secondary min-h-[200px]">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-text-muted mb-md">
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <p className="m-0 text-base font-heading uppercase tracking-wide">Aucun resultat</p>
+                    <p className="text-[0.85rem] text-text-muted mt-sm">Aucun film ne correspond a "{searchQuery}"</p>
+                  </div>
+                ) : (
+                  // Group results by date
+                  (() => {
+                    const groupedByDate = allFilteredScreenings.reduce((acc, item) => {
+                      if (!acc[item.date]) acc[item.date] = [];
+                      acc[item.date].push(item);
+                      return acc;
+                    }, {} as Record<string, typeof allFilteredScreenings>);
+
+                    return Object.entries(groupedByDate).map(([date, items]) => (
+                      <div key={date} className="mb-lg">
+                        <h3 className="font-heading text-sm font-semibold text-text-secondary uppercase tracking-wide mb-sm px-xs border-b border-border pb-xs">
+                          {getShortDate(date)}
+                        </h3>
+                        {items.map(({ seance, film, screeningId, date: itemDate }, idx) => {
+                          const otherScreenings = seance.titre
+                            ? getOtherScreenings(seance.titre, itemDate, seance.heureDebut)
+                            : undefined;
+                          return (
+                            <ScreeningCard
+                              key={`${screeningId}-${idx}`}
+                              seance={seance}
+                              film={film}
+                              onSelect={(s, f) => handleSelectSeance(s, f, itemDate)}
+                              isFavorite={favorites.has(screeningId)}
+                              onToggleFavorite={film ? () => handleToggleFavorite(screeningId) : undefined}
+                              otherScreenings={otherScreenings}
+                            />
+                          );
+                        })}
+                      </div>
+                    ));
+                  })()
+                )
               ) : (
+                // Regular day view
                 filteredSeances.map((seance, idx) => {
                   const film = findFilm(seance.titre);
                   const screeningId = getScreeningId(currentDay.date, seance);
@@ -374,69 +439,106 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
             <>
               {/* Navigation header with view toggle for favorites */}
               <header className="flex items-center justify-between p-sm px-md bg-surface border-b border-border gap-sm">
-                <button
-                  onClick={() => setFavoriteDayIndex(Math.max(0, favoriteDayIndex - 1))}
-                  disabled={favoriteDayIndex === 0}
-                  className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
-                  aria-label="Jour precedent"
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="15 18 9 12 15 6" />
-                  </svg>
-                </button>
+                {!searchQuery.trim() && (
+                  <button
+                    onClick={() => setFavoriteDayIndex(Math.max(0, favoriteDayIndex - 1))}
+                    disabled={favoriteDayIndex === 0}
+                    className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
+                    aria-label="Jour precedent"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                  </button>
+                )}
 
                 <div className="flex items-center gap-sm flex-1 justify-center">
                   <h2 className="font-heading text-base sm:text-lg font-semibold text-foreground text-center uppercase tracking-wide">
-                    {currentFavoriteDate}
+                    {searchQuery.trim() ? `Resultats (${allFilteredFavorites.length})` : currentFavoriteDate}
                   </h2>
                 </div>
 
-                <button
-                  onClick={() => setFavoriteDayIndex(Math.min(favoriteDates.length - 1, favoriteDayIndex + 1))}
-                  disabled={favoriteDayIndex === favoriteDates.length - 1}
-                  className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
-                  aria-label="Jour suivant"
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </button>
+                {!searchQuery.trim() && (
+                  <button
+                    onClick={() => setFavoriteDayIndex(Math.min(favoriteDates.length - 1, favoriteDayIndex + 1))}
+                    disabled={favoriteDayIndex === favoriteDates.length - 1}
+                    className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
+                    aria-label="Jour suivant"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </button>
+                )}
 
                 <SearchBar value={searchQuery} onChange={setSearchQuery} />
-                <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
+                {!searchQuery.trim() && <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />}
               </header>
 
-              {/* Day indicator dots for favorites */}
-              <div className="flex justify-center gap-2 p-sm px-md bg-surface">
-                {favoriteDates.map((date, index) => (
-                  <button
-                    key={date}
-                    onClick={() => setFavoriteDayIndex(index)}
-                    className={`w-2 h-2 rounded-full border-none p-0 cursor-pointer transition-all duration-150 hover:bg-text-secondary ${
-                      index === favoriteDayIndex
-                        ? 'bg-foreground scale-125'
-                        : 'bg-border'
-                    }`}
-                    aria-label={date}
-                    aria-current={index === favoriteDayIndex ? 'true' : undefined}
-                    title={getShortDate(date)}
-                  />
-                ))}
-              </div>
+              {/* Day indicator dots for favorites - hidden during search */}
+              {!searchQuery.trim() && (
+                <div className="flex justify-center gap-2 p-sm px-md bg-surface">
+                  {favoriteDates.map((date, index) => (
+                    <button
+                      key={date}
+                      onClick={() => setFavoriteDayIndex(index)}
+                      className={`w-2 h-2 rounded-full border-none p-0 cursor-pointer transition-all duration-150 hover:bg-text-secondary ${
+                        index === favoriteDayIndex
+                          ? 'bg-foreground scale-125'
+                          : 'bg-border'
+                      }`}
+                      aria-label={date}
+                      aria-current={index === favoriteDayIndex ? 'true' : undefined}
+                      title={getShortDate(date)}
+                    />
+                  ))}
+                </div>
+              )}
 
               {/* Favorites - list or calendar view */}
-              {viewMode === 'list' ? (
+              {viewMode === 'list' || searchQuery.trim() ? (
                 <div className="flex-1 p-md overflow-y-auto pt-0">
-                  {filteredFavorites.length === 0 && searchQuery ? (
-                    <div className="flex flex-col items-center justify-center p-xl text-center text-text-secondary min-h-[200px]">
-                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-text-muted mb-md">
-                        <circle cx="11" cy="11" r="8" />
-                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                      </svg>
-                      <p className="m-0 text-base font-heading uppercase tracking-wide">Aucun resultat</p>
-                      <p className="text-[0.85rem] text-text-muted mt-sm">Aucun favori ne correspond a "{searchQuery}"</p>
-                    </div>
+                  {searchQuery.trim() ? (
+                    // Search results across all favorites
+                    allFilteredFavorites.length === 0 ? (
+                      <div className="flex flex-col items-center justify-center p-xl text-center text-text-secondary min-h-[200px]">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-text-muted mb-md">
+                          <circle cx="11" cy="11" r="8" />
+                          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                        <p className="m-0 text-base font-heading uppercase tracking-wide">Aucun resultat</p>
+                        <p className="text-[0.85rem] text-text-muted mt-sm">Aucun favori ne correspond a "{searchQuery}"</p>
+                      </div>
+                    ) : (
+                      // Group results by date
+                      (() => {
+                        const groupedByDate = allFilteredFavorites.reduce((acc, item) => {
+                          if (!acc[item.date]) acc[item.date] = [];
+                          acc[item.date].push(item);
+                          return acc;
+                        }, {} as Record<string, typeof allFilteredFavorites>);
+
+                        return Object.entries(groupedByDate).map(([date, items]) => (
+                          <div key={date} className="mb-lg">
+                            <h3 className="font-heading text-sm font-semibold text-text-secondary uppercase tracking-wide mb-sm px-xs border-b border-border pb-xs">
+                              {getShortDate(date)}
+                            </h3>
+                            {items.map(({ seance, film, screeningId, date: itemDate }) => (
+                              <ScreeningCard
+                                key={screeningId}
+                                seance={seance}
+                                film={film}
+                                onSelect={(s, f) => handleSelectSeance(s, f, itemDate)}
+                                isFavorite={true}
+                                onToggleFavorite={() => handleToggleFavorite(screeningId)}
+                              />
+                            ))}
+                          </div>
+                        ));
+                      })()
+                    )
                   ) : (
+                    // Regular day view
                     filteredFavorites.map(({ date, seance, film, screeningId }) => (
                       <ScreeningCard
                         key={screeningId}
@@ -451,7 +553,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                 </div>
               ) : (
                 <CalendarView
-                  seances={searchQuery ? filteredFavorites.map(f => f.seance) : currentDayFavorites.map(f => f.seance)}
+                  seances={currentDayFavorites.map(f => f.seance)}
                   date={currentFavoriteDate}
                   filmsIndex={filmsIndex}
                   favorites={favorites}
