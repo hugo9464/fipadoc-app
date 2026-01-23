@@ -234,8 +234,8 @@ export function isShortFilmsSession(seance: Seance): boolean {
  * Convert API film to our Film type.
  */
 function convertAPIFilmToFilm(apiFilm: APIFilm): Film {
-  // Get director names
-  const directors = apiFilm.directors?.map(d => d.name).join(', ') || '';
+  // Directors is a string in the API response
+  const directors = apiFilm.directors || '';
 
   // Get trailer URL
   let bandesAnnonces: BandeAnnonce[] | undefined;
@@ -254,13 +254,17 @@ function convertAPIFilmToFilm(apiFilm: APIFilm): Film {
   const synopsis = apiFilm.synopsis_short_l1?.replace(/<[^>]*>/g, '') ||
                    apiFilm.synopsis_long_l1?.replace(/<[^>]*>/g, '');
 
+  // Get image URLs from picture objects
+  const imageUrl = apiFilm.picture?.link;
+  const imagePoster = apiFilm.picture_2?.link;
+
   return {
     titre: apiFilm.title_l1,
     realisateurs: directors,
     slug: apiFilm.id_film || '',
-    imageUrl: apiFilm.image_mini || apiFilm.image_large,
-    imageFilm: apiFilm.image_mini || apiFilm.image_large,
-    imagePoster: apiFilm.image_poster,
+    imageUrl,
+    imageFilm: imageUrl,
+    imagePoster,
     synopsis,
     bandesAnnonces,
     selection: 'Courts métrages',

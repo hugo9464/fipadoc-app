@@ -89,23 +89,22 @@ export interface APIDirectorDetail {
  * Detailed film information from the film API
  */
 export interface APIFilm {
-  id_film: string;
+  id_film?: string;
   title_l1: string;
   title_l2?: string;
   original_title?: string;
   international_title?: string;
-  film_length?: string;
+  film_length?: number;
   synopsis_short_l1?: string;
   synopsis_short_l2?: string;
   synopsis_long_l1?: string;
   synopsis_long_l2?: string;
-  image_mini?: string;
-  image_large?: string;
-  image_poster?: string;
+  picture?: APIPicture;
+  picture_2?: APIPicture;
   trailer?: string;
-  directors?: APIDirector[];
+  directors?: string; // API returns a string, not an array
   directors_detail?: Record<string, APIDirectorDetail>;
-  category?: string;
+  category_l1?: string[];
   country?: string;
   country_name_l1?: string;
   secondary_countries_name_l1?: string;
