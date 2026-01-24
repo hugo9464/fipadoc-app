@@ -177,19 +177,13 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
     }
   }, [favoriteDates.length, favoriteDayIndex]);
 
-  // Filter function for upcoming screenings (based on current date/time)
-  const filterUpcoming = useCallback((seance: Seance, date: string): boolean => {
-    return isScreeningUpcoming(date, seance.heureDebut);
-  }, []);
-
-  // Get favorites for the current day (for calendar view) - upcoming only
+  // Get favorites for the current day (for calendar view) - includes past sessions
   const currentFavoriteDate = favoriteDates[favoriteDayIndex];
   const currentDayFavorites = useMemo(() => {
     if (!currentFavoriteDate) return [];
     return favoriteScreenings
-      .filter(f => f.date === currentFavoriteDate)
-      .filter(f => filterUpcoming(f.seance, f.date));
-  }, [favoriteScreenings, currentFavoriteDate, filterUpcoming]);
+      .filter(f => f.date === currentFavoriteDate);
+  }, [favoriteScreenings, currentFavoriteDate]);
 
   // Filter function for search
   const filterBySearch = useCallback((seance: Seance): boolean => {
@@ -203,17 +197,16 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
   // Current day (computed before conditional return so hooks can use it)
   const currentDay = programme[currentIndex];
 
-  // Filtered screenings for current day (upcoming only)
+  // Filtered screenings for current day (includes past sessions)
   const filteredSeances = useMemo(() => {
     return currentDay?.seances
-      .filter(seance => filterUpcoming(seance, currentDay.date))
       .filter(filterBySearch) || [];
-  }, [currentDay?.seances, currentDay?.date, filterBySearch, filterUpcoming]);
+  }, [currentDay?.seances, filterBySearch]);
 
-  // All seances for current day for calendar view (upcoming only)
-  const upcomingSeancesForCalendar = useMemo(() => {
-    return currentDay?.seances.filter(seance => filterUpcoming(seance, currentDay.date)) || [];
-  }, [currentDay?.seances, currentDay?.date, filterUpcoming]);
+  // All seances for current day for calendar view (includes past sessions)
+  const seancesForCalendar = useMemo(() => {
+    return currentDay?.seances || [];
+  }, [currentDay?.seances]);
 
   // All filtered screenings across all days (for search results)
   const allFilteredScreenings = useMemo(() => {
@@ -447,6 +440,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                           const otherScreenings = seance.titre
                             ? getOtherScreenings(seance.titre, itemDate, seance.heureDebut)
                             : undefined;
+                          const isPast = !isScreeningUpcoming(itemDate, seance.heureDebut);
                           return (
                             <ScreeningCard
                               key={`${screeningId}-${idx}`}
@@ -456,6 +450,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                               isFavorite={favorites.has(screeningId)}
                               onToggleFavorite={film ? () => handleToggleFavorite(screeningId) : undefined}
                               otherScreenings={otherScreenings}
+                              isPast={isPast}
                             />
                           );
                         })}
@@ -472,6 +467,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                   const otherScreenings = seance.titre
                     ? getOtherScreenings(seance.titre, currentDay.date, seance.heureDebut)
                     : undefined;
+                  const isPast = !isScreeningUpcoming(currentDay.date, seance.heureDebut);
                   return (
                     <ScreeningCard
                       key={`${seance.heureDebut}-${seance.lieu}-${idx}`}
@@ -481,6 +477,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                       isFavorite={favorites.has(screeningId)}
                       onToggleFavorite={film ? () => handleToggleFavorite(screeningId) : undefined}
                       otherScreenings={otherScreenings}
+                      isPast={isPast}
                     />
                   );
                 })
@@ -489,7 +486,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
             </div>
           ) : (
             <CalendarView
-              seances={(searchQuery ? filteredSeances : upcomingSeancesForCalendar).map(enrichSeance)}
+              seances={(searchQuery ? filteredSeances : seancesForCalendar).map(enrichSeance)}
               date={currentDay.date}
               filmsIndex={filmsIndex}
               favorites={favorites}
@@ -584,32 +581,40 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                             <h3 className="font-heading text-sm font-semibold text-text-secondary uppercase tracking-wide mb-sm px-xs border-b border-border pb-xs">
                               {getShortDate(date)}
                             </h3>
-                            {items.map(({ seance, film, screeningId, date: itemDate }) => (
-                              <ScreeningCard
-                                key={screeningId}
-                                seance={enrichSeance(seance)}
-                                film={film}
-                                onSelect={(s, f) => handleSelectSeance(s, f, itemDate)}
-                                isFavorite={true}
-                                onToggleFavorite={() => handleToggleFavorite(screeningId)}
-                              />
-                            ))}
+                            {items.map(({ seance, film, screeningId, date: itemDate }) => {
+                              const isPast = !isScreeningUpcoming(itemDate, seance.heureDebut);
+                              return (
+                                <ScreeningCard
+                                  key={screeningId}
+                                  seance={enrichSeance(seance)}
+                                  film={film}
+                                  onSelect={(s, f) => handleSelectSeance(s, f, itemDate)}
+                                  isFavorite={true}
+                                  onToggleFavorite={() => handleToggleFavorite(screeningId)}
+                                  isPast={isPast}
+                                />
+                              );
+                            })}
                           </div>
                         ));
                       })()
                     )
                   ) : (
                     // Regular day view
-                    filteredFavorites.map(({ date, seance, film, screeningId }) => (
-                      <ScreeningCard
-                        key={screeningId}
-                        seance={enrichSeance(seance)}
-                        film={film}
-                        onSelect={(s, f) => handleSelectSeance(s, f, date)}
-                        isFavorite={true}
-                        onToggleFavorite={() => handleToggleFavorite(screeningId)}
-                      />
-                    ))
+                    filteredFavorites.map(({ date, seance, film, screeningId }) => {
+                      const isPast = !isScreeningUpcoming(date, seance.heureDebut);
+                      return (
+                        <ScreeningCard
+                          key={screeningId}
+                          seance={enrichSeance(seance)}
+                          film={film}
+                          onSelect={(s, f) => handleSelectSeance(s, f, date)}
+                          isFavorite={true}
+                          onToggleFavorite={() => handleToggleFavorite(screeningId)}
+                          isPast={isPast}
+                        />
+                      );
+                    })
                   )}
                   </div>
                 </div>

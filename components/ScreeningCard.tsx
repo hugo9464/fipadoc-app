@@ -17,6 +17,7 @@ interface ScreeningCardProps {
   isFavorite?: boolean;
   onToggleFavorite?: () => void;
   otherScreenings?: OtherScreening[];
+  isPast?: boolean;
 }
 
 function formatDuration(minutes: string | undefined): string | null {
@@ -38,7 +39,7 @@ function isShortFilmsSession(seance: Seance): boolean {
   return false;
 }
 
-export default function ScreeningCard({ seance, film, onSelect, isFavorite, onToggleFavorite, otherScreenings }: ScreeningCardProps) {
+export default function ScreeningCard({ seance, film, onSelect, isFavorite, onToggleFavorite, otherScreenings, isPast }: ScreeningCardProps) {
   const isShortFilms = isShortFilmsSession(seance);
   const hasDetails = !!film?.synopsis || !!film?.bandesAnnonces?.length || !!seance._id_film || isShortFilms;
   const duration = formatDuration(seance._duration);
@@ -53,7 +54,7 @@ export default function ScreeningCard({ seance, film, onSelect, isFavorite, onTo
     <article
       className={`relative flex gap-md p-md border-b border-border bg-background ${
         hasDetails ? 'cursor-pointer transition-all duration-150 hover:bg-surface hover:shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme focus-visible:-outline-offset-2' : ''
-      }`}
+      } ${isPast ? 'opacity-50 grayscale' : ''}`}
       onClick={hasDetails ? handleClick : undefined}
       role={hasDetails ? 'button' : undefined}
       tabIndex={hasDetails ? 0 : undefined}
