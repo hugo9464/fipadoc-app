@@ -1,12 +1,17 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { QRCodeSVG } from 'qrcode.react';
 import { useTheme } from '@/lib/theme-context';
 import { useAdmin } from '@/lib/admin-context';
+
+const APP_URL = 'https://fipadoc.vercel.app';
 
 export default function ProfileDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+  const [showSharePanel, setShowSharePanel] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -43,6 +48,48 @@ export default function ProfileDropdown() {
     setPasswordError(false);
   };
 
+  const handleShareClick = () => {
+    setShowSharePanel(true);
+    setCopied(false);
+  };
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(APP_URL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = APP_URL;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleNativeShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'FIPADOC',
+          text: 'Découvrez le programme du festival FIPADOC',
+          url: APP_URL,
+        });
+      } catch {
+        // User cancelled or share failed
+      }
+    }
+  };
+
+  const handleCloseSharePanel = () => {
+    setShowSharePanel(false);
+    setCopied(false);
+  };
+
   // Focus password input when prompt opens
   useEffect(() => {
     if (showPasswordPrompt && passwordInputRef.current) {
@@ -55,6 +102,7 @@ export default function ProfileDropdown() {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
+        setShowSharePanel(false);
       }
     }
 
@@ -166,6 +214,82 @@ export default function ProfileDropdown() {
             </svg>
             <span className="text-sm">Mon compte FIPADOC</span>
           </a>
+
+          {/* Divider */}
+          <div className="h-px bg-border" />
+
+          {/* Share app */}
+          {showSharePanel ? (
+            <div className="p-md">
+              <div className="flex items-center justify-between mb-sm">
+                <span className="text-sm font-medium text-foreground">Partager l&apos;app</span>
+                <button
+                  onClick={handleCloseSharePanel}
+                  className="p-1 hover:bg-surface rounded transition-colors cursor-pointer border-none bg-transparent text-foreground"
+                  aria-label="Fermer"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* QR Code */}
+              <div className="flex justify-center mb-sm p-sm bg-white rounded-lg">
+                <QRCodeSVG value={APP_URL} size={140} level="M" />
+              </div>
+
+              {/* Link with copy button */}
+              <div className="flex items-center gap-xs mb-sm">
+                <div className="flex-1 px-sm py-xs text-xs bg-surface rounded border border-border truncate text-text-secondary">
+                  {APP_URL}
+                </div>
+                <button
+                  onClick={handleCopyLink}
+                  className={`px-sm py-xs text-xs border-none rounded font-medium transition-colors cursor-pointer ${
+                    copied
+                      ? 'bg-green-500 text-white'
+                      : 'bg-accent text-background hover:bg-accent/80'
+                  }`}
+                >
+                  {copied ? 'Copié!' : 'Copier'}
+                </button>
+              </div>
+
+              {/* Native share button */}
+              {typeof navigator !== 'undefined' && 'share' in navigator && (
+                <button
+                  onClick={handleNativeShare}
+                  className="w-full flex items-center justify-center gap-sm px-sm py-xs text-sm border-none rounded bg-accent text-background font-medium hover:bg-accent/80 transition-colors cursor-pointer"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="18" cy="5" r="3" />
+                    <circle cx="6" cy="12" r="3" />
+                    <circle cx="18" cy="19" r="3" />
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                  </svg>
+                  Partager
+                </button>
+              )}
+            </div>
+          ) : (
+            <button
+              onClick={handleShareClick}
+              className="w-full flex items-center gap-sm px-md py-sm hover:bg-surface transition-colors duration-150 cursor-pointer border-none bg-transparent text-foreground"
+              role="menuitem"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+                <circle cx="18" cy="5" r="3" />
+                <circle cx="6" cy="12" r="3" />
+                <circle cx="18" cy="19" r="3" />
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+              </svg>
+              <span className="text-sm">Partager l&apos;app</span>
+            </button>
+          )}
 
           {/* Divider */}
           <div className="h-px bg-border" />
