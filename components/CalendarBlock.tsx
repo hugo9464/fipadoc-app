@@ -8,6 +8,7 @@ import {
   getCategoryColorVar,
   getCategoryShortLabel,
   formatDurationFrench,
+  calculateFilmDuration,
 } from '@/lib/schedule-utils';
 
 interface CalendarBlockProps {
@@ -35,6 +36,14 @@ export default function CalendarBlock({ seance, film, isFavorite, layout, onClic
   const categoryLabel = getCategoryShortLabel(seance.categorie);
   const duration = formatDurationFrench(seance._duration);
   const presence = seance.presence;
+
+  // Calculate film vs session duration for visual representation
+  const filmDurationInfo = calculateFilmDuration(
+    seance.heureDebut,
+    seance.heureFin,
+    seance._duration
+  );
+  const showExtraTime = filmDurationInfo.hasExtraTime && displayHeight > 50;
 
   // Calculate horizontal position for overlapping screenings
   const column = layout?.column ?? 0;
@@ -67,6 +76,25 @@ export default function CalendarBlock({ seance, film, isFavorite, layout, onClic
       }}
       aria-label={`${seance.heureDebut} - ${title}`}
     >
+      {/* Extra time indicator - diagonal stripes at the bottom of the block */}
+      {showExtraTime && (
+        <div
+          className="absolute bottom-0 left-0 right-0 pointer-events-none"
+          style={{
+            height: `${100 - filmDurationInfo.filmPercent}%`,
+            background: `repeating-linear-gradient(
+              -45deg,
+              transparent,
+              transparent 3px,
+              rgba(0,0,0,0.06) 3px,
+              rgba(0,0,0,0.06) 6px
+            )`,
+            borderTop: '1px dashed rgba(0,0,0,0.15)',
+          }}
+          title={`Fin du film + ${filmDurationInfo.extraMinutes} min (débat/échange)`}
+        />
+      )}
+
       {/* Top-right indicators */}
       <div className="absolute top-1 right-1 flex items-center gap-0.5">
         {presence && (

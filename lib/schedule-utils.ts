@@ -221,6 +221,52 @@ export function durationToPixelHeight(heureDebut: string, heureFin: string): num
 }
 
 /**
+ * Calculate film duration info for visual representation.
+ * Returns the percentage of the session that is the actual film,
+ * and the extra time after the film ends.
+ */
+export interface FilmDurationInfo {
+  /** Percentage of session height for the film (0-100) */
+  filmPercent: number;
+  /** Extra time after film in minutes */
+  extraMinutes: number;
+  /** Whether there is extra time after the film */
+  hasExtraTime: boolean;
+}
+
+export function calculateFilmDuration(
+  heureDebut: string,
+  heureFin: string,
+  filmDuration: string | undefined
+): FilmDurationInfo {
+  if (!filmDuration) {
+    return { filmPercent: 100, extraMinutes: 0, hasExtraTime: false };
+  }
+
+  const filmMinutes = parseInt(filmDuration, 10);
+  if (isNaN(filmMinutes)) {
+    return { filmPercent: 100, extraMinutes: 0, hasExtraTime: false };
+  }
+
+  const startMinutes = timeToMinutes(heureDebut);
+  const endMinutes = timeToMinutes(heureFin);
+  const sessionMinutes = endMinutes - startMinutes;
+
+  if (sessionMinutes <= 0 || filmMinutes >= sessionMinutes) {
+    return { filmPercent: 100, extraMinutes: 0, hasExtraTime: false };
+  }
+
+  const extraMinutes = sessionMinutes - filmMinutes;
+  const filmPercent = (filmMinutes / sessionMinutes) * 100;
+
+  return {
+    filmPercent,
+    extraMinutes,
+    hasExtraTime: extraMinutes > 0,
+  };
+}
+
+/**
  * Get unique venues from a list of screenings, sorted by VENUE_ORDER.
  */
 export function getActiveVenues(seances: { lieu: string }[]): string[] {
