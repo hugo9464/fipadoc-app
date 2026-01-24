@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { JourProgramme, Film, Seance } from '@/lib/types';
-import { findTodayIndex, getShortDate } from '@/lib/schedule-utils';
+import { findTodayIndex, getShortDate, isScreeningUpcoming } from '@/lib/schedule-utils';
 import { getFavorites, toggleFavorite, migrateFavorites, isMigrationComplete } from '@/lib/favorites';
 import { getShortFilmsForSession, isShortFilmsSession } from '@/lib/data';
 import ScreeningCard from './ScreeningCard';
@@ -177,12 +177,14 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
     }
   }, [favoriteDates.length, favoriteDayIndex]);
 
-  // Get favorites for the current day (for calendar view)
+  // Get favorites for the current day (for calendar view) - upcoming only
   const currentFavoriteDate = favoriteDates[favoriteDayIndex];
   const currentDayFavorites = useMemo(() => {
     if (!currentFavoriteDate) return [];
-    return favoriteScreenings.filter(f => f.date === currentFavoriteDate);
-  }, [favoriteScreenings, currentFavoriteDate]);
+    return favoriteScreenings
+      .filter(f => f.date === currentFavoriteDate)
+      .filter(f => filterUpcoming(f.seance, f.date));
+  }, [favoriteScreenings, currentFavoriteDate, filterUpcoming]);
 
   // Filter function for search
   const filterBySearch = useCallback((seance: Seance): boolean => {
@@ -193,13 +195,25 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
     return title.includes(query) || director.includes(query);
   }, [searchQuery]);
 
+  // Filter function for upcoming screenings (based on current date/time)
+  const filterUpcoming = useCallback((seance: Seance, date: string): boolean => {
+    return isScreeningUpcoming(date, seance.heureDebut);
+  }, []);
+
   // Current day (computed before conditional return so hooks can use it)
   const currentDay = programme[currentIndex];
 
-  // Filtered screenings for current day
+  // Filtered screenings for current day (upcoming only)
   const filteredSeances = useMemo(() => {
-    return currentDay?.seances.filter(filterBySearch) || [];
-  }, [currentDay?.seances, filterBySearch]);
+    return currentDay?.seances
+      .filter(seance => filterUpcoming(seance, currentDay.date))
+      .filter(filterBySearch) || [];
+  }, [currentDay?.seances, currentDay?.date, filterBySearch, filterUpcoming]);
+
+  // All seances for current day for calendar view (upcoming only)
+  const upcomingSeancesForCalendar = useMemo(() => {
+    return currentDay?.seances.filter(seance => filterUpcoming(seance, currentDay.date)) || [];
+  }, [currentDay?.seances, currentDay?.date, filterUpcoming]);
 
   // All filtered screenings across all days (for search results)
   const allFilteredScreenings = useMemo(() => {
@@ -217,7 +231,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
     return results;
   }, [programme, filmsIndex, searchQuery, filterBySearch]);
 
-  // Filtered favorites for current day
+  // Filtered favorites for current day (already filtered for upcoming in currentDayFavorites)
   const filteredFavorites = useMemo(() => {
     return currentDayFavorites.filter(f => filterBySearch(f.seance));
   }, [currentDayFavorites, filterBySearch]);
@@ -475,7 +489,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
             </div>
           ) : (
             <CalendarView
-              seances={(searchQuery ? filteredSeances : currentDay.seances).map(enrichSeance)}
+              seances={(searchQuery ? filteredSeances : upcomingSeancesForCalendar).map(enrichSeance)}
               date={currentDay.date}
               filmsIndex={filmsIndex}
               favorites={favorites}

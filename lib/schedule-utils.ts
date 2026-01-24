@@ -164,6 +164,31 @@ export function findTodayIndex(dates: string[]): number {
 }
 
 /**
+ * Check if a screening is upcoming (not yet started).
+ * Returns true if the screening date is in the future, or if it's today and the start time is in the future.
+ */
+export function isScreeningUpcoming(dateFr: string, heureDebut: string): boolean {
+  const isoDate = frenchDateToISO(dateFr);
+  if (!isoDate) return true; // If we can't parse, show it
+
+  const now = new Date();
+  const todayISO = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+  // If the screening date is in the future, it's upcoming
+  if (isoDate > todayISO) return true;
+
+  // If the screening date is in the past, it's not upcoming
+  if (isoDate < todayISO) return false;
+
+  // It's today - check the time
+  const [hours, minutes] = heureDebut.split(':').map(Number);
+  const screeningMinutes = hours * 60 + minutes;
+  const nowMinutes = now.getHours() * 60 + now.getMinutes();
+
+  return screeningMinutes > nowMinutes;
+}
+
+/**
  * Format a time range for display.
  */
 export function formatTimeRange(heureDebut: string, heureFin: string): string {
