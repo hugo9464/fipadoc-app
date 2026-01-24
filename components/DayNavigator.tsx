@@ -362,44 +362,8 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
 
       {activeTab === 'programme' ? (
         <>
-          {/* Navigation header with view toggle */}
-          <header className="flex items-center justify-between p-sm px-md bg-surface border-b border-border gap-sm">
-            {!searchQuery.trim() && (
-              <button
-                onClick={goToPrevious}
-                disabled={!hasPrevious}
-                className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
-                aria-label="Jour precedent"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="15 18 9 12 15 6" />
-                </svg>
-              </button>
-            )}
-
-            {searchQuery.trim() ? (
-              <div className="flex items-center gap-sm flex-1 justify-center">
-                <h2 className="font-heading text-base sm:text-lg font-semibold text-foreground text-center uppercase tracking-wide">
-                  Resultats ({allFilteredScreenings.length})
-                </h2>
-              </div>
-            ) : (
-              <div className="flex-1" />
-            )}
-
-            {!searchQuery.trim() && (
-              <button
-                onClick={goToNext}
-                disabled={!hasNext}
-                className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
-                aria-label="Jour suivant"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
-              </button>
-            )}
-
+          {/* Navigation header with search bar and view toggle */}
+          <header className="flex items-center p-sm px-md bg-surface border-b border-border gap-sm">
             <SearchBar value={searchQuery} onChange={setSearchQuery} />
             {!searchQuery.trim() && <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />}
           </header>
@@ -427,11 +391,15 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
           {/* Screenings - list or calendar view */}
           {viewMode === 'list' || searchQuery.trim() ? (
             <div ref={programmeScrollRef} className="flex-1 overflow-y-auto bg-background">
-              {/* Sticky date header with parallax - hidden during search */}
+              {/* Sticky date header with arrows and parallax - hidden during search */}
               {!searchQuery.trim() && (
                 <StickyDateHeader
                   date={currentDay.date}
                   scrollContainerRef={programmeScrollRef}
+                  hasPrevious={hasPrevious}
+                  hasNext={hasNext}
+                  onPrevious={goToPrevious}
+                  onNext={goToNext}
                 />
               )}
               <div className="p-md">
@@ -532,44 +500,8 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
             </div>
           ) : (
             <>
-              {/* Navigation header with view toggle for favorites */}
-              <header className="flex items-center justify-between p-sm px-md bg-surface border-b border-border gap-sm">
-                {!searchQuery.trim() && (
-                  <button
-                    onClick={() => setFavoriteDayIndex(Math.max(0, favoriteDayIndex - 1))}
-                    disabled={favoriteDayIndex === 0}
-                    className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
-                    aria-label="Jour precedent"
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="15 18 9 12 15 6" />
-                    </svg>
-                  </button>
-                )}
-
-                {searchQuery.trim() ? (
-                  <div className="flex items-center gap-sm flex-1 justify-center">
-                    <h2 className="font-heading text-base sm:text-lg font-semibold text-foreground text-center uppercase tracking-wide">
-                      Resultats ({allFilteredFavorites.length})
-                    </h2>
-                  </div>
-                ) : (
-                  <div className="flex-1" />
-                )}
-
-                {!searchQuery.trim() && (
-                  <button
-                    onClick={() => setFavoriteDayIndex(Math.min(favoriteDates.length - 1, favoriteDayIndex + 1))}
-                    disabled={favoriteDayIndex === favoriteDates.length - 1}
-                    className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed"
-                    aria-label="Jour suivant"
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                  </button>
-                )}
-
+              {/* Navigation header with search bar and view toggle for favorites */}
+              <header className="flex items-center p-sm px-md bg-surface border-b border-border gap-sm">
                 <SearchBar value={searchQuery} onChange={setSearchQuery} />
                 {!searchQuery.trim() && <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />}
               </header>
@@ -597,11 +529,15 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
               {/* Favorites - list or calendar view */}
               {viewMode === 'list' || searchQuery.trim() ? (
                 <div ref={favoritesScrollRef} className="flex-1 overflow-y-auto bg-background">
-                  {/* Sticky date header with parallax - hidden during search */}
+                  {/* Sticky date header with arrows and parallax - hidden during search */}
                   {!searchQuery.trim() && currentFavoriteDate && (
                     <StickyDateHeader
                       date={currentFavoriteDate}
                       scrollContainerRef={favoritesScrollRef}
+                      hasPrevious={favoriteDayIndex > 0}
+                      hasNext={favoriteDayIndex < favoriteDates.length - 1}
+                      onPrevious={() => setFavoriteDayIndex(Math.max(0, favoriteDayIndex - 1))}
+                      onNext={() => setFavoriteDayIndex(Math.min(favoriteDates.length - 1, favoriteDayIndex + 1))}
                     />
                   )}
                   <div className="p-md pt-0">

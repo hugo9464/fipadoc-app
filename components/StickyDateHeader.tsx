@@ -5,9 +5,20 @@ import { useEffect, useRef, useState } from 'react';
 interface StickyDateHeaderProps {
   date: string;
   scrollContainerRef: React.RefObject<HTMLElement | null>;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+  onPrevious?: () => void;
+  onNext?: () => void;
 }
 
-export default function StickyDateHeader({ date, scrollContainerRef }: StickyDateHeaderProps) {
+export default function StickyDateHeader({
+  date,
+  scrollContainerRef,
+  hasPrevious = false,
+  hasNext = false,
+  onPrevious,
+  onNext,
+}: StickyDateHeaderProps) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const headerRef = useRef<HTMLDivElement>(null);
 
@@ -53,8 +64,20 @@ export default function StickyDateHeader({ date, scrollContainerRef }: StickyDat
         boxShadow: scrollProgress > 0.5 ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
       }}
     >
+      {onPrevious && (
+        <button
+          onClick={onPrevious}
+          disabled={!hasPrevious}
+          className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed flex-shrink-0"
+          aria-label="Jour precedent"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+      )}
       <h3
-        className="font-heading font-semibold text-foreground uppercase tracking-wide m-0 transition-transform duration-150"
+        className="font-heading font-semibold text-foreground uppercase tracking-wide m-0 transition-transform duration-150 flex-1 text-center"
         style={{
           fontSize: `${fontSize}rem`,
           transform: `scale(${1 - scrollProgress * 0.05})`,
@@ -62,6 +85,18 @@ export default function StickyDateHeader({ date, scrollContainerRef }: StickyDat
       >
         {date}
       </h3>
+      {onNext && (
+        <button
+          onClick={onNext}
+          disabled={!hasNext}
+          className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed flex-shrink-0"
+          aria-label="Jour suivant"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 }
