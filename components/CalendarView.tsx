@@ -109,7 +109,7 @@ export default function CalendarView({
   }
 
   return (
-    <div className="flex-1 flex flex-col min-h-0">
+    <div className="flex-1 flex flex-col min-h-0 bg-background">
       {/* Date header */}
       <div className="bg-surface border-b border-border py-sm px-md">
         <h3 className="font-heading font-semibold text-foreground uppercase tracking-wide m-0 text-center">
@@ -133,7 +133,7 @@ export default function CalendarView({
       </div>
 
       {/* Scrollable area - using min-h-0 instead of overflow-hidden */}
-      <div className="flex-1 flex overflow-auto relative" ref={wrapperRef}>
+      <div className="flex-1 flex overflow-auto relative bg-background" ref={wrapperRef}>
         {/* Time axis */}
         <div
           className="flex-shrink-0 w-[50px] bg-surface border-r border-border sticky left-0 z-[3]"
