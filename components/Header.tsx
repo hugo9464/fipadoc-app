@@ -23,7 +23,7 @@ export default function Header({ version }: HeaderProps) {
       <header className="bg-background border-b border-border sticky top-0 z-10">
         <div className="flex items-center justify-between px-md py-sm">
           <div className="flex items-center gap-sm">
-            <Logo variant="light" size="md" />
+            <Logo size="md" />
             <div className="flex flex-col">
               <h1 className="font-heading text-lg font-bold tracking-wider text-foreground uppercase leading-tight">
                 FIPADOC 2026
