@@ -3,10 +3,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTheme } from '@/lib/theme-context';
 import { useAdmin } from '@/lib/admin-context';
+import ShareModal from './ShareModal';
 
 export default function ProfileDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -41,6 +43,11 @@ export default function ProfileDropdown() {
     setShowPasswordPrompt(false);
     setPassword('');
     setPasswordError(false);
+  };
+
+  const handleShareClick = () => {
+    setIsOpen(false);
+    setShowShareModal(true);
   };
 
   // Focus password input when prompt opens
@@ -170,6 +177,25 @@ export default function ProfileDropdown() {
           {/* Divider */}
           <div className="h-px bg-border" />
 
+          {/* Share app button */}
+          <button
+            onClick={handleShareClick}
+            className="w-full flex items-center gap-sm px-md py-sm hover:bg-surface transition-colors duration-150 cursor-pointer border-none bg-transparent text-foreground"
+            role="menuitem"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+              <circle cx="18" cy="5" r="3" />
+              <circle cx="6" cy="12" r="3" />
+              <circle cx="18" cy="19" r="3" />
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+            </svg>
+            <span className="text-sm">Partager l&apos;app</span>
+          </button>
+
+          {/* Divider */}
+          <div className="h-px bg-border" />
+
           {/* Admin mode toggle */}
           {showPasswordPrompt ? (
             <form onSubmit={handlePasswordSubmit} className="p-md">
@@ -226,6 +252,9 @@ export default function ProfileDropdown() {
           )}
         </div>
       )}
+
+      {/* Share Modal */}
+      <ShareModal isOpen={showShareModal} onClose={() => setShowShareModal(false)} />
     </div>
   );
 }
