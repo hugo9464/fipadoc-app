@@ -22,6 +22,10 @@ interface CalendarViewProps {
   favorites: Set<string>;
   getScreeningId: (date: string, seance: Seance) => string;
   onSelectSeance: (seance: Seance, film?: Film) => void;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+  onPrevious?: () => void;
+  onNext?: () => void;
 }
 
 export default function CalendarView({
@@ -31,6 +35,10 @@ export default function CalendarView({
   favorites,
   getScreeningId,
   onSelectSeance,
+  hasPrevious = false,
+  hasNext = false,
+  onPrevious,
+  onNext,
 }: CalendarViewProps) {
   const headerScrollRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -110,11 +118,35 @@ export default function CalendarView({
 
   return (
     <div className="flex-1 flex flex-col min-h-0 bg-background">
-      {/* Date header */}
-      <div className="bg-surface border-b border-border py-sm px-md">
-        <h3 className="font-heading font-semibold text-foreground uppercase tracking-wide m-0 text-center">
+      {/* Date header with navigation arrows */}
+      <div className="bg-surface border-b border-border py-sm px-md flex items-center justify-center">
+        {onPrevious && (
+          <button
+            onClick={onPrevious}
+            disabled={!hasPrevious}
+            className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed flex-shrink-0"
+            aria-label="Jour precedent"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+        )}
+        <h3 className="font-heading font-semibold text-foreground uppercase tracking-wide m-0 text-center flex-1">
           {date}
         </h3>
+        {onNext && (
+          <button
+            onClick={onNext}
+            disabled={!hasNext}
+            className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:enabled:bg-border disabled:text-text-muted disabled:cursor-not-allowed flex-shrink-0"
+            aria-label="Jour suivant"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        )}
       </div>
       {/* Fixed header with venue names */}
       <div className="flex bg-surface border-b border-border sticky top-0 z-[5]">

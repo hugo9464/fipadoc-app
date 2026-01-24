@@ -495,6 +495,10 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
               favorites={favorites}
               getScreeningId={getScreeningId}
               onSelectSeance={(seance, film) => handleSelectSeance(seance, film, currentDay.date)}
+              hasPrevious={hasPrevious}
+              hasNext={hasNext}
+              onPrevious={goToPrevious}
+              onNext={goToNext}
             />
           )}
         </>
@@ -617,6 +621,10 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                   favorites={favorites}
                   getScreeningId={getScreeningId}
                   onSelectSeance={(seance, film) => handleSelectSeance(seance, film, currentFavoriteDate)}
+                  hasPrevious={favoriteDayIndex > 0}
+                  hasNext={favoriteDayIndex < favoriteDates.length - 1}
+                  onPrevious={() => setFavoriteDayIndex(Math.max(0, favoriteDayIndex - 1))}
+                  onNext={() => setFavoriteDayIndex(Math.min(favoriteDates.length - 1, favoriteDayIndex + 1))}
                 />
               )}
             </>
