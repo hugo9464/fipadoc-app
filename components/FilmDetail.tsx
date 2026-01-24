@@ -6,6 +6,7 @@ import { fetchFilmDetailsClient } from '@/lib/api';
 import { APIFilm, APIDirectorDetail, APIFilmScreening } from '@/lib/api-types';
 import { buildBookingUrl } from '@/lib/schedule-utils';
 import FavoriteButton from './FavoriteButton';
+import { useAdmin } from '@/lib/admin-context';
 
 interface ScreeningWithDate {
   date: string;
@@ -98,6 +99,7 @@ export default function FilmDetail({
   const [apiFilm, setApiFilm] = useState<APIFilm | null>(null);
   const [loading, setLoading] = useState(false);
   const [passwordCopied, setPasswordCopied] = useState(false);
+  const { isAdmin } = useAdmin();
 
   const copyPassword = useCallback(async (password: string) => {
     try {
@@ -425,8 +427,8 @@ export default function FilmDetail({
               </div>
             )}
 
-            {/* Watch film link */}
-            {videoFilm && (
+            {/* Watch film link - Only visible in admin mode */}
+            {isAdmin && videoFilm && (
               <div className="mb-lg">
                 <h3 className="font-heading text-sm font-semibold text-foreground uppercase tracking-wide mb-sm">
                   Voir le film

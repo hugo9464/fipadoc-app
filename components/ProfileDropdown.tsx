@@ -2,11 +2,53 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useTheme } from '@/lib/theme-context';
+import { useAdmin } from '@/lib/admin-context';
 
 export default function ProfileDropdown() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
   const { theme, toggleTheme, isDark } = useTheme();
+  const { isAdmin, enableAdminMode, disableAdminMode } = useAdmin();
+
+  const handleAdminClick = () => {
+    if (isAdmin) {
+      disableAdminMode();
+      setIsOpen(false);
+    } else {
+      setShowPasswordPrompt(true);
+      setPassword('');
+      setPasswordError(false);
+    }
+  };
+
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (enableAdminMode(password)) {
+      setShowPasswordPrompt(false);
+      setPassword('');
+      setIsOpen(false);
+    } else {
+      setPasswordError(true);
+      setPassword('');
+    }
+  };
+
+  const handleCancelPassword = () => {
+    setShowPasswordPrompt(false);
+    setPassword('');
+    setPasswordError(false);
+  };
+
+  // Focus password input when prompt opens
+  useEffect(() => {
+    if (showPasswordPrompt && passwordInputRef.current) {
+      passwordInputRef.current.focus();
+    }
+  }, [showPasswordPrompt]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -124,6 +166,64 @@ export default function ProfileDropdown() {
             </svg>
             <span className="text-sm">Mon compte FIPADOC</span>
           </a>
+
+          {/* Divider */}
+          <div className="h-px bg-border" />
+
+          {/* Admin mode toggle */}
+          {showPasswordPrompt ? (
+            <form onSubmit={handlePasswordSubmit} className="p-md">
+              <label className="block text-sm text-text-secondary mb-xs">
+                Mot de passe admin
+              </label>
+              <input
+                ref={passwordInputRef}
+                type="password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setPasswordError(false);
+                }}
+                className={`w-full px-sm py-xs text-sm border rounded bg-background text-foreground ${
+                  passwordError ? 'border-red-500' : 'border-border'
+                }`}
+                placeholder="Entrez le mot de passe"
+              />
+              {passwordError && (
+                <p className="text-xs text-red-500 mt-1">Mot de passe incorrect</p>
+              )}
+              <div className="flex gap-xs mt-sm">
+                <button
+                  type="button"
+                  onClick={handleCancelPassword}
+                  className="flex-1 px-sm py-xs text-sm border border-border rounded bg-transparent text-foreground hover:bg-surface transition-colors cursor-pointer"
+                >
+                  Annuler
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 px-sm py-xs text-sm border-none rounded bg-accent text-background font-medium hover:bg-accent/80 transition-colors cursor-pointer"
+                >
+                  Valider
+                </button>
+              </div>
+            </form>
+          ) : (
+            <button
+              onClick={handleAdminClick}
+              className="w-full flex items-center gap-sm px-md py-sm hover:bg-surface transition-colors duration-150 cursor-pointer border-none bg-transparent text-foreground"
+              role="menuitem"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                {isAdmin && <polyline points="9 12 11 14 15 10" />}
+              </svg>
+              <span className="text-sm">{isAdmin ? 'Desactiver mode admin' : 'Mode admin'}</span>
+              {isAdmin && (
+                <span className="ml-auto text-xs text-accent font-medium">Actif</span>
+              )}
+            </button>
+          )}
         </div>
       )}
     </div>
