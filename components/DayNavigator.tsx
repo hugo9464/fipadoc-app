@@ -344,7 +344,28 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
 
         {/* Favorites toggle switch */}
         <button
-          onClick={() => setActiveTab(activeTab === 'programme' ? 'favorites' : 'programme')}
+          onClick={() => {
+            if (activeTab === 'programme') {
+              // Switching to favorites: find the current day in favoriteDates
+              const currentDate = programme[currentIndex]?.date;
+              const indexInFavorites = favoriteDates.indexOf(currentDate);
+              if (indexInFavorites !== -1) {
+                setFavoriteDayIndex(indexInFavorites);
+              }
+              // If current day has no favorites, keep the existing favoriteDayIndex
+              setActiveTab('favorites');
+            } else {
+              // Switching to programme: find the current favorite day in programme
+              const currentFavDate = favoriteDates[favoriteDayIndex];
+              if (currentFavDate) {
+                const indexInProgramme = programme.findIndex(j => j.date === currentFavDate);
+                if (indexInProgramme !== -1) {
+                  setCurrentIndex(indexInProgramme);
+                }
+              }
+              setActiveTab('programme');
+            }
+          }}
           className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border transition-all duration-200 flex-shrink-0 ${
             activeTab === 'favorites'
               ? 'bg-favorite/15 border-favorite text-favorite'
