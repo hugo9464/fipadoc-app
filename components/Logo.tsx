@@ -1,7 +1,8 @@
 'use client';
 
+import { useTheme } from '@/lib/theme-context';
+
 interface LogoProps {
-  variant?: 'light' | 'dark';
   size?: 'sm' | 'md' | 'lg';
 }
 
@@ -11,9 +12,11 @@ const sizes = {
   lg: { width: 40, height: 40 },
 };
 
-export default function Logo({ variant = 'light', size = 'md' }: LogoProps) {
+export default function Logo({ size = 'md' }: LogoProps) {
+  const { isDark } = useTheme();
   const { width, height } = sizes[size];
-  const fillColor = variant === 'light' ? '#000000' : '#ffffff';
+  // Dark logo on light background, light logo on dark background
+  const fillColor = isDark ? '#ffffff' : '#000000';
 
   return (
     <svg
