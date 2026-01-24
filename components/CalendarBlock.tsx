@@ -9,19 +9,24 @@ import {
   getCategoryShortLabel,
   formatDurationFrench,
   calculateFilmDuration,
+  isScreeningUpcoming,
 } from '@/lib/schedule-utils';
 
 interface CalendarBlockProps {
   seance: Seance;
+  date: string;
   film?: Film;
   isFavorite: boolean;
   layout?: SeanceLayout;
   onClick: () => void;
 }
 
-export default function CalendarBlock({ seance, film, isFavorite, layout, onClick }: CalendarBlockProps) {
+export default function CalendarBlock({ seance, date, film, isFavorite, layout, onClick }: CalendarBlockProps) {
   const top = timeToPixelPosition(seance.heureDebut);
   const height = durationToPixelHeight(seance.heureDebut, seance.heureFin);
+
+  // Check if screening has already started
+  const isPast = !isScreeningUpcoming(date, seance.heureDebut);
 
   // Minimum height for touch targets
   const minHeight = 44;
@@ -54,7 +59,7 @@ export default function CalendarBlock({ seance, film, isFavorite, layout, onClic
     <div
       className={`absolute bg-background overflow-hidden cursor-pointer transition-all duration-150 z-[1] min-h-[44px] hover:shadow-lg hover:z-[2] active:scale-[0.98] ${
         isFavorite ? 'ring-2 ring-favorite' : ''
-      }`}
+      } ${isPast ? 'opacity-50 grayscale' : ''}`}
       style={{
         top: `${top}px`,
         height: `${displayHeight}px`,

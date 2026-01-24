@@ -219,6 +219,7 @@ export default function CalendarView({
                     <CalendarBlock
                       key={`${seance.heureDebut}-${idx}`}
                       seance={seance}
+                      date={date}
                       film={film}
                       isFavorite={isFavorite}
                       layout={layout}
