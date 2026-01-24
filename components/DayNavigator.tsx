@@ -177,6 +177,11 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
     }
   }, [favoriteDates.length, favoriteDayIndex]);
 
+  // Filter function for upcoming screenings (based on current date/time)
+  const filterUpcoming = useCallback((seance: Seance, date: string): boolean => {
+    return isScreeningUpcoming(date, seance.heureDebut);
+  }, []);
+
   // Get favorites for the current day (for calendar view) - upcoming only
   const currentFavoriteDate = favoriteDates[favoriteDayIndex];
   const currentDayFavorites = useMemo(() => {
@@ -194,11 +199,6 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
     const director = seance.realisateur?.toLowerCase() || '';
     return title.includes(query) || director.includes(query);
   }, [searchQuery]);
-
-  // Filter function for upcoming screenings (based on current date/time)
-  const filterUpcoming = useCallback((seance: Seance, date: string): boolean => {
-    return isScreeningUpcoming(date, seance.heureDebut);
-  }, []);
 
   // Current day (computed before conditional return so hooks can use it)
   const currentDay = programme[currentIndex];
