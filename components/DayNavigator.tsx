@@ -177,19 +177,13 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
     }
   }, [favoriteDates.length, favoriteDayIndex]);
 
-  // Filter function for upcoming screenings (based on current date/time)
-  const filterUpcoming = useCallback((seance: Seance, date: string): boolean => {
-    return isScreeningUpcoming(date, seance.heureDebut);
-  }, []);
-
-  // Get favorites for the current day (for calendar view) - upcoming only
+  // Get favorites for the current day (for calendar view) - includes past sessions
   const currentFavoriteDate = favoriteDates[favoriteDayIndex];
   const currentDayFavorites = useMemo(() => {
     if (!currentFavoriteDate) return [];
     return favoriteScreenings
-      .filter(f => f.date === currentFavoriteDate)
-      .filter(f => filterUpcoming(f.seance, f.date));
-  }, [favoriteScreenings, currentFavoriteDate, filterUpcoming]);
+      .filter(f => f.date === currentFavoriteDate);
+  }, [favoriteScreenings, currentFavoriteDate]);
 
   // Filter function for search
   const filterBySearch = useCallback((seance: Seance): boolean => {
@@ -203,17 +197,16 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
   // Current day (computed before conditional return so hooks can use it)
   const currentDay = programme[currentIndex];
 
-  // Filtered screenings for current day (upcoming only)
+  // Filtered screenings for current day (includes past sessions)
   const filteredSeances = useMemo(() => {
     return currentDay?.seances
-      .filter(seance => filterUpcoming(seance, currentDay.date))
       .filter(filterBySearch) || [];
-  }, [currentDay?.seances, currentDay?.date, filterBySearch, filterUpcoming]);
+  }, [currentDay?.seances, filterBySearch]);
 
-  // All seances for current day for calendar view (upcoming only)
-  const upcomingSeancesForCalendar = useMemo(() => {
-    return currentDay?.seances.filter(seance => filterUpcoming(seance, currentDay.date)) || [];
-  }, [currentDay?.seances, currentDay?.date, filterUpcoming]);
+  // All seances for current day for calendar view (includes past sessions)
+  const seancesForCalendar = useMemo(() => {
+    return currentDay?.seances || [];
+  }, [currentDay?.seances]);
 
   // All filtered screenings across all days (for search results)
   const allFilteredScreenings = useMemo(() => {
@@ -345,42 +338,46 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
 
   return (
     <div className="flex-1 flex flex-col min-h-0">
-      {/* Tab bar */}
-      <div className="flex bg-background border-b border-border">
+      {/* Navigation header with search bar, favorites toggle and view toggle */}
+      <header className="flex items-center p-sm px-md bg-surface border-b border-border gap-sm">
+        <SearchBar value={searchQuery} onChange={setSearchQuery} />
+
+        {/* Favorites toggle switch */}
         <button
-          className={`flex-1 flex items-center justify-center gap-xs py-md px-sm border-none bg-transparent font-heading text-sm font-semibold uppercase tracking-wider cursor-pointer transition-all duration-150 border-b-2 -mb-px ${
-            activeTab === 'programme'
-              ? 'text-foreground border-foreground'
-              : 'text-text-muted border-transparent hover:text-text-secondary'
-          }`}
-          onClick={() => setActiveTab('programme')}
-        >
-          Programme
-        </button>
-        <button
-          className={`flex-1 flex items-center justify-center gap-xs py-md px-sm border-none bg-transparent font-heading text-sm font-semibold uppercase tracking-wider cursor-pointer transition-all duration-150 border-b-2 -mb-px ${
+          onClick={() => setActiveTab(activeTab === 'programme' ? 'favorites' : 'programme')}
+          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border transition-all duration-200 flex-shrink-0 ${
             activeTab === 'favorites'
-              ? 'text-foreground border-foreground'
-              : 'text-text-muted border-transparent hover:text-text-secondary'
+              ? 'bg-favorite/15 border-favorite text-favorite'
+              : 'bg-transparent border-border text-text-muted hover:border-text-secondary hover:text-text-secondary'
           }`}
-          onClick={() => setActiveTab('favorites')}
+          aria-label={activeTab === 'favorites' ? 'Afficher tout le programme' : 'Afficher mes favoris'}
+          title={activeTab === 'favorites' ? 'Afficher tout' : 'Mes favoris'}
         >
-          Mon programme
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill={activeTab === 'favorites' ? 'currentColor' : 'none'}
+            stroke="currentColor"
+            strokeWidth="2"
+            className="transition-all duration-200"
+          >
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
           {favorites.size > 0 && (
-            <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 bg-foreground text-background text-[0.7rem] font-bold rounded-full">
+            <span className={`text-xs font-bold min-w-[16px] text-center ${
+              activeTab === 'favorites' ? 'text-favorite' : 'text-text-muted'
+            }`}>
               {favorites.size}
             </span>
           )}
         </button>
-      </div>
+
+        {!searchQuery.trim() && <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />}
+      </header>
 
       {activeTab === 'programme' ? (
         <>
-          {/* Navigation header with search bar and view toggle */}
-          <header className="flex items-center p-sm px-md bg-surface border-b border-border gap-sm">
-            <SearchBar value={searchQuery} onChange={setSearchQuery} />
-            {!searchQuery.trim() && <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />}
-          </header>
 
           {/* Day indicator dots - hidden during search */}
           {!searchQuery.trim() && (
@@ -447,6 +444,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                           const otherScreenings = seance.titre
                             ? getOtherScreenings(seance.titre, itemDate, seance.heureDebut)
                             : undefined;
+                          const isPast = !isScreeningUpcoming(itemDate, seance.heureDebut);
                           return (
                             <ScreeningCard
                               key={`${screeningId}-${idx}`}
@@ -456,6 +454,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                               isFavorite={favorites.has(screeningId)}
                               onToggleFavorite={film ? () => handleToggleFavorite(screeningId) : undefined}
                               otherScreenings={otherScreenings}
+                              isPast={isPast}
                             />
                           );
                         })}
@@ -472,6 +471,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                   const otherScreenings = seance.titre
                     ? getOtherScreenings(seance.titre, currentDay.date, seance.heureDebut)
                     : undefined;
+                  const isPast = !isScreeningUpcoming(currentDay.date, seance.heureDebut);
                   return (
                     <ScreeningCard
                       key={`${seance.heureDebut}-${seance.lieu}-${idx}`}
@@ -481,6 +481,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                       isFavorite={favorites.has(screeningId)}
                       onToggleFavorite={film ? () => handleToggleFavorite(screeningId) : undefined}
                       otherScreenings={otherScreenings}
+                      isPast={isPast}
                     />
                   );
                 })
@@ -489,7 +490,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
             </div>
           ) : (
             <CalendarView
-              seances={(searchQuery ? filteredSeances : upcomingSeancesForCalendar).map(enrichSeance)}
+              seances={(searchQuery ? filteredSeances : seancesForCalendar).map(enrichSeance)}
               date={currentDay.date}
               filmsIndex={filmsIndex}
               favorites={favorites}
@@ -518,12 +519,6 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
             </div>
           ) : (
             <>
-              {/* Navigation header with search bar and view toggle for favorites */}
-              <header className="flex items-center p-sm px-md bg-surface border-b border-border gap-sm">
-                <SearchBar value={searchQuery} onChange={setSearchQuery} />
-                {!searchQuery.trim() && <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />}
-              </header>
-
               {/* Day indicator dots for favorites - hidden during search */}
               {!searchQuery.trim() && (
                 <div className="flex justify-center gap-2 p-sm px-md bg-surface">
@@ -584,32 +579,40 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                             <h3 className="font-heading text-sm font-semibold text-text-secondary uppercase tracking-wide mb-sm px-xs border-b border-border pb-xs">
                               {getShortDate(date)}
                             </h3>
-                            {items.map(({ seance, film, screeningId, date: itemDate }) => (
-                              <ScreeningCard
-                                key={screeningId}
-                                seance={enrichSeance(seance)}
-                                film={film}
-                                onSelect={(s, f) => handleSelectSeance(s, f, itemDate)}
-                                isFavorite={true}
-                                onToggleFavorite={() => handleToggleFavorite(screeningId)}
-                              />
-                            ))}
+                            {items.map(({ seance, film, screeningId, date: itemDate }) => {
+                              const isPast = !isScreeningUpcoming(itemDate, seance.heureDebut);
+                              return (
+                                <ScreeningCard
+                                  key={screeningId}
+                                  seance={enrichSeance(seance)}
+                                  film={film}
+                                  onSelect={(s, f) => handleSelectSeance(s, f, itemDate)}
+                                  isFavorite={true}
+                                  onToggleFavorite={() => handleToggleFavorite(screeningId)}
+                                  isPast={isPast}
+                                />
+                              );
+                            })}
                           </div>
                         ));
                       })()
                     )
                   ) : (
                     // Regular day view
-                    filteredFavorites.map(({ date, seance, film, screeningId }) => (
-                      <ScreeningCard
-                        key={screeningId}
-                        seance={enrichSeance(seance)}
-                        film={film}
-                        onSelect={(s, f) => handleSelectSeance(s, f, date)}
-                        isFavorite={true}
-                        onToggleFavorite={() => handleToggleFavorite(screeningId)}
-                      />
-                    ))
+                    filteredFavorites.map(({ date, seance, film, screeningId }) => {
+                      const isPast = !isScreeningUpcoming(date, seance.heureDebut);
+                      return (
+                        <ScreeningCard
+                          key={screeningId}
+                          seance={enrichSeance(seance)}
+                          film={film}
+                          onSelect={(s, f) => handleSelectSeance(s, f, date)}
+                          isFavorite={true}
+                          onToggleFavorite={() => handleToggleFavorite(screeningId)}
+                          isPast={isPast}
+                        />
+                      );
+                    })
                   )}
                   </div>
                 </div>
