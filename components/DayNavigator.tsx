@@ -49,6 +49,53 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
   const programmeScrollRef = useRef<HTMLDivElement>(null);
   const favoritesScrollRef = useRef<HTMLDivElement>(null);
 
+  // Presence data: screeningId -> presence string
+  const [presenceMap, setPresenceMap] = useState<Record<string, string>>({});
+
+  // Load presence data in background
+  useEffect(() => {
+    // Collect unique film IDs (excluding short films sessions with multiple IDs)
+    const filmIds = new Set<string>();
+    for (const jour of programme) {
+      for (const seance of jour.seances) {
+        if (seance._id_film && !seance._id_film.includes(',')) {
+          filmIds.add(seance._id_film);
+        }
+      }
+    }
+
+    if (filmIds.size === 0) return;
+
+    // Fetch presence data
+    const idsParam = Array.from(filmIds).join(',');
+    fetch(`/api/presence?filmIds=${idsParam}`)
+      .then(res => res.json())
+      .then(data => {
+        setPresenceMap(data);
+      })
+      .catch(err => {
+        console.error('Failed to load presence data:', err);
+      });
+  }, [programme]);
+
+  // Helper to get presence for a seance
+  const getPresence = useCallback((seance: Seance): string | undefined => {
+    if (seance.presence) return seance.presence;
+    if (seance._id_screening && presenceMap[seance._id_screening]) {
+      return presenceMap[seance._id_screening];
+    }
+    return undefined;
+  }, [presenceMap]);
+
+  // Enrich seance with presence
+  const enrichSeance = useCallback((seance: Seance): Seance => {
+    const presence = getPresence(seance);
+    if (presence && !seance.presence) {
+      return { ...seance, presence };
+    }
+    return seance;
+  }, [getPresence]);
+
   // Run favorites migration on mount
   useEffect(() => {
     async function loadAndMigrateFavorites() {
@@ -414,13 +461,14 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                           {getShortDate(date)}
                         </h3>
                         {items.map(({ seance, film, screeningId, date: itemDate }, idx) => {
+                          const enrichedSeance = enrichSeance(seance);
                           const otherScreenings = seance.titre
                             ? getOtherScreenings(seance.titre, itemDate, seance.heureDebut)
                             : undefined;
                           return (
                             <ScreeningCard
                               key={`${screeningId}-${idx}`}
-                              seance={seance}
+                              seance={enrichedSeance}
                               film={film}
                               onSelect={(s, f) => handleSelectSeance(s, f, itemDate)}
                               isFavorite={favorites.has(screeningId)}
@@ -436,6 +484,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
               ) : (
                 // Regular day view
                 filteredSeances.map((seance, idx) => {
+                  const enrichedSeance = enrichSeance(seance);
                   const film = findFilm(seance.titre);
                   const screeningId = getScreeningId(currentDay.date, seance);
                   const otherScreenings = seance.titre
@@ -444,7 +493,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                   return (
                     <ScreeningCard
                       key={`${seance.heureDebut}-${seance.lieu}-${idx}`}
-                      seance={seance}
+                      seance={enrichedSeance}
                       film={film}
                       onSelect={(s, f) => handleSelectSeance(s, f, currentDay.date)}
                       isFavorite={favorites.has(screeningId)}
@@ -458,7 +507,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
             </div>
           ) : (
             <CalendarView
-              seances={searchQuery ? filteredSeances : currentDay.seances}
+              seances={(searchQuery ? filteredSeances : currentDay.seances).map(enrichSeance)}
               date={currentDay.date}
               filmsIndex={filmsIndex}
               favorites={favorites}
@@ -584,7 +633,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                             {items.map(({ seance, film, screeningId, date: itemDate }) => (
                               <ScreeningCard
                                 key={screeningId}
-                                seance={seance}
+                                seance={enrichSeance(seance)}
                                 film={film}
                                 onSelect={(s, f) => handleSelectSeance(s, f, itemDate)}
                                 isFavorite={true}
@@ -600,7 +649,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                     filteredFavorites.map(({ date, seance, film, screeningId }) => (
                       <ScreeningCard
                         key={screeningId}
-                        seance={seance}
+                        seance={enrichSeance(seance)}
                         film={film}
                         onSelect={(s, f) => handleSelectSeance(s, f, date)}
                         isFavorite={true}
@@ -612,7 +661,7 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
                 </div>
               ) : (
                 <CalendarView
-                  seances={currentDayFavorites.map(f => f.seance)}
+                  seances={currentDayFavorites.map(f => enrichSeance(f.seance))}
                   date={currentFavoriteDate}
                   filmsIndex={filmsIndex}
                   favorites={favorites}

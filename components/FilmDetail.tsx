@@ -3,7 +3,7 @@
 import { useEffect, useCallback, useState } from 'react';
 import { Film, Seance } from '@/lib/types';
 import { fetchFilmDetailsClient } from '@/lib/api';
-import { APIFilm, APIDirectorDetail } from '@/lib/api-types';
+import { APIFilm, APIDirectorDetail, APIFilmScreening } from '@/lib/api-types';
 import { buildBookingUrl } from '@/lib/schedule-utils';
 import FavoriteButton from './FavoriteButton';
 
@@ -49,6 +49,41 @@ function formatDuration(minutes: string | undefined): string | null {
   const remainingMins = mins % 60;
   if (remainingMins === 0) return `${hours}h`;
   return `${hours}h${remainingMins.toString().padStart(2, '0')}`;
+}
+
+/**
+ * Extract presence info from API film screening data.
+ * Returns a human-readable string like "En présence de l'équipe du film"
+ */
+function getPresenceFromAPIScreening(apiScreening: APIFilmScreening | undefined): string | null {
+  if (!apiScreening) return null;
+
+  const participants = apiScreening.qa_other_participants || [];
+
+  if (participants.length === 0) return null;
+
+  // Build presence string
+  return "En présence de l'équipe du film";
+}
+
+/**
+ * Find matching API screening for a seance by comparing time and screening ID
+ */
+function findMatchingAPIScreening(
+  seance: Seance,
+  apiScreenings: APIFilmScreening[] | undefined
+): APIFilmScreening | undefined {
+  if (!apiScreenings) return undefined;
+
+  // First try to match by screening ID
+  if (seance._id_screening) {
+    const match = apiScreenings.find(s => s.id_screening === seance._id_screening);
+    if (match) return match;
+  }
+
+  // Fallback: match by time
+  const seanceTime = seance.heureDebut + ':00';
+  return apiScreenings.find(s => s.starting_time === seanceTime);
 }
 
 export default function FilmDetail({
@@ -267,6 +302,9 @@ export default function FilmDetail({
                 <div className="flex flex-col gap-xs">
                   {allScreenings.map(({ date, seance: s, screeningId, isFavorite: isFav }) => {
                     const bookingUrl = buildBookingUrl(film.titre, date);
+                    // Get presence from API data if available
+                    const apiScreening = findMatchingAPIScreening(s, apiFilm?.program);
+                    const presence = s.presence || getPresenceFromAPIScreening(apiScreening);
 
                     return (
                       <div
@@ -283,12 +321,12 @@ export default function FilmDetail({
                             <strong className="text-foreground">{s.heureDebut} - {s.heureFin}</strong>
                           </div>
                           <div className="text-[0.8rem] text-text-muted">{s.lieu}</div>
-                          {s.presence && (
+                          {presence && (
                             <div className="flex items-center gap-1 text-[0.75rem] text-accent mt-0.5">
                               <svg className="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                               </svg>
-                              <span className="italic">{s.presence}</span>
+                              <span className="italic">{presence}</span>
                             </div>
                           )}
                         </div>

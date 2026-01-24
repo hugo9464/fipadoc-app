@@ -86,6 +86,35 @@ export interface APIDirectorDetail {
 }
 
 /**
+ * Q&A participant from the film API program field
+ */
+export interface APIQAParticipant {
+  contact_id: string;
+  contact_firstname: string;
+  contact_lastname: string;
+  contact_lastname_firstname: string;
+  contact_position_l1?: string;
+  contact_company?: string;
+  contact_photo?: string;
+}
+
+/**
+ * Screening info from film API (includes Q&A details)
+ */
+export interface APIFilmScreening {
+  id_screening: string;
+  day: string;
+  starting_time: string;
+  closing_time: string;
+  theater?: string;
+  area?: string | null;
+  qa_other_participants?: APIQAParticipant[];
+  qa_moderators?: APIQAParticipant[];
+  qa_interpreters?: APIQAParticipant[];
+  qa_duration?: string | null;
+}
+
+/**
  * Detailed film information from the film API
  */
 export interface APIFilm {
@@ -116,6 +145,7 @@ export interface APIFilm {
   video_film?: string;
   video_film_pass?: string;
   website?: string;
+  program?: APIFilmScreening[];
 }
 
 /**
