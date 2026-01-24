@@ -408,6 +408,23 @@ export default function FilmDetail({
               </div>
             )}
 
+            {/* Trailer */}
+            {embedUrl && (
+              <div className="mb-lg">
+                <h3 className="font-heading text-sm font-semibold text-foreground uppercase tracking-wide mb-sm">
+                  Bande-annonce
+                </h3>
+                <div className="video-container rounded-lg bg-surface overflow-hidden">
+                  <iframe
+                    src={embedUrl}
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowFullScreen
+                    title="Bande-annonce"
+                  />
+                </div>
+              </div>
+            )}
+
             {/* Watch film link */}
             {videoFilm && (
               <div className="mb-lg">
@@ -456,23 +473,6 @@ export default function FilmDetail({
                     </button>
                   </div>
                 )}
-              </div>
-            )}
-
-            {/* Trailer */}
-            {embedUrl && (
-              <div className="mb-lg">
-                <h3 className="font-heading text-sm font-semibold text-foreground uppercase tracking-wide mb-sm">
-                  Bande-annonce
-                </h3>
-                <div className="video-container rounded-lg bg-surface overflow-hidden">
-                  <iframe
-                    src={embedUrl}
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowFullScreen
-                    title="Bande-annonce"
-                  />
-                </div>
               </div>
             )}
 
