@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Logo from './Logo';
 import TicketViewer from './TicketViewer';
+import ProfileDropdown from './ProfileDropdown';
 import { hasTicket } from '@/lib/ticket-storage';
 
 interface HeaderProps {
@@ -52,20 +53,8 @@ export default function Header({ version }: HeaderProps) {
               )}
             </button>
 
-            {/* External pass link */}
-            <a
-              href="https://site-fipadoc.festicine.fr/fr/account/ticket"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center w-10 h-10 border-none bg-transparent text-foreground cursor-pointer rounded-full transition-colors duration-150 hover:bg-border"
-              aria-label="Mon compte FIPADOC"
-              title="Mon compte FIPADOC"
-            >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-            </a>
+            {/* Profile dropdown */}
+            <ProfileDropdown />
 
             {version && (
               <span className="text-[0.65rem] text-text-muted ml-xs">
