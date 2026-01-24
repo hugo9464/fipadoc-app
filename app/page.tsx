@@ -2,7 +2,7 @@ import { getProgramme, getFilmsIndex } from '@/lib/data';
 import DayNavigator from '@/components/DayNavigator';
 import Header from '@/components/Header';
 
-const APP_VERSION = '1.7.3';
+const APP_VERSION = '1.8.0';
 
 export default async function HomePage() {
   const programme = await getProgramme();
