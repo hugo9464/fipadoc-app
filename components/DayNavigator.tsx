@@ -338,42 +338,46 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
 
   return (
     <div className="flex-1 flex flex-col min-h-0">
-      {/* Tab bar */}
-      <div className="flex bg-background border-b border-border">
+      {/* Navigation header with search bar, favorites toggle and view toggle */}
+      <header className="flex items-center p-sm px-md bg-surface border-b border-border gap-sm">
+        <SearchBar value={searchQuery} onChange={setSearchQuery} />
+
+        {/* Favorites toggle switch */}
         <button
-          className={`flex-1 flex items-center justify-center gap-xs py-md px-sm border-none bg-transparent font-heading text-sm font-semibold uppercase tracking-wider cursor-pointer transition-all duration-150 border-b-2 -mb-px ${
-            activeTab === 'programme'
-              ? 'text-foreground border-foreground'
-              : 'text-text-muted border-transparent hover:text-text-secondary'
-          }`}
-          onClick={() => setActiveTab('programme')}
-        >
-          Programme
-        </button>
-        <button
-          className={`flex-1 flex items-center justify-center gap-xs py-md px-sm border-none bg-transparent font-heading text-sm font-semibold uppercase tracking-wider cursor-pointer transition-all duration-150 border-b-2 -mb-px ${
+          onClick={() => setActiveTab(activeTab === 'programme' ? 'favorites' : 'programme')}
+          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border transition-all duration-200 flex-shrink-0 ${
             activeTab === 'favorites'
-              ? 'text-foreground border-foreground'
-              : 'text-text-muted border-transparent hover:text-text-secondary'
+              ? 'bg-favorite/15 border-favorite text-favorite'
+              : 'bg-transparent border-border text-text-muted hover:border-text-secondary hover:text-text-secondary'
           }`}
-          onClick={() => setActiveTab('favorites')}
+          aria-label={activeTab === 'favorites' ? 'Afficher tout le programme' : 'Afficher mes favoris'}
+          title={activeTab === 'favorites' ? 'Afficher tout' : 'Mes favoris'}
         >
-          Mon programme
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill={activeTab === 'favorites' ? 'currentColor' : 'none'}
+            stroke="currentColor"
+            strokeWidth="2"
+            className="transition-all duration-200"
+          >
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
           {favorites.size > 0 && (
-            <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 bg-foreground text-background text-[0.7rem] font-bold rounded-full">
+            <span className={`text-xs font-bold min-w-[16px] text-center ${
+              activeTab === 'favorites' ? 'text-favorite' : 'text-text-muted'
+            }`}>
               {favorites.size}
             </span>
           )}
         </button>
-      </div>
+
+        {!searchQuery.trim() && <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />}
+      </header>
 
       {activeTab === 'programme' ? (
         <>
-          {/* Navigation header with search bar and view toggle */}
-          <header className="flex items-center p-sm px-md bg-surface border-b border-border gap-sm">
-            <SearchBar value={searchQuery} onChange={setSearchQuery} />
-            {!searchQuery.trim() && <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />}
-          </header>
 
           {/* Day indicator dots - hidden during search */}
           {!searchQuery.trim() && (
@@ -515,12 +519,6 @@ export default function DayNavigator({ programme, filmsIndex }: DayNavigatorProp
             </div>
           ) : (
             <>
-              {/* Navigation header with search bar and view toggle for favorites */}
-              <header className="flex items-center p-sm px-md bg-surface border-b border-border gap-sm">
-                <SearchBar value={searchQuery} onChange={setSearchQuery} />
-                {!searchQuery.trim() && <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />}
-              </header>
-
               {/* Day indicator dots for favorites - hidden during search */}
               {!searchQuery.trim() && (
                 <div className="flex justify-center gap-2 p-sm px-md bg-surface">
