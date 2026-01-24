@@ -29,7 +29,6 @@ export default function CalendarBlock({ seance, film, isFavorite, layout, onClic
 
   // Determine what to display based on available height
   const showDuration = displayHeight > 50;
-  const showPresence = displayHeight > 70;
 
   const title = seance.titre || seance.categorie;
   const categoryColor = getCategoryColorVar(seance.categorie);
@@ -98,9 +97,9 @@ export default function CalendarBlock({ seance, film, isFavorite, layout, onClic
       {/* Top-right indicators */}
       <div className="absolute top-1 right-1 flex items-center gap-0.5">
         {presence && (
-          <span className="text-theme text-[0.6rem]" aria-label="Équipe présente" title="Équipe présente">
+          <span className="text-theme" aria-label="Équipe présente" title={presence}>
             <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.49 6-3.31 6-6.72h-1.7z"/>
             </svg>
           </span>
         )}
@@ -132,12 +131,6 @@ export default function CalendarBlock({ seance, film, isFavorite, layout, onClic
           </div>
         )}
 
-        {/* Presence info */}
-        {showPresence && presence && (
-          <div className="text-[0.55rem] text-theme italic mt-0.5 line-clamp-1">
-            {presence}
-          </div>
-        )}
       </div>
     </div>
   );

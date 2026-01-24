@@ -101,12 +101,11 @@ export default function ScreeningCard({ seance, film, onSelect, isFavorite, onTo
           </div>
         )}
         {seance.presence && (
-          <div className="flex items-center gap-1 text-[0.75rem] text-theme mt-1.5">
-            <svg className="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          <span className="inline-flex text-theme mt-1.5" aria-label="Équipe présente" title={seance.presence}>
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.49 6-3.31 6-6.72h-1.7z"/>
             </svg>
-            <span className="italic">{seance.presence}</span>
-          </div>
+          </span>
         )}
       </div>
       {film && onToggleFavorite && (
